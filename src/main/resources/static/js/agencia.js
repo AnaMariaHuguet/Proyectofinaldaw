@@ -83,10 +83,6 @@ function procesaTodasCategoriasRespuesta(peti){
                 const nuevooption = crearElementoTexto("option", selcategoria, categorias[i].nombre)
                 nuevooption.setAttribute("value", categorias[i].id);
             }
-            //categorias.forEach( categoria => {                
-                //const nuevooption = crearElementoTexto("option", selcategoria, categoria.nombre)
-                //nuevooption.setAttribute("value", categoria.id);
-            //});
         }
     }
 }
