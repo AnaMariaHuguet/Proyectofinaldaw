@@ -20,11 +20,13 @@
       <form th:object="${usuario}" th:action="@{/inscripcion}" method="POST">
         <fieldset>
           <label>Inscribete al club de Lectura</label>
-          <input class:"boton" type="submit" id="btnClub" name="btnClub"
-          value="Inscripcion" />
+          <input class:"boton" type="submit" id="btnInscrip" name="btnInscrip"
+          value="Inscripcion" /><input class:"boton" type="submit"
+          id="btnAnularInscrip" name="btnAnularInscrip"
+          value="Anular_Inscripcion" />
         </fieldset>
       </form>
-      <p>lista de inscriptores</p>
+
       <p>
         Lectura elegida, el administrador debe poder poner el nombre del libro
       </p>
@@ -36,13 +38,16 @@
 
       <section>
         <h4>COMENTARIOS SOBRE LA LECTURA</h4>
-        <p>un textarea o algo parecido para escribir comentarios</p>
+        <textarea>
+un textarea o algo parecido para escribir comentarios</textarea
+        >
       </section>
     </main>
     <aside>
       <h2>TABLÓN DE NOTAS</h2>
       <p>horario reuniones lectura</p>
       <p>buzon sugerencias lecturas</p>
+      <p>Lista Inscriptores</p>
     </aside>
     <div th:insert="fragments/footer :: footer"></div>
   </body>

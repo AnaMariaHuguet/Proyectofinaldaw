@@ -1,7 +1,12 @@
 package com.proyectofinal.daw.entities;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
@@ -12,16 +17,21 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.proyectofinal.daw.validator.UsuarioPrimerGr;
 import com.proyectofinal.daw.validator.UsuarioSegundoGr;
 
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+@JsonIgnoreProperties(value = { "votaciones" })
+public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,14 +67,26 @@ public class Usuario {
     @Column(nullable = false)
     @NotBlank(message = "Contraseña obligatoria")
     private String contrasenya;
-    private String roleName;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Votacion> votaciones;
+    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER)
+    private List<Funciones> funciones;
 
-    public String getRoleName() {
-        return this.roleName;
+    public List<Funciones> getFunciones() {
+        return this.funciones;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setFunciones(List<Funciones> funciones) {
+        this.funciones = funciones;
+    }
+
+    public List<Votacion> getVotaciones() {
+        return this.votaciones;
+    }
+
+    public void setVotaciones(List<Votacion> votaciones) {
+        this.votaciones = votaciones;
     }
 
     public String getContrasenya() {

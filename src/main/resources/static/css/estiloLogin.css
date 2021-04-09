@@ -4,10 +4,11 @@
 /*h3:  font: 1rem "Lobster", "Impallari Type", "Cyreal";*/
 
 /********** paleta de colores **********/
-/* color rgb(84, 164, 218)   (background body por si falla la imagen del)*/
-/* color rgb(101, 76, 141)   (border de los botones de seleccion)*/
-/* color #271CAD  (hover)*/
-/* color #FAE0CF  (background enlace, letra del hover)*/
+/* color  #f8e29b  (background body por si falla la imagen del)*/
+/* color  #ab413d   (border nav, table)*/
+/* color  #0281f7  (hover)*/
+/* color #a1a84c  (background enlace)*/
+/* color  rgb(167, 206, 207) (background aside)*/
 
 * {
   font: 16px/1.6 Arial, Helvetica, sans-serif;
@@ -32,6 +33,10 @@ h1 {
 small {
   font-size: 14px;
 }
+h4 {
+  font-weight: bold;
+}
+
 /***************     body     ***************/
 html,
 body {
@@ -76,6 +81,11 @@ label {
 .boton {
   width: 110px;
   height: 30px;
+  background-color: rgb(246, 247, 203);
+}
+.boton:hover {
+  background-color: #0281f7;
+  color: rgb(246, 247, 203);
 }
 
 main > div {
@@ -101,6 +111,7 @@ section > div {
 input {
   height: 30px;
   max-height: 30px;
+  background-color: rgb(246, 247, 203);
 }
 small {
   margin: 0 20px;
@@ -110,6 +121,8 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  align-content: center;
+  height: 100%;
 }
 
 /*****************media query***********************/

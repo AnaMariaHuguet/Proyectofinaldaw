@@ -1,5 +1,6 @@
 package com.proyectofinal.daw.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,10 +10,15 @@ import java.util.stream.IntStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import com.proyectofinal.daw.components.UserSessionInfo;
+import com.proyectofinal.daw.entities.Autor;
+import com.proyectofinal.daw.entities.Funciones;
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.entities.UsuarioLogin;
+import com.proyectofinal.daw.repositories.AutorRepository;
+import com.proyectofinal.daw.repositories.CategoriaRepository;
+import com.proyectofinal.daw.repositories.FuncionesRepository;
+import com.proyectofinal.daw.repositories.GeneroRepository;
 import com.proyectofinal.daw.repositories.LibroRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 import com.proyectofinal.daw.services.LibroService;
@@ -46,6 +52,14 @@ public class ViewController {
     LibroRepository repoLibro;
     @Autowired
     LibroService libroServicio;
+    @Autowired
+    AutorRepository repoAutor;
+    @Autowired
+    CategoriaRepository repoCategoria;
+    @Autowired
+    GeneroRepository repoGenero;
+    @Autowired
+    FuncionesRepository funcionesRepo;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -63,7 +77,8 @@ public class ViewController {
         Optional<Usuario> usuario = usuarioRepo.findByEmail(email);
         if (usuario.isPresent()) {
             request.getSession().setAttribute("nombre", usuario.get().getNombre());
-            request.getSession().setAttribute("rol", usuario.get().getRoleName());
+            request.getSession().setAttribute("usuario", usuario.get());
+            // request.getSession().setAttribute("rol", usuario.get().getRoleName());
         }
         return "index";
     }
@@ -74,12 +89,15 @@ public class ViewController {
         return "formulario/registro";
     }
 
-    @PostMapping(value = "/form/registro", params = "btnEntrar")
-    public String permisoVisitante() {
-        return "index";
-    }
+    /*
+     * @PostMapping(value = "/form/registro", params = "btnEntrar") public String
+     * permisoVisitante() {
+     * 
+     * return "index"; }
+     */
 
-    @PostMapping(value = "/form/registro", params = "btnRegistro")
+    /* @PostMapping(value = "/form/registro", params = "btnRegistro") */
+    @PostMapping(value = "/form/registro")
     public String visualizarRegistro(@ModelAttribute Usuario usuarioFormulario, Model model) {
         return "formulario/registro";
     }
@@ -93,7 +111,9 @@ public class ViewController {
     @RequestMapping(value = "/registro", method = RequestMethod.POST)
     public String createUser(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model) {
         usuario.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
-        usuario.setRoleName("USER");
+        List<Funciones> nuevasFunciones = new ArrayList<Funciones>();
+        nuevasFunciones.add(funcionesRepo.getFuncionesByNombre("FUNC_VER_PAGINAS"));
+        usuario.setFunciones(nuevasFunciones);
 
         if (result.hasErrors()) {
             return "formulario/registro";
@@ -118,6 +138,10 @@ public class ViewController {
             model.addAttribute("paginas", pageNumbers);
         }
         model.addAttribute("libros", pageLibro.getContent());
+        model.addAttribute("autores", repoAutor.findAll());
+        model.addAttribute("categorias", repoCategoria.findAll());
+        model.addAttribute("generos", repoGenero.findAll());
+
         return "libros/catalogo";
     }
 
@@ -126,6 +150,10 @@ public class ViewController {
         return "libros/club";
     }
 
+    @GetMapping("/noticias")
+    public String noticias() {
+        return "libros/noticias";
+    }
     /*
      * @PostMapping("/reserva") public String reserva(Libro libro) { Libro libro =
      * repoLibro.findById(id).get(); Optional<Libro> libro = repoLibro.findById(id);
@@ -139,4 +167,5 @@ public class ViewController {
     public String index(@PathVariable int id) {
         return "index";
     }
+
 }

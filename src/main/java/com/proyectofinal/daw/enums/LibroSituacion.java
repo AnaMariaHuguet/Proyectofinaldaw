@@ -1,7 +1,7 @@
 package com.proyectofinal.daw.enums;
 
 public enum LibroSituacion {
-    LIBRE, PRESTADO, RESERVADO;
+    DISPONIBLE, PRESTADO, RESERVADO;
 
     String text;
 

@@ -9,6 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <script src="/js/agencia.js"></script>
+    <script src="/js/carrito.js"></script>
+
     <title>Catalogo</title>
   </head>
   <body>
@@ -16,45 +19,72 @@
     <div th:insert="fragments/nav :: nav"></div>
     <main>
       <h2>CATÁLOGO</h2>
-      <form th:object="${libro}" th:action="@{/}" method="POST">
-        <table border="1">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Titulo</th>
-              <th>Autor</th>
-              <th>Género</th>
-              <th>ISBN</th>
-              <th>Ubicacion</th>
-              <th>Reserva</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="book : ${libros}">
-              <td th:text="${book.id}" />
-              <td th:text="${book.titulo}" />
-              <td th:text="${book.autor}" />
-              <td th:text="${book.genero}" />
-              <td th:text="${book.isbn}" />
-              <td th:text="${book.ubicacion}" />
-              <td>
-                <!--<div th:switch="${session.rol}">
-                  <span th:case="'USER'"
-                    >-->
-                <input
-                  type="submit"
-                  id="btnReservar"
-                  name="btnReservar"
-                  value="Reserva"
-                />
-                <!--</span>
-                  <span th:case="*">No es usuario</span>
-                </div>-->
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      Buscar
+      <select name="selgenero" id="selgenero">
+        <option selected value="">- genero-</option>
+        <option
+          th:each="genero : ${generos}"
+          th:text="${genero.getNombre()}"
+          th:value="${genero.getId()}"
+        ></option>
+      </select>
+      <select name="selcategoria" id="selcategoria">
+        <option selected value="">- categoria-</option>
+        <option
+          th:each="categoria : ${categorias}"
+          th:text="${categoria.getNombre()}"
+          th:value="${categoria.getId()}"
+        ></option>
+      </select>
+      <select name="selautor" id="selautor">
+        <option selected value="">- autor-</option>
+        <option
+          th:each="autor : ${autores}"
+          th:text="${autor.getNombre()} + ' ' + ${autor.getApellido()}"
+          th:value="${autor.getId()}"
+        ></option>
+      </select>
+      <form th:object="${libro}" th:action="@{/catalogo}" method="GET">
+        <input
+          type="submit"
+          id="btnMostrar"
+          name="btnMostrar"
+          value="Mostrar Todo"
+        />
       </form>
+      <br />
+      <table>
+        <thead>
+          <tr>
+            <th class="oculto">ID</th>
+            <th>Titulo</th>
+            <th class="oculto">Autor</th>
+            <th class="oculto">Categoria</th>
+            <th class="oculto">ISBN</th>
+            <th class="oculto">Ubicacion</th>
+            <th>Reserva</th>
+          </tr>
+        </thead>
+        <tbody id="bodytabla">
+          <tr th:each="book : ${libros}">
+            <td class="oculto" th:text="${book.id}" />
+            <td th:text="${book.titulo}" />
+            <td
+              class="oculto"
+              th:text="${book.getAutor().nombre+ ' ' +book.getAutor().apellido}"
+            />
+            <td class="oculto" th:text="${book.getCategoria().nombre}" />
+            <td class="oculto" th:text="${book.isbn}" />
+            <td class="oculto" th:text="${book.ubicacion}" />
+            <td>
+              <button name="reserva" type="submit" th:value="${book.id}">
+                Reserva
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
       <div th:if="${ !paginas.isEmpty() }">
         <nav>
           <ul>
@@ -66,7 +96,7 @@
       </div>
       <!-- muestra notificacion de situacion libro -->
       <!--<div th:switch="${session.situacion}">
-        <span th:case="LIBRE">Reserva correcta. Disponible de 2 dias para recogerlo</span>
+        <span th:case="DISPONIBLE">Reserva correcta. Dispone de 2 dias para recogerlo</span>
         <span th:case="PRESTADO">Este libro esta prestado. No puede realizar la reserva</span>
         <span th:case="RESERVADO">Este libro esta reservado. No puede realizar la reserva/span>
       </div>
@@ -75,6 +105,19 @@
     <aside>
       <h2>TABLÓN DE NOTAS</h2>
       <p>novedades de libros</p>
+      <div id="contenedor_carro">
+        <h3>Carrito reserva</h3>
+        <table id="tabla">
+          <thead>
+            <tr>
+              <th>Id Libro</th>
+              <th>Titulo</th>
+              <th>Eliminar</th>
+            </tr>
+          </thead>
+          <tbody id="tablareserva"></tbody>
+        </table>
+      </div>
     </aside>
     <div th:insert="fragments/footer :: footer"></div>
   </body>

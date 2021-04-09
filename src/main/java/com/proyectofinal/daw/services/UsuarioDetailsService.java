@@ -2,7 +2,9 @@ package com.proyectofinal.daw.services;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
+import com.proyectofinal.daw.entities.Funciones;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 
@@ -27,8 +29,10 @@ public class UsuarioDetailsService implements UserDetailsService {
         Usuario usuario = usuarioService.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
         Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority(usuario.getRoleName()));
-
+        List<Funciones> funciones = usuario.getFunciones();
+        for (Funciones funcion : funciones) {
+            authorities.add(new SimpleGrantedAuthority(funcion.getNombre()));
+        }
         return new User(email, usuario.getContrasenya(), authorities);
 
     }

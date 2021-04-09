@@ -14,21 +14,14 @@
   <body>
     <div th:insert="fragments/header :: header"></div>
     <div th:insert="fragments/nav :: nav"></div>
-    <main>
-      <article>
-        <h2>INFORMACIÓN</h2>
-        <!--<div sec:authorize="isAuthenticated()">
-          Welcome, <span sec:authentication="nombre">Visitante</span>
-        </div>-->
-        <!-- Welcome, <span sec:authentication="username">Visitante</span> -->
-
+    <main>     
+        <h2>INFORMACIÓN</h2> 
         <p th:switch="${session.nombre}">
-          ¡Hola
-          <span th:case="null">Visitante </span>
+          ¡Hola         
           <span th:case="*" th:text="${ session.nombre }"></span>
           !
         </p>
-        <div
+        <!--<div
           th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}"
         >
           <span th:case="${false}">User is not logged in</span>
@@ -37,7 +30,7 @@
         <div th:switch="${session.rol}">
           <span th:case="'ADMIN'">Es admin</span>
           <span th:case="*">No es admin</span>
-        </div>
+        </div>-->
         <p>Bienvenido a la Web de la Agencia de Lectura.</p>
         <p>
           Puedes acceder a ver el catálogo de los libros que tenemos a tu
@@ -56,21 +49,8 @@
     </main>
     <aside>
       <h2>TABLÓN DE NOTAS</h2>
-      <p>buzon sugerencias a la Agencia</p>
-      <button>
-        <a th:href="@{https://www.facebook.com/profile.php?id=100010844678861}"
-          >Agencia de Lectura</a
-        >
-      </button>
-
-      <iframe
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fseldageldo&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
-        style="border: none; overflow: hidden"
-        scrolling="no"
-        frameborder="0"
-        allowfullscreen="true"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-      ></iframe>
+      <p>Todavia no tengo claro que voy a poner en esta sección</p>  
+      
     </aside>
     <div th:insert="fragments/footer :: footer"></div>
   </body>

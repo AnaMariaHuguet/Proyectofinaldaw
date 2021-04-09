@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+
+    <title>Noticias</title>
+  </head>
+  <body>
+    <div th:insert="fragments/header :: header"></div>
+    <div th:insert="fragments/nav :: nav"></div>
+    <main>
+      <section>
+        <h2>NOTICIAS</h2>
+
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fseldageldo&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+          style="border: none; overflow: hidden"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        ></iframe>
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felolmoclublectura%2F&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        ></iframe>
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felolmoclublectura%2F&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        ></iframe>
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felolmoclublectura%2F&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+          scrolling="no"
+          frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+        ></iframe>
+      </section>
+    </main>
+    <aside></aside>
+    <div th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

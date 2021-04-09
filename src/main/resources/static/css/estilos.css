@@ -4,10 +4,11 @@
 /*h3:  font: 1rem "Lobster", "Impallari Type", "Cyreal";*/
 
 /********** paleta de colores **********/
-/* color rgb(84, 164, 218)   (background body por si falla la imagen del)*/
-/* color rgb(101, 76, 141)   (border de los botones de seleccion)*/
-/* color #271CAD  (hover)*/
-/* color #FAE0CF  (background enlace, letra del hover)*/
+/* color  #f8e29b  (background body por si falla la imagen del)*/
+/* color  #ab413d   (border nav, table)*/
+/* color  #0281f7  (hover)*/
+/* color #a1a84c  (background enlace)*/
+/* color  rgb(167, 206, 207) (background aside)*/
 
 * {
   font: 16px/1.6 Arial, Helvetica, sans-serif;
@@ -31,7 +32,9 @@ h2 {
 h1 {
   font: 1.8rem Montserrat, fantasy;
 }
-
+h4 {
+  font-weight: bold;
+}
 /***************     body     ***************/
 html,
 body {
@@ -111,6 +114,22 @@ table {
 }
 th {
   font-weight: bold;
+  border: #ab413d solid 2px;
+}
+
+td {
+  padding: 1px;
+  border: #ab413d solid 2px;
+}
+/*.oculto{
+  display:none;
+  
+}*/
+section > iframe {
+  width: 100vw;
+  height: 13vh;
+  border: none;
+  overflow: hidden;
 }
 /***************   aside   ***************/
 aside {
@@ -126,9 +145,26 @@ footer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  align-content: center;
+  height: 100%;
 }
 
 /*****************animations***********************/
+@keyframes cambioTamanyo {
+  0% {
+    opacity: 0;
+    left: 100%;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    left: 0%;
+    transform: scale(1);
+  }
+}
 
 /*****************media query***********************/
 @media only screen and (max-width: 760px),
@@ -148,15 +184,15 @@ footer {
     left: -9999px;
   }
 
-  tr {
+  /*tr {
     border: 1px solid #ccc;
-  }
+  }*/
 
   td {
-    border: none;
+    /*border: none;*/
     border-bottom: 1px solid #eee;
     position: relative;
-    padding-left: 50%;
+    /*padding-left: 50%;*/
   }
 
   td:before {
@@ -168,21 +204,24 @@ footer {
     white-space: nowrap;
   }
   td:nth-of-type(1),
+  td:nth-of-type(3),
   td:nth-of-type(5),
   td:nth-of-type(4),
   td:nth-of-type(6) {
     display: none;
   }
-
-  td:nth-of-type(2):before {
+  tr:nth-of-type(1):before {
     content: "TITULO";
   }
-  td:nth-of-type(3):before {
+  /*td:nth-of-type(2):before {
+    content: "TITULO";
+  }*/
+  /*td:nth-of-type(3):before {
     content: "AUTOR";
-  }
-  td:nth-of-type(7):before {
+  }*/
+  /*td:nth-of-type(7):before {
     content: "RESERVA";
-  }
+  }*/
 }
 @media (min-width: 760px) {
   h1 {
@@ -194,7 +233,7 @@ footer {
   }
   body {
     grid-template-columns: 75% 25%;
-    grid-template-rows: 15% 12% 62% 10%;
+    grid-template-rows: 15% 12% auto 10%;
   }
   div:first-child {
     grid-row: 1/2;
@@ -207,6 +246,13 @@ footer {
   main {
     grid-row: 3/4;
     grid-column: 1/2;
+  }
+  /*.oculto{
+    display:inline;
+  }*/
+  section > iframe {
+    width: 100vw;
+    height: 28vh;
   }
   aside {
     grid-row: 3/4;

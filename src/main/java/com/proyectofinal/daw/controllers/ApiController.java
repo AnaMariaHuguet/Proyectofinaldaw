@@ -1,11 +1,25 @@
 package com.proyectofinal.daw.controllers;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.proyectofinal.daw.entities.Autor;
+import com.proyectofinal.daw.entities.Categoria;
+import com.proyectofinal.daw.entities.Genero;
+import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Libro;
+import com.proyectofinal.daw.entities.Usuario;
+import com.proyectofinal.daw.repositories.AutorRepository;
+import com.proyectofinal.daw.repositories.CategoriaRepository;
+import com.proyectofinal.daw.repositories.GeneroRepository;
 import com.proyectofinal.daw.repositories.LibroRepository;
+import com.proyectofinal.daw.repositories.ReservaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +41,70 @@ public class ApiController {
 
     @Autowired
     LibroRepository repoLibro;
+
+    @Autowired
+    CategoriaRepository repoCategoria;
+    @Autowired
+    GeneroRepository repoGenero;
+
+    @Autowired
+    AutorRepository repoAutor;
+
+    @Autowired
+    ReservaRepository repoReserva;
+
+    @PostMapping("/libro/genero")
+    public List<Libro> getLibrosPorGenero(@RequestBody Map<String, String> params) {
+        Long id = Long.parseLong(params.get("genero"));
+        return repoLibro.findLibroByGenero(id);
+    }
+    /*
+     * @PostMapping("/libro/filtrar") public List<Libro>
+     * getLibrosFiltrado(@RequestBody Map<String, String> params) { Long idgenero =
+     * params.get("genero") != null ? Long.parseLong(params.get("genero")) : -1;
+     * Long idcat = params.get("categoria") != null ?
+     * Long.parseLong(params.get("categoria")) : -1; Long idautor =
+     * params.get("autor") != null ? Long.parseLong(params.get("autor")) : -1; //
+     * Long idcat = Long.parseLong(params.get("categoria")); // Long idautor =
+     * Long.parseLong(params.get("autor")); if (idgenero != -1 && idcat != -1 &&
+     * idautor != -1) { return repoLibro.findLibroByFiltrar(idgenero, idcat,
+     * idautor); } if (idgenero != -1 && idcat != -1) { return
+     * repoLibro.findLibroByFiltrar1(idgenero, idcat); } if (idgenero != -1 &&
+     * idautor != -1) { return repoLibro.findLibroByFiltrar2(idgenero, idautor); }
+     * if (idcat != -1 && idautor != -1) { return
+     * repoLibro.findLibroByFiltrar3(idcat, idautor); } return
+     * repoLibro.findLibroByFiltrar(idgenero, idcat, idautor); }
+     */
+
+    @PostMapping("/genero/id")
+    public Genero getCategoriaporGeneros(@RequestBody Map<String, String> params) {
+        long id = Long.parseLong(params.get("genero"));
+        return repoGenero.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genero no encontrado"));
+    }
+
+    @PostMapping("/libro/categoria")
+    public List<Libro> getLibrosPorCategoria(@RequestBody Map<String, String> params) {
+        long id = Long.parseLong(params.get("categoria"));
+        Categoria categoria = repoCategoria.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro Not Found"));
+
+        return repoLibro.findLibroByCategoria(categoria);
+    }
+
+    @PostMapping("/libro/todas")
+    public List<Categoria> gettodasCategoria() {
+        return repoCategoria.findAll();
+    }
+
+    @PostMapping("/libro/autor")
+    public List<Libro> getLibrosPorAutor(@RequestBody Map<String, String> params) {
+        long id = Long.parseLong(params.get("autor"));
+        Autor autor = repoAutor.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro Not Found"));
+
+        return repoLibro.findLibroByAutor(autor);
+    }
 
     // GET => Recuperar datos
     @GetMapping("/libros")
@@ -66,4 +144,32 @@ public class ApiController {
         return new ResponseEntity<String>("borrado", HttpStatus.OK);
     }
 
+    @PostMapping("/reserva")
+    public ResponseEntity<List<Reserva>> reservarLibro(@RequestBody Map<String, Long> params,
+            HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        Optional<Libro> libro = repoLibro.findById(params.get("id"));
+        List<Reserva> reservaAnterior = new ArrayList<>();
+        if (libro.isEmpty() || usuario == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Libro o usuario Not Found");
+        }
+        if (libro.get().getReserva() != null) {
+            throw new ResponseStatusException(HttpStatus.GONE, "Libro ya reservado");
+        }
+        List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
+        for (Reserva reserva : reservaUsuario) {
+            if (reserva.getF_devolucion() == null) {
+                reservaAnterior.add(reserva);
+            }
+        }
+        Reserva nuevaReserva = new Reserva();
+        nuevaReserva.setLibro(libro.get());
+        nuevaReserva.setUsuario(usuario);
+        nuevaReserva.setF_reservaHecha(new Date());
+        nuevaReserva.setF_prestamo(new Date(new Date().getTime() + (1000 * 60 * 60 * 48)));
+        repoReserva.save(nuevaReserva);
+        reservaAnterior.add(nuevaReserva);
+        return new ResponseEntity<List<Reserva>>(reservaAnterior, HttpStatus.OK);
+    }
 }

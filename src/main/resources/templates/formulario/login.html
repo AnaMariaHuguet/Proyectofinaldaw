@@ -20,22 +20,25 @@
           <label>Email: </label><br />
           <input type="email" th:field="*{username}" /><br />
           <label>Contraseña:</label><br />
-          <input type="text" th:field="*{password}" size="25" /><br />
+          <input type="text" th:field="*{password}" /><br />
           <br />
           <input class="boton" type="submit" id="btnEntrar" value="Entrar" />
         </fieldset>
       </form>
-      <form th:object="${usuario}" th:action="@{/form/registro}" method="POST">
-        <fieldset>
-          <legend><h2>Visitante</h2></legend>
-          <br />
-          <input
-            class="boton"
-            type="submit"
-            id="btnEntrar"
-            name="btnEntrar"
-            value="Entrar"
-          />
+
+      <fieldset>
+        <legend><h2>Visitante</h2></legend>
+        <br />
+        <form th:object="${usuario}" th:action="@{/form/login}" method="POST">
+          <input type="hidden" value="visi@tante.ante" name="username" />
+          <input type="hidden" value="visitante" name="password" />
+          <input class="boton" type="submit" id="btnEntrar" value="Entrar" />
+        </form>
+        <form
+          th:object="${usuario}"
+          th:action="@{/form/registro}"
+          method="POST"
+        >
           <input
             class="boton"
             type="submit"
@@ -43,8 +46,8 @@
             name="btnRegistro"
             value="Registrate"
           />
-        </fieldset>
-      </form>
+        </form>
+      </fieldset>
       <!-- muestra notificacion de  error -->
       <div th:if="${param.error}">
         <label
