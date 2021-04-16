@@ -1,7 +1,6 @@
 package com.proyectofinal.daw.controllers;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import com.proyectofinal.daw.entities.Genero;
 import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Usuario;
+import com.proyectofinal.daw.enums.LibroSituacion;
 import com.proyectofinal.daw.repositories.AutorRepository;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
 import com.proyectofinal.daw.repositories.GeneroRepository;
@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -123,15 +122,14 @@ public class ApiController {
 
     // POST -> Añadir
     @PostMapping("/libros")
-    public Libro add(@RequestBody Libro newLibro) {
-        return repoLibro.save(newLibro);
+    public Libro add(@RequestBody Libro libro) {
+        return repoLibro.save(libro);
     }
 
     @PutMapping("/libros")
     public Libro update(@RequestBody Libro myLibro) {
         return repoLibro.findById(myLibro.getId()).map(libro -> {
             libro.setTitulo(myLibro.getTitulo());
-
             return repoLibro.save(libro);
         }).orElseGet(() -> {
             return repoLibro.save(myLibro);
@@ -145,31 +143,55 @@ public class ApiController {
     }
 
     @PostMapping("/reserva")
+    // ResponseEntity representa la respuesta HTTP completa: código de estado,
+    // encabezados y cuerpo .
     public ResponseEntity<List<Reserva>> reservarLibro(@RequestBody Map<String, Long> params,
             HttpServletRequest request) {
-
+        // saco de la sesion al usuario que esta haciendo la reserva
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        // busco libro a través del id que se quiere reservar
         Optional<Libro> libro = repoLibro.findById(params.get("id"));
         List<Reserva> reservaAnterior = new ArrayList<>();
+        // si no hay libro o usuario que salga un error
         if (libro.isEmpty() || usuario == null) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Libro o usuario Not Found");
         }
+        // si el libro ya esta reservado que salga un error
         if (libro.get().getReserva() != null) {
             throw new ResponseStatusException(HttpStatus.GONE, "Libro ya reservado");
         }
+        //
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
         for (Reserva reserva : reservaUsuario) {
             if (reserva.getF_devolucion() == null) {
                 reservaAnterior.add(reserva);
             }
         }
+        // creamos un nuevo objeto reserva, introducimos datos y guardamos en la BD
         Reserva nuevaReserva = new Reserva();
         nuevaReserva.setLibro(libro.get());
         nuevaReserva.setUsuario(usuario);
         nuevaReserva.setF_reservaHecha(new Date());
         nuevaReserva.setF_prestamo(new Date(new Date().getTime() + (1000 * 60 * 60 * 48)));
         repoReserva.save(nuevaReserva);
+        // añadimos el nuevo objeto reserva a la arraylist
         reservaAnterior.add(nuevaReserva);
+        // cambiamos situación del objeto libro
+        libro.get().setLibroSituacion(LibroSituacion.RESERVADO);
+        repoLibro.save(libro.get());
         return new ResponseEntity<List<Reserva>>(reservaAnterior, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/reserva/{id}")
+    public ResponseEntity<List<Reserva>> borrarReserva(@PathVariable Long id, HttpServletRequest request) {
+        // sacamos el libro a traves del id del libro
+        Libro libro = repoLibro.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro Not Found"));
+        // con el libro que hemos obtenido sacamos la id de la reserva
+        // borramos reserva
+        repoReserva.deleteById(libro.getReserva().getId());
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
+        return new ResponseEntity<List<Reserva>>(reservaUsuario, HttpStatus.OK);
     }
 }

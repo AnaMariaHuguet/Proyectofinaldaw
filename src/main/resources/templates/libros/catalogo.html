@@ -8,117 +8,187 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilocatalogo.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    <link href="/css/notas.css" rel="stylesheet" type="text/css" />
     <script src="/js/agencia.js"></script>
-    <script src="/js/carrito.js"></script>
+    <script src="/js/reserva.js"></script>
 
     <title>Catalogo</title>
   </head>
   <body>
-    <div th:insert="fragments/header :: header"></div>
-    <div th:insert="fragments/nav :: nav"></div>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
       <h2>CATÁLOGO</h2>
-      Buscar
-      <select name="selgenero" id="selgenero">
-        <option selected value="">- genero-</option>
-        <option
-          th:each="genero : ${generos}"
-          th:text="${genero.getNombre()}"
-          th:value="${genero.getId()}"
-        ></option>
-      </select>
-      <select name="selcategoria" id="selcategoria">
-        <option selected value="">- categoria-</option>
-        <option
-          th:each="categoria : ${categorias}"
-          th:text="${categoria.getNombre()}"
-          th:value="${categoria.getId()}"
-        ></option>
-      </select>
-      <select name="selautor" id="selautor">
-        <option selected value="">- autor-</option>
-        <option
-          th:each="autor : ${autores}"
-          th:text="${autor.getNombre()} + ' ' + ${autor.getApellido()}"
-          th:value="${autor.getId()}"
-        ></option>
-      </select>
-      <form th:object="${libro}" th:action="@{/catalogo}" method="GET">
+      <div class="todapantalla" id="popupcontenedor">
+        <div id="popup" class="popup">
+          <button id="cerrarDetalles">X</button>
+          <div>
+            <label>Id Libro</label>
+            <input id="valorId" value="" readonly />
+          </div>
+          <div>
+            <label>Titulo</label> <input id="valorTitulo" value="" readonly />
+          </div>
+          <div>
+            <label>Autor</label> <input id="valorAutor" value="" readonly />
+          </div>
+          <div>
+            <label>Isbn</label> <input id="valorIsbn" value="" readonly />
+          </div>
+          <div>
+            <label>Editorial</label>
+            <input id="valorEditorial" value="" readonly />
+          </div>
+          <div>
+            <label>Genero</label>
+            <input id="valorGenero" value="" readonly />
+          </div>
+          <div>
+            <label>Categoría</label>
+            <input id="valorCategoria" value="" readonly />
+          </div>
+          <div>
+            <label>Ubicación</label>
+            <input id="valorUbicacion" value="" readonly />
+          </div>
+          <div>
+            <label>Situación</label>
+            <input id="valorSituacion" value="" readonly />
+          </div>
+        </div>
+      </div>
+      <div class="todapantalla" id="errorcontenedor">
+        <div
+          th:insert="fragments/mensaje :: mensajeerror"
+          id="mensajeerror"
+          class="oculto"
+        ></div>
+      </div>
+      <div class="boxBuscar">
+        <select class="boton" name="selgenero" id="selgenero">
+          <option selected value="">Buscar género</option>
+          <option
+            th:each="genero : ${generos}"
+            th:text="${genero.getNombre()}"
+            th:value="${genero.getId()}"
+          ></option>
+        </select>
+        <select class="boton" name="selcategoria" id="selcategoria">
+          <option selected value="">Buscar categoría</option>
+          <option
+            th:each="categoria : ${categorias}"
+            th:text="${categoria.getNombre()}"
+            th:value="${categoria.getId()}"
+          ></option>
+        </select>
         <input
-          type="submit"
-          id="btnMostrar"
-          name="btnMostrar"
-          value="Mostrar Todo"
+          class="boton"
+          autofocus
+          type="text"
+          name="selautor"
+          id="selautor"
+          list="autorList"
+          placeholder="Buscar Autor"
         />
-      </form>
+        <datalist id="autorList">
+          <option
+            th:each="autor : ${autores}"
+            th:value="${autor.getNombre()} + ' ' + ${autor.getApellido()}"
+            th:data-value="${autor.getId()}"
+          ></option>
+        </datalist>
+        <form th:object="${libro}" th:action="@{/catalogo}" method="GET">
+          <input
+            class="boton"
+            type="submit"
+            id="btnMostrar"
+            name="btnMostrar"
+            value="Mostrar Todo"
+          />
+        </form>
+      </div>
       <br />
-      <table>
+      <table class="tablaCatalogo" id="tablaCatalogo">
         <thead>
           <tr>
-            <th class="oculto">ID</th>
-            <th>Titulo</th>
-            <th class="oculto">Autor</th>
-            <th class="oculto">Categoria</th>
-            <th class="oculto">ISBN</th>
-            <th class="oculto">Ubicacion</th>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>ISBN</th>
+            <th>Ubicación</th>
+            <th>Detalles</th>
             <th>Reserva</th>
           </tr>
         </thead>
-        <tbody id="bodytabla">
+        <tbody class="bodytabla" id="bodytabla">
           <tr th:each="book : ${libros}">
-            <td class="oculto" th:text="${book.id}" />
+            <td th:text="${book.id}" />
             <td th:text="${book.titulo}" />
             <td
-              class="oculto"
               th:text="${book.getAutor().nombre+ ' ' +book.getAutor().apellido}"
             />
-            <td class="oculto" th:text="${book.getCategoria().nombre}" />
-            <td class="oculto" th:text="${book.isbn}" />
-            <td class="oculto" th:text="${book.ubicacion}" />
+            <td th:text="${book.getCategoria().nombre}" />
+            <td th:text="${book.isbn}" />
+            <td th:text="${book.ubicacion}" />
             <td>
-              <button name="reserva" type="submit" th:value="${book.id}">
+              <button
+                class="btnDetRes"
+                name="detalles"
+                type="submit"
+                th:value="${book.id}"
+              >
+                Detalles
+              </button>
+            </td>
+            <td>
+              <button
+                class="btnDetRes"
+                name="reserva"
+                type="submit"
+                th:value="${book.id}"
+              >
                 Reserva
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-
       <div th:if="${ !paginas.isEmpty() }">
         <nav>
-          <ul>
-            <li th:each="pagina : ${paginas}">
-              <a th:ref="@{/?page=${pagina}}" th:text="${pagina}"></a>
+          <ul class="pagination">
+            <li><a class="page-link" href="#!">&laquo;</a></li>
+            <li class="page-item" th:each="pagina : ${paginas}">
+              <a
+                class="page-link"
+                th:ref="@{catalogo?page=${pagina}}"
+                th:text="${pagina}"
+              ></a>
             </li>
+            <li><a class="page-link" href="#!">&raquo;</a></li>
           </ul>
         </nav>
       </div>
-      <!-- muestra notificacion de situacion libro -->
-      <!--<div th:switch="${session.situacion}">
-        <span th:case="DISPONIBLE">Reserva correcta. Dispone de 2 dias para recogerlo</span>
-        <span th:case="PRESTADO">Este libro esta prestado. No puede realizar la reserva</span>
-        <span th:case="RESERVADO">Este libro esta reservado. No puede realizar la reserva/span>
-      </div>
-      </div>-->
     </main>
     <aside>
       <h2>TABLÓN DE NOTAS</h2>
-      <p>novedades de libros</p>
-      <div id="contenedor_carro">
-        <h3>Carrito reserva</h3>
-        <table id="tabla">
-          <thead>
-            <tr>
-              <th>Id Libro</th>
-              <th>Titulo</th>
-              <th>Eliminar</th>
-            </tr>
-          </thead>
-          <tbody id="tablareserva"></tbody>
-        </table>
+      <p>sección en construcción</p>
+      <div class="todapantalla" id="popupcontenedor2">
+        <div id="popup2" class="popup">
+          <button id="cerrarReserva">X</button>
+          <!--<div class="contenedor_carro" id="contenedor_carro">-->
+          <h2>Carrito reserva</h2>
+          <table id="tabla">
+            <thead id="cabeceratablareserva"></thead>
+            <tbody id="tablareserva"></tbody>
+          </table>
+        </div>
       </div>
     </aside>
-    <div th:insert="fragments/footer :: footer"></div>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>

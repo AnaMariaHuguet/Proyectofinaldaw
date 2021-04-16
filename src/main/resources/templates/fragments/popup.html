@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+
+  <body>
+    <div id="popup" class="popup" th:fragment="popup">
+      <button id="cerrarDetalles">X</button>
+      <div>
+        <label>Id Libro</label>
+        <input id="valorId" value="" readonly />
+      </div>
+      <div>
+        <label>Titulo</label> <input id="valorTitulo" value="" readonly />
+      </div>
+      <div>
+        <label>Autor</label> <input id="valorAutor" value="" readonly />
+      </div>
+      <div><label>Isbn</label> <input id="valorIsbn" value="" readonly /></div>
+      <div>
+        <label>Editorial</label>
+        <input id="valorEditorial" value="" readonly />
+      </div>
+      <div>
+        <label>Genero</label>
+        <input id="valorGenero" value="" readonly />
+      </div>
+      <div>
+        <label>Categoría</label>
+        <input id="valorCategoria" value="" readonly />
+      </div>
+      <div>
+        <label>Ubicación</label>
+        <input id="valorUbicacion" value="" readonly />
+      </div>
+      <div>
+        <label>Situación</label>
+        <input id="valorSituacion" value="" readonly />
+      </div>
+    </div>
+  </body>
+</html>

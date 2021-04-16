@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -34,7 +35,9 @@ public class Categoria implements Serializable {
     private List<Libro> libros;
     @ManyToOne()
     @JoinColumn(name = "genero_id", nullable = false)
-    @JsonBackReference
+    // @JsonManagedReference
+    // @JsonBackReference
+    @JsonIgnoreProperties("categorias")
     private Genero genero;
 
     public List<Libro> getLibros() {

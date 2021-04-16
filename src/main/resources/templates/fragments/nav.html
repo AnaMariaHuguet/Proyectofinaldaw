@@ -10,7 +10,7 @@
   <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
 
   <body>
-    <nav th:fragment="nav">
+    <nav class="nav" th:fragment="nav">
       <ul>
         <li><a th:href="@{/index}">Inicio</a></li>
         <li><a th:href="@{/catalogo}">Catálogo</a></li>
@@ -18,6 +18,8 @@
           <a th:href="@{/club}">Club de Lectura</a>
         </li>
         <li><a th:href="@{/noticias}">Noticias</a></li>
+        <!--<li><a th:href="@{/perfil }">Mi perfil</a></li>-->
+        <!--<li><a th:href="@{/carrito }">Mi carrito</a></li>-->
         <li><a th:href="@{/logout}">Salir</a></li>
       </ul>
     </nav>

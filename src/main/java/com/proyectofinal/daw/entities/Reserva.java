@@ -32,8 +32,9 @@ public class Reserva implements Serializable {
     @JoinColumn(name = "usuario_id", nullable = false)
     @ManyToOne()
     private Usuario usuario;
+    @OneToOne()
     @JoinColumn(name = "libro_id", nullable = false)
-    @OneToOne(mappedBy = "reserva")
+    @JsonIgnoreProperties("reserva")
     private Libro libro;
     @Temporal(TemporalType.TIMESTAMP)
     private Date f_reservaHecha;

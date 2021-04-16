@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.proyectofinal.daw.enums.LibroSituacion;
 
@@ -49,9 +50,11 @@ public class Libro implements Serializable {
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, orphanRemoval = false)
     @JsonManagedReference
     private List<Votacion> votaciones;
-    @JoinColumn(name = "libro_id")
-    @OneToOne()
+    @OneToOne(mappedBy = "libro")
+    @JsonIgnoreProperties("libro")
     private Reserva reserva;
+
+    
 
     public Reserva getReserva() {
         return this.reserva;

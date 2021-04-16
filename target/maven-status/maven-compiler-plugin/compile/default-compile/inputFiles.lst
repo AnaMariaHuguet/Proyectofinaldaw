@@ -1,4 +1,6 @@
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\controllers\FormController.java
+c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\entities\Reserva.java
+c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\repositories\ReservaRepository.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\DawApplication.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\services\LibroService.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\entities\Votacion.java
@@ -14,6 +16,7 @@ c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\j
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\entities\Libro.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\repositories\CategoriaRepository.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\components\UserSessionInfo.java
+c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\repositories\FuncionesRepository.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\repositories\AutorRepository.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\entities\Genero.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\entities\VotacionClavePrincipal.java
@@ -24,5 +27,6 @@ c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\j
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\repositories\UsuarioRepository.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\config\SecurityConfig.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\controllers\ViewController.java
+c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\search\HibernateIniciarSearch.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\enums\LibroSituacion.java
 c:\Users\Ana\Desktop\curso daw\Proyecto fin de curso\Proyectofinaldaw\src\main\java\com\proyectofinal\daw\entities\Funciones.java

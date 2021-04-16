@@ -8,16 +8,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/general.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    <link href="/css/notas.css" rel="stylesheet" type="text/css" />
+    <title>Inicio</title>
     <title>Inicio</title>
   </head>
   <body>
-    <div th:insert="fragments/header :: header"></div>
-    <div th:insert="fragments/nav :: nav"></div>
-    <main>     
-        <h2>INFORMACIÓN</h2> 
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+      <article>
+        <h2>INFORMACIÓN</h2>
         <p th:switch="${session.nombre}">
-          ¡Hola         
+          ¡Hola
           <span th:case="*" th:text="${ session.nombre }"></span>
           !
         </p>
@@ -34,24 +39,23 @@
         <p>Bienvenido a la Web de la Agencia de Lectura.</p>
         <p>
           Puedes acceder a ver el catálogo de los libros que tenemos a tu
-          disposición, reservar el libro que te interesa y pasar a recogerlo a
+          disposición, reservar el libro que te interesa y pasar a recogerlo por
           nuestras instalaciones en horario de 17:00 h a 20:00h. de Lunes a
           Viernes, excepto festivos.<br />
-          Para reservar un libro debes de ser usuario, sino lo eres todavia, ves
+          Para reservar un libro debes de ser usuario, sino lo eres todavía, ves
           al Login y Registrate.
         </p>
         <p>
           Puedes acceder al Club de Lectura y ver la lectura elegida. Si te
-          gusta esa lectura y quieres participar debes de ser usuario y darte de
-          alta en el club.
+          gusta esa lectura y quieres participar debes de ser usuario e
+          inscribirte en el club.
         </p>
       </article>
     </main>
     <aside>
       <h2>TABLÓN DE NOTAS</h2>
-      <p>Todavia no tengo claro que voy a poner en esta sección</p>  
-      
+      <p>sección en construcción</p>
     </aside>
-    <div th:insert="fragments/footer :: footer"></div>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>

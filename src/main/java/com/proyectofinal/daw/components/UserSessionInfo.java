@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.context.annotation.ScopedProxyMode;
 
 @Component
-@Scope(scopeName="session", proxyMode = ScopedProxyMode.TARGET_CLASS)
+@Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class UserSessionInfo {
 
     private Usuario usuario;

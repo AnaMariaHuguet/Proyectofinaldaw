@@ -127,7 +127,7 @@ public class ViewController {
     @GetMapping("/catalogo")
     public String catalogo(@RequestParam Map<String, Object> params, Model model) {
         int currentPage = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
-        int pageSize = params.get("size") != null ? Integer.valueOf(params.get("size").toString()) : 10;
+        int pageSize = params.get("size") != null ? Integer.valueOf(params.get("size").toString()) : 5;
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize);
 
         Page<Libro> pageLibro = libroServicio.pagTodosLibros(pageRequest);
@@ -153,6 +153,11 @@ public class ViewController {
     @GetMapping("/noticias")
     public String noticias() {
         return "libros/noticias";
+    }
+
+    @GetMapping("/carrito")
+    public String carrito() {
+        return "libros/carrito";
     }
     /*
      * @PostMapping("/reserva") public String reserva(Libro libro) { Libro libro =

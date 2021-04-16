@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -27,7 +29,9 @@ public class Genero implements Serializable {
     @NotBlank(message = "Nombre obligatorio")
     private String nombre;
     @OneToMany(mappedBy = "genero", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    // @JsonManagedReference
+    // @JsonBackReference
+    @JsonIgnoreProperties("genero")
     private List<Categoria> categorias;
 
     public List<Categoria> getCategorias() {

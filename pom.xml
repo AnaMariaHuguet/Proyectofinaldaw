@@ -14,7 +14,9 @@
 	<name>daw</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>14</java.version>
+		<java.version>14</java.version>		
+		<hibernate.version>5.4.28.Final</hibernate.version>
+		<elasticsearch.version>7.10.0</elasticsearch.version>			
 	</properties>
 	<dependencies>
 		<dependency>
@@ -76,7 +78,17 @@
 		  <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>			
-		  </dependency>			
+		  </dependency>	
+		  <dependency>
+			<groupId>org.hibernate.search</groupId>
+			<artifactId>hibernate-search-mapper-orm</artifactId>
+			<version>6.0.2.Final</version>
+		  </dependency>
+		  <dependency>
+			<groupId>org.hibernate.search</groupId>
+			<artifactId>hibernate-search-backend-lucene</artifactId>
+			<version>6.0.2.Final</version>
+		  </dependency>		
 	</dependencies>
 
 	<build>

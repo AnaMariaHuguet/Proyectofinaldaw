@@ -25,14 +25,7 @@ h3 {
 h2 {
   font: 1.5rem Montserrat, fantasy;
 }
-h1 {
-  padding: 3px;
-  font: 2rem Montserrat, fantasy;
-  color: #f7291e;
-}
-small {
-  font-size: 14px;
-}
+
 h4 {
   font-weight: bold;
 }
@@ -44,78 +37,34 @@ body {
 }
 
 body {
-  display: grid;
-  grid-template-rows: 15% auto 10%;
-  background: rgb(84, 164, 218) url(../img/textos-libres.jpg.crdownload) center
-    center no-repeat fixed;
-  background-size: cover;
+  display: grid;  
 }
 
 /***************     header       ***************/
 
 header {
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-header > img {
-  display: none;
 }
 
 /***************   main    ***************/
-main {
-  display: grid;
-  justify-items: center;
-}
-fieldset {
-  border-color: transparent;
-}
-legend {
-  text-align: center;
-  color: #f7291e;
-}
-label {
-  font-weight: bold;
-  width: 150px;
-}
+
 .boton {
   width: 110px;
   height: 30px;
-  background-color: rgb(246, 247, 203);
 }
-.boton:hover {
+.boton:hover,
+.btnDetRes:hover,
+.boton2:hover {
   background-color: #0281f7;
   color: rgb(246, 247, 203);
 }
-
-main > div {
-  background-color: rgb(84, 164, 218);
-  border: 3px solid rgb(4, 63, 102);
-  text-align: center;
-  padding: 3px;
-}
-
-.fieldError {
-  border: 2px solid red;
-  background-color: rgb(233, 203, 194);
-}
-section {
-  display: flex;
-  flex-direction: column;
-  margin: 5px 0;
-}
-section > div {
-  display: flex;
-  justify-content: space-between;
-}
-input {
-  height: 30px;
-  max-height: 30px;
+input,
+select,
+.btnDetRes {
   background-color: rgb(246, 247, 203);
 }
-small {
-  margin: 0 20px;
-}
+
 /***************     footer      ***************/
 footer {
   display: flex;
@@ -127,32 +76,13 @@ footer {
 
 /*****************media query***********************/
 
-@media (min-width: 800px) {
+@media (min-width: 760px) {
   h1 {
     font: 2.3rem Montserrat, fantasy;
-  }
-  h2 {
-    font: 1.6rem Montserrat, fantasy;
-  }
-  main {
-    grid-template-columns: auto auto;
-  }
-  section {
-    flex-direction: row;
-  }
-  footer {
-    justify-content: space-between;
-    padding: 0 10px;
   }
 }
 @media (min-width: 1200px) {
   h1 {
     font: 3.2rem Montserrat, fantasy;
-  }
-  h2 {
-    font: 1.8rem Montserrat, fantasy;
-  }
-  body {
-    grid-template-rows: 15% 75% 10%;
   }
 }
