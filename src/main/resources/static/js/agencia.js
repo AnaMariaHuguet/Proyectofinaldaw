@@ -1,6 +1,6 @@
 
 var peticion, datosjson, opcion, url, selgenero, selcategoria, selautor, contenido,bodytabla;
-var todapantallapopup, todapantallaerror, todapantallapopup2;
+var todapantallapopup, todapantallaerror, todapantallapopup2, carritoReserva;
 
 function crearElementoTexto( tipo="div", padre=contenido, texto=""){
     let elemento=document.createElement(tipo);
@@ -9,33 +9,18 @@ function crearElementoTexto( tipo="div", padre=contenido, texto=""){
     padre.appendChild(elemento);
     return elemento;
 }
-
+function salidaMensajeError(message){
+    const mensaje = document.getElementById("mensajeerror");
+    todapantallaerror.style.display="flex";
+    mensaje.style.display = "block";
+    const textomensaje = document.getElementById("textomensajeerror");
+    textomensaje.textContent = message;
+    document.getElementById("titulomensajeerror").textContent = "ERROR";
+}
 function procesaRespuesta(){    
     if(peticion.status===200){
-        datosjson=JSON.parse(peticion.responseText);
-       // if (datosjson!=null){
+        datosjson=JSON.parse(peticion.responseText);     
             mostrarLibros(datosjson); 
-       // }else{
-           /* switch(opcion){
-                case 'genero':
-                    let fila=crearElementoTexto('tr',bodytabla);
-                    crearElementoTexto('td',fila, "No disponemos libros de ese genero");
-                break;
-                case 'autor': 
-                let fila1=crearElementoTexto('tr',bodytabla);
-                crearElementoTexto('td',fila1, "No disponemos libros de ese autor");
-                break;
-                case 'categoria':*/
-                 /*   const mensaje1 = document.getElementById("mensajeerror");
-    todapantallaerror.style.display="flex";
-    mensaje1.style.display = "block";
-    const textomensaje1 = document.getElementById("textomensajeerror");
-    textomensaje1.textContent = "No disponemos libros de esa categoria";
-    document.getElementById("titulomensajeerror").textContent = "ERROR";
-                              
-           // } */
-       // }
-                  
     }
 }
 function realizaPeticionAjax(opc,param){
@@ -74,21 +59,17 @@ function procesaCategoriasRespuesta(peti){
         if (datos) {
             console.log(datos);
             selcategoria.innerHTML = '';
-            const categorias = datos.categorias; 
-           // if(categorias.length>0) {       
+            const categorias = datos.categorias;               
             const apt = crearElementoTexto("option", selcategoria, "Buscar categoría");
             apt.setAttribute("value", "");
             categorias.forEach( categoria => {                
                 const nuevooption = crearElementoTexto("option", selcategoria, categoria.nombre)
                 nuevooption.setAttribute("value", categoria.id);
             });
-       /* }else{
-            let fila=crearElementoTexto('tr',bodytabla);
-                crearElementoTexto('td',fila, "No disponemos libros de esa categoria");
-        }*/
         }
     }
 }
+
 function realizaPeticionTodas(){
     let peticion2=new XMLHttpRequest();
     url="/api/libro/todas";       
@@ -113,6 +94,30 @@ function procesaTodasCategoriasRespuesta(peti){
         }
     }
 }
+
+function realizaPeticionNovedades(){
+    let peticion3=new XMLHttpRequest();
+    url="/api/libro";       
+    peticion3.open('POST', url);     
+    peticion3.setRequestHeader("Content-Type", "application/json;charset=UTF-8");       
+    peticion3.addEventListener('load',() => procesaNovedadesRespuesta(peticion3));
+    peticion3.send();
+}
+
+function procesaNovedadesRespuesta(peti){    
+    if(peti.status===200){
+        const datos=JSON.parse(peti.responseText);
+        if (datos) {
+            console.log(datos);            
+            //sacar los 10 ultimos libros del repolibro
+            datos.forEach( dato => {                
+                const nuevolabel = crearElementoTexto("label", novedades, dato.titulo)
+                nuevolabel.setAttribute("value", dato.id);
+            });
+        }
+    }
+}
+
 function mostrarLibros(libros){    
     if(libros!=null){     
         bodytabla.innerHTML = "";        
@@ -125,10 +130,13 @@ function mostrarLibros(libros){
             crearElementoTexto('td',fila, libros[i].isbn);
             crearElementoTexto('td',fila, libros[i].ubicacion);
             let td_detalles=crearElementoTexto('td',fila);            
-            let detalles=crearElementoTexto('button',td_detalles,"detalles");
+            let detalles=crearElementoTexto('button',td_detalles,"Detalles");
             detalles.value = libros[i].id;
             detalles.className='btnDetRes';
             detalles.name = 'detalles';
+            let icon = crearElementoTexto('i', detalles);
+                icon.setAttribute("class","icon-info-sign margin-5"); 
+            
             detalles.addEventListener('click', mostrarDetalles);
             let td_reserva=crearElementoTexto('td',fila);            
             let reserva=crearElementoTexto('button',td_reserva,"Reserva");
@@ -137,16 +145,7 @@ function mostrarLibros(libros){
             reserva.name = 'reserva';
             reserva.addEventListener('click', realizaReserva);
         }
-    }/*else{
-        let fila=crearElementoTexto('tr',bodytabla);
-            crearElementoTexto('td',fila, "No disponemos libros de esa categoria");
-       /* const mensaje1 = document.getElementById("mensajeerror");
-    todapantallaerror.style.display="flex";
-    mensaje1.style.display = "block";
-    const textomensaje1 = document.getElementById("textomensajeerror");
-    textomensaje1.textContent = "No disponemos libros de esa categoria";
-    document.getElementById("titulomensajeerror").textContent = "ERROR";}
-    }*/
+    }
     
 }
 function mostrarDetalles(e){
@@ -183,14 +182,12 @@ function mostrarDetalles(e){
             let valorUbicacion=document.getElementById("valorUbicacion");
             valorUbicacion.setAttribute("value",data.ubicacion) ;
             let valorSituacion=document.getElementById("valorSituacion");
-            valorSituacion.setAttribute("value",data.libroSituacion) ;           
-            
-        })
-        .catch( err => console.log(err))
-        
+            valorSituacion.setAttribute("value",data.libroSituacion) ; 
+        })       
     }).catch(err => {        
         if (err.status == 406) {
-            console.log("Libro no encontrado")
+            let mensaje="Libro no encontrado";
+            salidaMensajeError(mensaje);
         }
     })
     
@@ -206,6 +203,9 @@ window.addEventListener('load',function(){
     bodytabla=document.getElementById('bodytabla');
     todapantallapopup2=document.getElementById("popupcontenedor2");    
     let popup2 = document.getElementById("popup2");
+    carritoReserva=document.getElementById("carrito");
+    let novedades=document.getElementById("novedades");
+    
 
     const botonesDetalles = document.getElementsByName('detalles'); 
     for(let i = 0; i < botonesDetalles.length; i++) {
@@ -264,6 +264,13 @@ window.addEventListener('load',function(){
     cerrarReserva.addEventListener("click", function(){
         todapantallapopup2.style.display="none";
      });
+
+     carritoReserva.addEventListener('click', mostrarReservas);   
+     
+     novedades.addEventListener("click", function(){
+        realizaPeticionNovedades();
+    });
+        
 })
 
 window.addEventListener('resize', function(){    

@@ -11,25 +11,20 @@ function realizaReserva( e ){
         },
         method: "POST",
         body: JSON.stringify({id : idLibro}) 
-    }).then( res => {
-        if (res.status == 410) {            
-            const mensaje = document.getElementById("mensajeerror");
-            todapantallaerror.style.display="flex";
-            mensaje.style.display = "block";
-            const textomensaje = document.getElementById("textomensajeerror");
-            textomensaje.textContent = "Este libro ya esta reservado";
-            document.getElementById("titulomensajeerror").textContent = "ERROR";
-        }
-        else {
-            res.json()
-            .then( data => {            
+    }).then( res => {        
+        res.json()
+        .then( data => { 
+            if (data.status > 400 ){                
+                salidaMensajeError(data.message);
+            }            
+            else {           
                 console.log(data)
                 //pedir a BD los nuevos datos, introducirlos en sesión local y mostrar
-                localStorage.setItem("reserva", JSON.stringify(data));
-                
+                localStorage.setItem("reserva", JSON.stringify(data));                
                 mostrarReservas();
-            }) 
-        }      
+            }
+        }) 
+              
     }).catch(err => { console.log(err)})
 }
 
@@ -47,8 +42,7 @@ function mostrarReservas () {
         let filaTitulo = crearElementoTexto('tr',cabeceratablaReserva);
         crearElementoTexto('th',filaTitulo,"Id Libro");
         crearElementoTexto('th',filaTitulo,"Título"); 
-        crearElementoTexto('th',filaTitulo,"Eliminar");
-        
+        crearElementoTexto('th',filaTitulo,"Eliminar");        
 
         for(let i=0; i<carrito.length; i++){
             let fila=crearElementoTexto('tr',bodytablaReserva); 
@@ -61,8 +55,9 @@ function mostrarReservas () {
                 borrarReserva.value =carrito[i].libro.id;                
                 borrarReserva.name = 'borrar';
                 borrarReserva.className="btnDetRes";
+                let icon = crearElementoTexto('i', borrarReserva);
+                icon.setAttribute("class","icon-trash margin-5"); 
                 celdaBorrar.addEventListener('click',function(){
-                
                     // Borrar reserva de la Bd reserva
                     fetch('/api/reserva/'+carrito[i].libro.id,{
                         headers: {
@@ -81,23 +76,20 @@ function mostrarReservas () {
                         })
                     })
                     .catch( err => {
-                            const mensaje = document.getElementById("mensajeerror");
-                            todapantallaerror.style.display="flex";
-                            mensaje.style.display = "block";
-                            const textomensaje = document.getElementById("textomensajeerror");
-                            textomensaje.textContent = "Fallo algo.No se puede borrar";
-                            document.getElementById("titulomensajeerror").textContent = "ERROR";
+                            console.log(err.response);
+                           let mensaje = "Fallo algo.No se puede borrar";
+                           salidaMensajeError(mensaje);
                     })
                 })
             } 
         }
-
-        
-    }
-    let volverCatalogo=crearElementoTexto('button',popup2,"Ver Catálogo");
-    volverCatalogo.className="btnVolverCat";
-    volverCatalogo.addEventListener('click',function(){ 
+        let volverCatalogo=crearElementoTexto('button',popup2,"Ver Catálogo");
+        volverCatalogo.className="btnVolverCat";
+        volverCatalogo.addEventListener('click',function(){ 
         todapantallapopup2.style.display="none";       
     })
+    }
+    
+    
 } 
 

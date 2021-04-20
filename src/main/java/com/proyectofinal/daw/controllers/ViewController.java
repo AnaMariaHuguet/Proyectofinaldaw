@@ -15,6 +15,7 @@ import com.proyectofinal.daw.entities.Funciones;
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.entities.UsuarioLogin;
+import com.proyectofinal.daw.entities.dto.UsuarioPerfilDTO;
 import com.proyectofinal.daw.repositories.AutorRepository;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
 import com.proyectofinal.daw.repositories.FuncionesRepository;
@@ -26,6 +27,7 @@ import com.proyectofinal.daw.services.LibroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -83,57 +85,27 @@ public class ViewController {
         return "index";
     }
 
-    @GetMapping("/registro")
-    public String registro(Usuario usuario) {
-
-        return "formulario/registro";
-    }
-
-    /*
-     * @PostMapping(value = "/form/registro", params = "btnEntrar") public String
-     * permisoVisitante() {
-     * 
-     * return "index"; }
-     */
-
-    /* @PostMapping(value = "/form/registro", params = "btnRegistro") */
-    @PostMapping(value = "/form/registro")
-    public String visualizarRegistro(@ModelAttribute Usuario usuarioFormulario, Model model) {
-        return "formulario/registro";
-    }
-
-    @PostMapping(value = "/registro", params = "btnVolverLogin")
-    public String registroALogin(Model model) {
-        return login(model);
-    }
-
-    // @PostMapping("/registro")
-    @RequestMapping(value = "/registro", method = RequestMethod.POST)
-    public String createUser(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, Model model) {
-        usuario.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
-        List<Funciones> nuevasFunciones = new ArrayList<Funciones>();
-        nuevasFunciones.add(funcionesRepo.getFuncionesByNombre("FUNC_VER_PAGINAS"));
-        usuario.setFunciones(nuevasFunciones);
-
-        if (result.hasErrors()) {
-            return "formulario/registro";
-        } else {
-            usuarioRepo.save(usuario);
-
-        }
-        return "redirect:/";
-    }
-
     @GetMapping("/catalogo")
     public String catalogo(@RequestParam Map<String, Object> params, Model model) {
         int currentPage = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
         int pageSize = params.get("size") != null ? Integer.valueOf(params.get("size").toString()) : 5;
-        PageRequest pageRequest = PageRequest.of(currentPage, pageSize);
+        String sortBy = params.get("sortby") != null ? params.get("sortby").toString() : "id";
+        String order = params.get("order") != null ? params.get("order").toString() : "asc";
+        PageRequest pageRequest = PageRequest.of(currentPage, pageSize,
+                order.equals("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending());
 
         Page<Libro> pageLibro = libroServicio.pagTodosLibros(pageRequest);
 
         int totalPages = pageLibro.getTotalPages();
         if (totalPages > 0) {
+            /*
+             * El método boxed () de la clase IntStream devuelve un Stream que consta de los
+             * elementos de este flujo, cada uno encuadrado en un Entero. De igual forma que
+             * podemos convertir el Stream a un array con el método toArray() , podemos usar
+             * los Java Stream Collectors y convertir nuestro stream a una Lista o Conjunto
+             * , utilizando la clase Collectors y su método toList() o toSet().
+             */
+
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("paginas", pageNumbers);
         }
@@ -141,6 +113,8 @@ public class ViewController {
         model.addAttribute("autores", repoAutor.findAll());
         model.addAttribute("categorias", repoCategoria.findAll());
         model.addAttribute("generos", repoGenero.findAll());
+        model.addAttribute("order", order);
+        model.addAttribute("sortBy", sortBy);
 
         return "libros/catalogo";
     }
@@ -154,23 +128,4 @@ public class ViewController {
     public String noticias() {
         return "libros/noticias";
     }
-
-    @GetMapping("/carrito")
-    public String carrito() {
-        return "libros/carrito";
-    }
-    /*
-     * @PostMapping("/reserva") public String reserva(Libro libro) { Libro libro =
-     * repoLibro.findById(id).get(); Optional<Libro> libro = repoLibro.findById(id);
-     * if(libro.getLibroSituacion().equals("PRESTADO"){ params.situacion="prestado";
-     * } else if(libro.getLibroSituacion().equals("RESERVADO"){
-     * params.situacion="reservado"; }else{ libro.setLibroSituacion("reservado");
-     * params.situacion="libre"; } return "catalogo"; }
-     */
-
-    @GetMapping("/libros/mostrarlibro/{id}")
-    public String index(@PathVariable int id) {
-        return "index";
-    }
-
 }

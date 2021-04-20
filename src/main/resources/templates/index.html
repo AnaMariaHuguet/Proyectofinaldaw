@@ -12,6 +12,10 @@
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
     <link href="/css/notas.css" rel="stylesheet" type="text/css" />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
     <title>Inicio</title>
     <title>Inicio</title>
   </head>
@@ -54,7 +58,38 @@
     </main>
     <aside>
       <h2>TABLÓN DE NOTAS</h2>
-      <p>sección en construcción</p>
+      <div class="continente">
+        <div class="contenedor_flip">
+          <div class="flip">
+            <img
+              th:src="@{/img/post-it2_reducido.png}"
+              src="img/post-it2_reducido.png"
+              class="flip-1"
+              alt="horario"
+            />
+            <img
+              th:src="@{/img/post-it2reves_reducido.png}"
+              src="img/post-it2_reducido.png"
+              class="flip-2"
+              alt="horario"
+            />
+          </div>
+        </div>
+        <div class="contenedor_flip">
+          <div class="flipa">
+            <img
+              th:src="@{/img/post-itlista.png}"
+              src="img/post-it2_reducido.png"
+              class="flipa-1"
+              alt="horario"
+            />
+            <div class="flipa-2">
+              <h5>Lista</h5>
+              Texto de prueba
+            </div>
+          </div>
+        </div>
+      </div>
     </aside>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

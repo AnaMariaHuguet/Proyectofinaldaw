@@ -27,9 +27,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Autowired
-    AuthenticationSuccessWithSessionHandler authenticationSuccessWithSessionHandler;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

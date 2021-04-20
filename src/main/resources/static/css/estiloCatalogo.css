@@ -9,18 +9,20 @@
   display: none;
 }
 .popup {
-  padding: 38px 10px 0 10px;
+  padding: 38px 10px 38px 10px;
   position: relative;
   background: radial-gradient(ellipse, #fae0cf 30%, #ab413d 95%);
   width: 85%;
   max-width: 435px;
-  height: 70%;
-  max-height: 355px;
+  height: 100%;
+  min-height: 250px;
+  max-height: 360px;
   margin: 90px auto;
   z-index: 40;
   border: #ab413d solid 2px;
   display: none;
   box-shadow: 10px 10px 8px #969c42;
+  overflow-y: scroll;
 }
 .popup > div {
   display: flex;
@@ -54,18 +56,15 @@ div label {
   text-align: center;
   margin: 5px;
   width: 20%;
-  min-width: 200px;
-  height: 30px;
-  max-height: 30px;
+  min-width: 200px;  
   animation: cambioTamanyo 5s linear;
 }
 
 .boxBuscar > form input {
   width: 100%;
-  min-width: 200px;
-  height: 30px;
-  max-height: 30px;
+  min-width: 200px;  
 }
+
 .bodytabla {
   position: relative;
 }
@@ -81,10 +80,12 @@ table {
 th {
   font-weight: bold;
   border: #ab413d solid 2px;
+  width: 60px;
+  min-width: 60px;
 }
 
 td {
   padding: 1px 5px;
-  min-width: 30px;
   border: #ab413d solid 2px;
+  text-decoration: none;
 }

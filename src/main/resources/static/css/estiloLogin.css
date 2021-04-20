@@ -2,19 +2,14 @@
 
 h1 {
   padding: 3px;
-  font: 2rem Montserrat, fantasy;
-  color: #f7291e;
-}
-small {
-  font-size: 12px;
 }
 
 /***************     body     ***************/
 
 body {
   grid-template-rows: 15% auto 10%;
-  background:  #fae0cf url(../img/textos-libres.jpg.crdownload) center
-    center no-repeat fixed;
+  background: #fae0cf url(../img/textos-libres.jpg.crdownload) center center
+    no-repeat fixed;
   background-size: cover;
 }
 
@@ -76,10 +71,9 @@ section ~ div {
   justify-content: space-between;
   align-items: center;
 }
-input {
-  height: 26px;
-  max-height: 26px;
-  /*background-color: rgb(246, 247, 203);*/
+
+.btnOjo {
+  width: 30px;
 }
 small {
   margin: 0 20px;
@@ -88,7 +82,7 @@ small {
 
 /*****************media query***********************/
 
-@media (min-width: 760px) {
+@media (min-width: 800px) {
   h2 {
     font: 1.6rem Montserrat, fantasy;
   }
@@ -98,14 +92,11 @@ small {
   form ~ fieldset {
     margin-top: 0px;
   }
-  input {
-    height: 30px;
-    max-height: 30px;
-  }
+
   section {
     flex-direction: row;
   }
-  
+
   footer {
     justify-content: space-between;
     padding: 0 10px;

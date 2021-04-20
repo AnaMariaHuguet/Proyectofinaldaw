@@ -79,14 +79,14 @@ public class ApiController {
     public Genero getCategoriaporGeneros(@RequestBody Map<String, String> params) {
         long id = Long.parseLong(params.get("genero"));
         return repoGenero.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Genero no encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Género no encontrado"));
     }
 
     @PostMapping("/libro/categoria")
     public List<Libro> getLibrosPorCategoria(@RequestBody Map<String, String> params) {
         long id = Long.parseLong(params.get("categoria"));
         Categoria categoria = repoCategoria.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro Not Found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada"));
 
         return repoLibro.findLibroByCategoria(categoria);
     }
@@ -149,12 +149,12 @@ public class ApiController {
             HttpServletRequest request) {
         // saco de la sesion al usuario que esta haciendo la reserva
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        // busco libro a través del id que se quiere reservar
+        // busco el libro a través del id que se quiere reservar
         Optional<Libro> libro = repoLibro.findById(params.get("id"));
         List<Reserva> reservaAnterior = new ArrayList<>();
         // si no hay libro o usuario que salga un error
         if (libro.isEmpty() || usuario == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Libro o usuario Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Libro o usuario no encontrado");
         }
         // si el libro ya esta reservado que salga un error
         if (libro.get().getReserva() != null) {
@@ -162,6 +162,9 @@ public class ApiController {
         }
         //
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
+        if (reservaUsuario.size() > 3) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Máximo de reservas acometido, es 3");
+        }
         for (Reserva reserva : reservaUsuario) {
             if (reserva.getF_devolucion() == null) {
                 reservaAnterior.add(reserva);
@@ -190,6 +193,10 @@ public class ApiController {
         // con el libro que hemos obtenido sacamos la id de la reserva
         // borramos reserva
         repoReserva.deleteById(libro.getReserva().getId());
+        // cambiar situación del libro en Libro
+        libro.setLibroSituacion(LibroSituacion.DISPONIBLE);
+        repoLibro.save(libro);
+        // Devolvemos la lista de reserva actualizada al usuario
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
         return new ResponseEntity<List<Reserva>>(reservaUsuario, HttpStatus.OK);

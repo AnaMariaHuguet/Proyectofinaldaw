@@ -1,0 +1,41 @@
+/***************     tipografia     ***************/
+
+/***************     body     ***************/
+
+/***************     header       ***************/
+
+/***************   main    ***************/
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+fieldset {
+  border-color: transparent;
+}
+
+.fieldError {
+  border: 2px solid red;
+  background-color: rgb(233, 203, 194);
+}
+
+section > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+small {
+  margin: 0 20px;
+}
+/***************     footer      ***************/
+
+/*****************media query***********************/
+
+@media (min-width: 800px) {
+}
+@media (min-width: 1200px) {
+}

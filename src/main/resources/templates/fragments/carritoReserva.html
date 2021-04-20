@@ -10,14 +10,15 @@
   <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
 
   <body>
-    <div class="mensajeentrante" th:fragment="mensajeerror">
-      <div>
-        <h2 id="titulomensajeerror"></h2>
-        <button id="cerrarError">X</button>
-      </div>
-      <div>
-        <p class="textomensajeerror" id="textomensajeerror"></p>
-      </div>
+    <!--<div class="carritoReserva" id="carritoReserva" th:fragment="carroReserva">-->
+    <div id="popup2" class="popup" th:fragment="carroReserva">
+      <button id="cerrarReserva">X</button>
+      <h2>Carrito reserva</h2>
+      <table id="tabla">
+        <thead id="cabeceratablareserva"></thead>
+        <tbody id="tablareserva"></tbody>
+      </table>
     </div>
+    <!--</div>-->
   </body>
 </html>
