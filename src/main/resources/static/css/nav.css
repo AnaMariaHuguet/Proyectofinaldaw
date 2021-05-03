@@ -1,0 +1,190 @@
+/***************     nav     ***************/
+nav {
+  background-color: #a1a84c;
+}
+ul {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: #ab413d solid 2px;
+  flex-wrap: wrap;
+}
+a {
+  text-decoration: none;
+}
+.nav li {
+  text-align: center;
+}
+
+.nav a {
+  display: block;
+  font-size: 18px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 6px 6px;
+  color: black;
+}
+
+.nav a:hover {
+  color: #fae0cf;
+  background-color: #0281f7;
+  border: 1px solid;
+  border-radius: 50%;
+  box-shadow: 2px 1px 4px white;
+}
+
+nav button {
+  display: none;
+  background-color: inherit;
+  box-shadow: none;
+  border: none;
+}
+nav > div > div button {
+  display: block;
+}
+nav button i {
+  margin-right: 0;
+  width: 35px;
+  height: 35px;
+  font-size: 25px;
+}
+/* popup*/
+.todapantalla {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(167, 206, 207, 0.6);
+  z-index: 30;
+  display: none;
+}
+.fragmentCarro {
+  height: 100%;
+}
+.popup {
+  padding: 38px 10px 38px 10px;
+  position: relative;
+  background: radial-gradient(ellipse, #fae0cf 30%, #ab413d 95%);
+  width: 85%;
+  max-width: 435px;
+  height: 100%;
+  min-height: 250px;
+  max-height: 350px;
+  margin: 90px auto;
+  z-index: 40;
+  border: #ab413d solid 2px;
+  display: block;
+  box-shadow: 10px 10px 8px #969c42;
+  /*overflow-y: scroll;*/
+}
+.popup > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+div label {
+  width: 20%;
+}
+
+.popup > .btnirReserva {
+  position: absolute;
+  width: 200px;
+  height: 35px;
+  background-color: #8b86aa;
+  left: 30%;
+  top: 85%;
+}
+.popup > button,
+.mensajeentrante button {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-color: #8b86aa;
+  top: 0px;
+  right: 0px;
+}
+.mensajeentrante {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 30%;
+  min-height: 100px;
+  width: 25%;
+  min-width: 300px;
+  border: #ab413d solid 2px;
+  box-shadow: 10px 10px 8px #969c42;
+  /*z-index: 100;*/
+  background: radial-gradient(ellipse, #fae0cf 30%, #ab413d 95%);
+  padding: 10px 20px;
+}
+
+.oculto {
+  display: none;
+}
+.textomensajeerror {
+  text-align: center;
+  margin-top: 20px;
+}
+/* tabla*/
+table {
+  border-collapse: collapse;
+  border: #ab413d solid 2px;
+  width: 100%;
+}
+th {
+  font-weight: bold;
+  border: #ab413d solid 2px;
+  width: 60px;
+  min-width: 60px;
+}
+
+td {
+  padding: 1px 5px;
+  border: #ab413d solid 2px;
+  text-decoration: none;
+}
+/* Mobile */
+
+@media (max-width: 800px) {
+  ul {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 40px;
+    width: 170px;
+    height: 100vh;
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    background-color: inherit;
+    overflow-y: auto;
+  }
+  nav > button {
+    position: relative;
+    top: 55%;
+    left: 30px;
+    transform: translateY(-50%);
+  }
+  nav button {
+    display: block;
+  }
+  ul button {
+    position: absolute;
+    top: 2%;
+    left: 75%;
+  }
+  .nav > ul > li {
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav a {
+    padding-left: 10px;
+  }
+}

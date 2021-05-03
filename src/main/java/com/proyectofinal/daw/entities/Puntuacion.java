@@ -11,18 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "puntuacion")
 public class Puntuacion implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int valor;
+    private String descripcion;
     @OneToMany(mappedBy = "puntuacion", cascade = CascadeType.ALL, orphanRemoval = false)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Votacion> votaciones;
 
     public List<Votacion> getVotaciones() {
@@ -47,5 +50,13 @@ public class Puntuacion implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }

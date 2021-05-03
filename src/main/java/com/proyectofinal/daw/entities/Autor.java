@@ -25,6 +25,8 @@ import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 @Indexed
 public class Autor implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

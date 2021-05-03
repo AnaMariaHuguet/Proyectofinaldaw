@@ -1,0 +1,89 @@
+body {
+  grid-template-columns: 20vw 80vw;
+  grid-template-rows: 15% 12% auto 10%;
+}
+body > div:nth-child(1) {
+  grid-column: 1/3;
+}
+body > div:nth-child(2) {
+  grid-column: 1/3;
+}
+body > div:nth-child(3) {
+  grid-column: 1/2;
+}
+body > section {
+  grid-column: 2/3;
+}
+body > div:nth-child(5) {
+  grid-column: 1/3;
+}
+
+.acordeon {
+  background-color: #969c42;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.active,
+.acordeon:hover {
+  background-color: #ccc;
+}
+.panel {
+  padding: 0 18px;
+  background-color: #f8e29b;
+  display: none;
+  overflow: hidden;
+  max-height: 0;
+
+  transition: max-height 0.2s ease-out;
+}
+.acordeon:after {
+  content: "\02795"; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+
+.btnAcordeon {
+  width: 100%;
+}
+.btnAcordeon:hover {
+  background-color: #0281f7;
+  color: rgb(246, 247, 203);
+}
+
+@media (max-width: 800px) {
+  body {
+    grid-template-columns: 100%;
+  }
+
+  body > div:nth-child(1) {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+  body > div:nth-child(2) {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  body > div:nth-child(3) {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
+  body > section {
+    grid-column: 1/2;
+    grid-row: 4/5;
+  }
+  body > div:nth-child(5) {
+    grid-column: 1/2;
+    grid-row: 5/6;
+  }
+}

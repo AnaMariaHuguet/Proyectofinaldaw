@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloLibro.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    
+    <script src="/js/nav.js"></script>
+    <script src="/js/libro.js"></script>
+    <title>Libro</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+        <label for="titulo">Titulo: </label>  
+      <input type="text" for="titulo"  name="titulo" th:field="${libro.titulo}" th:errorclass="fieldError"></input>
+      
+      <label for="nombreAutor">Nombre autor: </label>       
+      <select class="boton" name="selautornombre" id="selautornombre">
+        <option th:text="${libro.Autor.nombre}"></option>
+        <option
+          th:each="nombres : ${autores}"
+          th:text="${nombres.getNombre()}"
+          th:value="${nombres.getId()}"
+        ></option>
+        </select>
+      <label for="apellidoAutor">Apellido autor: </label> 
+      <select class="boton" name="selautorapellido" id="selautorapellido">
+        <option th:text="${libro.Autor.apellido}"></option>
+        <option
+          th:each="apellidos : ${autores}"
+          th:text="${apellidos.getApellido()}"
+          th:value="${apellidos.getId()}"
+        ></option>
+        </select>      
+      <!--posibles problemas al introducir direccion de la imagen-->
+        <div class="imaginate" >
+          <img th:src="'/img/imgLibros/'+${libro.imagen}" /> 
+          <div class="puntuacion"><label>Puntuación: </label>
+          </br>
+          <div>
+          <label for="">Nota Media</label>  </br>
+          <label id="totalVotacion" th:text="${totalVotacion}"></label>
+          <span id="pintarestrella"></span>
+          <!--<div>
+            <span id="1estrella"><i class="far fa-star"></i></span>
+            <span id="2estrella"><i class="far fa-star"></i></span>
+            <span id="3estrella"><i class="far fa-star"></i></span>
+            <span id="4estrella"><i class="far fa-star"></i></span>
+            <span id="5estrella"><i class="far fa-star"></i></span>
+          </div>-->
+        </div> 
+          <label th:text="${stringPuntuacion}" ></label>  </br>
+          <label th:text="${cantidadVotacion}"></label><span> Votos</span>
+       </div>        
+        </div> 
+        <div>  
+        <h4 >Sinopsis :</h4>  
+        <textarea type="text" for="sinopsis"  name="sinopsis" th:field="${libro.sinopsis}" id="pagelibroSinopsis"></textarea>
+      </div>
+      <div>
+        <h4>Ficha Técnica :</h4>  
+        <label>Id: </label>
+        <input type="text" for="id"  name="id" th:field="${libro.id}" id="pagelibroId" />
+        </br> 
+        <label>Isbn: </label>
+        <input type="text" for="isbn"  name="isbn" th:field="${libro.isbn}" id="pagelibroIsbn" />
+        </br> 
+        <label>Editorial: </label>
+        <input type="text" for="editorial"  name="editorial" th:field="${libro.editorial}" id="pagelibroEditorial" />
+        </br> 
+       <label >genero: </label>        
+        <select class="boton" name="selgenero" id="selgenero">
+        <option th:text="${libro.Categoria.genero.nombre}"></option>
+        <option
+          th:each="genero : ${generos}"
+          th:text="${genero.getNombre()}"
+          th:value="${genero.getId()}"
+        ></option>
+        </select>
+      </br>
+        <label>Categoría: </label>
+        <select class="boton" name="selcategoria" id="selcategoria">
+          <option th:text="${libro.Categoria.nombre}"></option>
+          <option
+            th:each="categoria : ${categorias}"
+            th:text="${categoria.getNombre()}"
+            th:value="${categoria.getId()}"
+          ></option>
+        </select>
+        
+        </br> 
+        <label>Ubicación: </label>
+        <input type="text" for="ubicacion"  name="ubicacion" th:field="${libro.ubicacion}" id="pagelibroUbicacion" />
+        </br>         
+        <label>Situación: </label>
+        <select class="boton" name="sellibroSituacion" id="sellibroSituacion">
+          <option th:text="${libro.libroSituacion}"></option>
+          <option
+            th:each="situaciones : ${librosituacion}"
+            th:text="${situaciones}"
+            th:value="${situaciones}"
+          ></option>
+        </select>
+        
+      </div>
+      <div sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">
+        <button class="btnDetRes" id="btnLibroReserva" name="btnLibroReserva" th:value="${libro.id}">
+          Reserva
+        </button>  
+     </div>
+     <div>
+     <button class="btnDetRes" id="btnModificarLibro" name="btnModificarLibro" th:value="${libro.id}">
+        Modificar
+      </button> 
+      <button class="btnDetRes" id="btnBorrarLibro" name="btnBorrarLibro" th:value="${libro.id}">
+       Borrar
+      </button>  
+    </div> 
+    </main>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

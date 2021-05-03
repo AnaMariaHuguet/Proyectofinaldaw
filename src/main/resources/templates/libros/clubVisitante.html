@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloclub.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/js/nav.js"></script>
+    <title>Club Lectura</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+      <h2>CLUB DE LECTURA</h2>
+      <div>
+        <p>Oh!! No puedes acceder a esta página</p>
+        <p>
+          Te informamos que la lectura elegida para este mes es :
+          <!--<span th:text="${ book.titulo }"></span>-->
+        </p>
+        <p>
+          Si estas interesado/a solo debes de registrarte como usuario para
+          poder inscribirte en el club de lectura
+          <span><a href="./registro">pulsa aquí</a></span>
+        </p>
+        <p>
+          y podrás zambullirte en miles de aventuras, viajar en el tiempo ,
+          transportarte a otros lugares y ser tú el protagonista de las
+          diferentes vivencias... si lo deseas.
+        </p>
+      </div>
+      <form th:object="${usuario}" th:action="@{/form/registro}" method="POST">
+        <input
+          class="boton"
+          type="submit"
+          id="btnRegistro"
+          name="btnRegistro"
+          value="Registrate"
+        />
+      </form>
+    </main>
+    <aside></aside>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

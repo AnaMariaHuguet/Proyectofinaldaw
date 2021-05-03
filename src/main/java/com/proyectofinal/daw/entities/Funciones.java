@@ -16,17 +16,23 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "funciones")
 public class Funciones implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String nombre;
-    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "funciones_usuarios", joinColumns = { @JoinColumn(name = "funciones_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "usuario_id") })
+    // @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    // @JoinTable(name = "funciones_usuarios", joinColumns = { @JoinColumn(name =
+    // "funciones_id") }, inverseJoinColumns = {
+    // @JoinColumn(name = "usuario_id") })
+    @ManyToMany(mappedBy = "funciones")
+    @JsonIgnore
     private List<Usuario> usuarios;
 
     public List<Usuario> getUsuarios() {

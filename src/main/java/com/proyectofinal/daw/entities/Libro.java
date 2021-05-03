@@ -26,6 +26,7 @@ import javax.persistence.OneToOne;
 @Entity
 @Table(name = "Libros")
 public class Libro implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +38,8 @@ public class Libro implements Serializable {
     private String editorial;
     private int ano;
     private String ubicacion;
+    private String imagen;
+    private String sinopsis;
     @Enumerated(EnumType.STRING)
     private LibroSituacion libroSituacion;
     @ManyToOne()
@@ -47,17 +50,28 @@ public class Libro implements Serializable {
     @JoinColumn(name = "categoria_id", nullable = false)
     @JsonManagedReference
     private Categoria categoria;
-    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, orphanRemoval = false)
-    @JsonManagedReference
-    private List<Votacion> votaciones;
     @OneToOne(mappedBy = "libro")
     @JsonIgnoreProperties("libro")
     private Reserva reserva;
 
-    
-
     public Reserva getReserva() {
         return this.reserva;
+    }
+
+    public String getImagen() {
+        return this.imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getSinopsis() {
+        return this.sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
     }
 
     public void setReserva(Reserva reserva) {
@@ -78,14 +92,6 @@ public class Libro implements Serializable {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-
-    public List<Votacion> getVotaciones() {
-        return this.votaciones;
-    }
-
-    public void setVotaciones(List<Votacion> votaciones) {
-        this.votaciones = votaciones;
     }
 
     public LibroSituacion getLibroSituacion() {

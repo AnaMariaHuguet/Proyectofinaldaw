@@ -18,7 +18,7 @@
 }
 /***************     tipografia     ***************/
 h1 {
-  font: 2rem Montserrat, fantasy;
+  font: 3.2rem Montserrat, fantasy;
   color: #f7291e;
 }
 h2 {
@@ -54,76 +54,25 @@ header {
   display: flex;
   align-items: center;
 }
-/***************     nav     ***************/
-ul {
-  display: flex;
-  justify-content: space-evenly;
-  list-style: none;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  border: #ab413d solid 2px;
-}
-.nav li {
-  width: 20%;
-  text-align: center;
-}
 
-.nav a {
-  display: block;
-  height: 100%;
-
-  background-color: #a1a84c;
-  font-size: 18px;
-  cursor: pointer;
-}
-a {
-  text-decoration: none;
-}
-.nav a:hover {
-  background-color: #0281f7;
-  color: #fae0cf;
-}
-
-/*.ul-Nav-Primer {
-  justify-content: space-evenly;
-  height: 60%;
-}*/
-/*
-.ul-Nav-Primer li {
-  width: 20%;
-  text-align: center;
-}*/
-
-/*.ul-Nav-Secund {
-  justify-content: flex-end;
-  height: 40%;
-}*/
-/*
-.ul-Nav-Secund li {
-  width: 10%;
-  text-align: center;
-}*/
-
-i {
-  margin-right: 3%;
-  color: darkred;
-}
 /***************   main    ***************/
-
+main {
+  padding: 10px;
+}
 .boton {
   width: 110px;
   height: 30px;
 }
 .boton:hover,
 .btnDetRes:hover,
-.boton2:hover {
+.boton2:hover,
+.page-link:hover {
   background-color: #0281f7;
   color: rgb(246, 247, 203);
 }
 input {
-  height: 26px;
-  max-height: 26px;
+  height: 30px;
+  max-height: 30px;
   padding-left: 5px;
 }
 
@@ -133,7 +82,14 @@ select,
 .btnOjo {
   background-color: rgb(246, 247, 203);
 }
-
+i {
+  margin-right: 5px;
+  color: darkred;
+}
+.btnDetRes {
+  width: 100%;
+  height: 100%;
+}
 /***************   aside   ***************/
 aside {
   background-color: rgb(167, 206, 207);
@@ -154,24 +110,25 @@ footer {
 }
 
 /*****************media query***********************/
-
-@media (min-width: 800px) {
+@media (max-width: 1200px) {
   h1 {
     font: 2.3rem Montserrat, fantasy;
   }
-
-  input {
-    height: 30px;
-    max-height: 30px;
-  }
 }
-@media (min-width: 1200px) {
+@media (max-width: 800px) {
   h1 {
-    font: 3.2rem Montserrat, fantasy;
+    font: 2rem Montserrat, fantasy;
+  }
+  input {
+    height: 26px;
+    max-height: 26px;
   }
 }
 
 /** general margin */
+.height-100 {
+  height: 100%;
+}
 .margin-5 {
   margin: 5px;
 }

@@ -9,12 +9,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilocatalogo.css" rel="stylesheet" type="text/css" />
     <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
-    <link href="/css/notas.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="/js/agencia.js"></script>
-    <script src="/js/reserva.js"></script>
+    <script src="/js/nav.js"></script>
 
     <title>Catalogo</title>
   </head>
@@ -23,51 +27,8 @@
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
       <h2>CATÁLOGO</h2>
-      <div class="todapantalla" id="popupcontenedor">
-        <div id="popup" class="popup">
-          <button id="cerrarDetalles">X</button>
-          <div>
-            <label>Id Libro</label>
-            <input id="valorId" value="" readonly />
-          </div>
-          <div>
-            <label>Titulo</label> <input id="valorTitulo" value="" readonly />
-          </div>
-          <div>
-            <label>Autor</label> <input id="valorAutor" value="" readonly />
-          </div>
-          <div>
-            <label>Isbn</label> <input id="valorIsbn" value="" readonly />
-          </div>
-          <div>
-            <label>Editorial</label>
-            <input id="valorEditorial" value="" readonly />
-          </div>
-          <div>
-            <label>Genero</label>
-            <input id="valorGenero" value="" readonly />
-          </div>
-          <div>
-            <label>Categoría</label>
-            <input id="valorCategoria" value="" readonly />
-          </div>
-          <div>
-            <label>Ubicación</label>
-            <input id="valorUbicacion" value="" readonly />
-          </div>
-          <div>
-            <label>Situación</label>
-            <input id="valorSituacion" value="" readonly />
-          </div>
-        </div>
-      </div>
-      <div class="todapantalla" id="errorcontenedor">
-        <div
-          th:insert="fragments/mensaje :: mensajeerror"
-          id="mensajeerror"
-          class="oculto"
-        ></div>
-      </div>
+      <input id="nombreUsuario"  type="hidden"  text="${ session.nombre }"></input>
+
       <div class="boxBuscar">
         <select class="boton" name="selgenero" id="selgenero">
           <option selected value="">Buscar género</option>
@@ -115,43 +76,126 @@
       <table class="tablaCatalogo" id="tablaCatalogo">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Categoría</th>
-            <th>ISBN</th>
-            <th>Ubicación</th>
-            <th>Detalles</th>
-            <th>Reserva</th>
+            <th>
+              <div th:if="${sortBy ne 'id'}">
+                <a th:href="@{'/catalogo?page=1&sortby=id&order=asc'}"
+                  >ID <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'asc'}">
+                <a th:href="@{'/catalogo?page=1&sortby=id&order=desc'}"
+                  >ID <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'desc'}">
+                <a th:href="@{'/catalogo?page=1&sortby=id&order=asc'}"
+                  >ID <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'titulo'}">
+                <a th:href="@{'/catalogo?page=1&sortby=titulo&order=asc'}">
+                  Título <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'titulo'}" th:if="${order eq 'asc'}">
+                <a th:href="@{'/catalogo?page=1&sortby=titulo&order=desc'}"
+                  >Título <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'titulo'}" th:if="${order eq 'desc'}">
+                <a th:href="@{'/catalogo?page=1&sortby=titulo&order=asc'}"
+                  >Título <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'Autor.nombre'}">
+                <a
+                  th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=asc'}"
+                >
+                  Autor <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div
+                th:unless="${sortBy ne 'Autor.nombre'}"
+                th:if="${order eq 'asc'}"
+              >
+                <a
+                  th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=desc'}"
+                  >Autor <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div
+                th:unless="${sortBy ne 'Autor.nombre'}"
+                th:if="${order eq 'desc'}"
+              >
+                <a th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=asc'}"
+                  >Autor <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'Categoria.nombre'}">
+                <a
+                  th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=asc'}"
+                >
+                  Categoría <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div
+                th:unless="${sortBy ne 'Categoria.nombre'}"
+                th:if="${order eq 'asc'}"
+              >
+                <a
+                  th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=desc'}"
+                  >Categoría <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div
+                th:unless="${sortBy ne 'Categoria.nombre'}"
+                th:if="${order eq 'desc'}"
+              >
+                <a
+                  th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=asc'}"
+                  >Categoría <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'Isbn'}">
+                <a th:href="@{'/catalogo?page=1&sortby=Isbn&order=asc'}">
+                  ISBN <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'asc'}">
+                <a th:href="@{'/catalogo?page=1&sortby=Isbn&order=desc'}"
+                  >ISBN <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'desc'}">
+                <a th:href="@{'/catalogo?page=1&sortby=Isbn&order=asc'}"
+                  >ISBN <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">Reserva</th>
           </tr>
         </thead>
         <tbody class="bodytabla" id="bodytabla">
           <tr th:each="book : ${libros}">
             <td th:text="${book.id}" />
-            <td th:text="${book.titulo}" />
+            <td>
+              <a th:text="${book.titulo}" th:href="@{'/libro/' + ${book.id}}" />
+            </td>
             <td
               th:text="${book.getAutor().nombre+ ' ' +book.getAutor().apellido}"
             />
             <td th:text="${book.getCategoria().nombre}" />
             <td th:text="${book.isbn}" />
-            <td th:text="${book.ubicacion}" />
-            <td>
-              <button
-                class="btnDetRes"
-                name="detalles"
-                type="submit"
-                th:value="${book.id}"
-              >
-                Detalles
-              </button>
-            </td>
-            <td>
-              <button
-                class="btnDetRes"
-                name="reserva"
-                type="submit"
-                th:value="${book.id}"
-              >
+            <td sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">
+              <button class="btnDetRes" name="reserva" th:value="${book.id}">
                 Reserva
               </button>
             </td>
@@ -159,36 +203,31 @@
         </tbody>
       </table>
       <div th:if="${ !paginas.isEmpty() }">
-        <nav>
+        <nav class="navPagination">
           <ul class="pagination">
-            <li><a class="page-link" href="#!">&laquo;</a></li>
+            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
               <a
                 class="page-link"
-                th:ref="@{catalogo?page=${pagina}}"
                 th:text="${pagina}"
+                th:href="@{'/catalogo?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
               ></a>
+              <!--<a
+                class="page-link"
+                th:href="@{/catalogo/{page}/{sortby}/{order}
+(page=1,sortby=${sortby},order=${order eq 'desc'} ? 'asc' : 'desc')}"
+              ></a>-->
             </li>
-            <li><a class="page-link" href="#!">&raquo;</a></li>
+            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
         </nav>
       </div>
-    </main>
-    <aside>
-      <h2>TABLÓN DE NOTAS</h2>
-      <p>sección en construcción</p>
-      <div class="todapantalla" id="popupcontenedor2">
-        <div id="popup2" class="popup">
-          <button id="cerrarReserva">X</button>
-          <!--<div class="contenedor_carro" id="contenedor_carro">-->
-          <h2>Carrito reserva</h2>
-          <table id="tabla">
-            <thead id="cabeceratablareserva"></thead>
-            <tbody id="tablareserva"></tbody>
-          </table>
-        </div>
+      <!--ver si este codigo se ejecuta en algun momento-->
+      <div th:if="${param.error}">
+        <label>Error catalogo</label>
       </div>
-    </aside>
+    </main>
+    <aside></aside>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>

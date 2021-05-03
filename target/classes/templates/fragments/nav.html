@@ -4,24 +4,63 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
-
   <body>
     <nav class="nav" th:fragment="nav">
-      <ul>
-        <li><a th:href="@{/index}">Inicio</a></li>
-        <li><a th:href="@{/catalogo}">Catálogo</a></li>
-        <li>
-          <a th:href="@{/club}">Club de Lectura</a>
+      <sec:authorize access="hasRole('ROLE_VER_PAGINAS')" var="isRoleVerPaginas"></sec:authorize>
+      <sec:authorize access="hasRole('ROLE_CLUB_LECTURA')" var="isRoleClubLectura"></sec:authorize>
+      <button id="mostrarMenu" class="mostrarMenu" >
+        <i class="fas fa-align-justify">Menu</i>
+      </button>
+      <ul id="navMenu">
+        <button id="ocultarMenu" class="ocultarMenu">
+          <i class="fas fa-times"></i>
+        </button>
+       
+          <li>
+          <a th:href="@{/index}"><i class="fas fa-home"></i></i>Inicio</a>
         </li>
-        <li><a th:href="@{/noticias}">Noticias</a></li>
-        <!--<li><a th:href="@{/perfil }">Mi perfil</a></li>-->
-        <!--<li><a th:href="@{/carrito }">Mi carrito</a></li>-->
-        <li><a th:href="@{/logout}">Salir</a></li>
+        <li>
+          <a th:href="@{/catalogo}"><i class="fas fa-book"></i></i>Catálogo</a>
+        </li>        
+        <li>
+          <a th:href="@{/club}"><i class="fas fa-users"></i>Club</a>
+        </li>        
+        <li >
+          <a th:href="@{/noticias}"><i class="fas fa-newspaper"></i>Noticias</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_SOLO_VISITANTE')">
+          <a th:href="@{/registro}"><i class="fas fa-user"></i>Registro </a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_VER_PAGINAS')">
+          <a id="perfil" th:href="@{/perfil}"
+            ><i class="fas fa-user"></i>Mi perfil</a
+          >
+        </li>
+        <li sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">         
+          <a id="carrito" 
+            ><i class="fas fa-shopping-cart"></i>Mis reservas</a
+          >
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMINISTRADOR')">         
+          <a id="aministracion" th:href="@{/administracion}"
+            ><i class="fas fa-users-cog"></i>Administración</a
+          >
+        </li>
+        <li >
+          <a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i>Salir</a>
+        </li>
       </ul>
-    </nav>
+      <div class="todapantalla" id="popupcontenedor2">
+        <div class="fragmentCarro" th:insert="fragments/carritoReserva :: carroReserva"></div>
+      </div>
+      <div class="todapantalla" id="errorcontenedor">
+        <div
+          th:insert="fragments/mensaje :: mensajeerror"
+          id="mensajeerror"
+          class="oculto"
+        ></div>
+      </div>
+    </nav>    
+
   </body>
 </html>

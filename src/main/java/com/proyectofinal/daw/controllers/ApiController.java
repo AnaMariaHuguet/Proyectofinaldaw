@@ -57,23 +57,6 @@ public class ApiController {
         Long id = Long.parseLong(params.get("genero"));
         return repoLibro.findLibroByGenero(id);
     }
-    /*
-     * @PostMapping("/libro/filtrar") public List<Libro>
-     * getLibrosFiltrado(@RequestBody Map<String, String> params) { Long idgenero =
-     * params.get("genero") != null ? Long.parseLong(params.get("genero")) : -1;
-     * Long idcat = params.get("categoria") != null ?
-     * Long.parseLong(params.get("categoria")) : -1; Long idautor =
-     * params.get("autor") != null ? Long.parseLong(params.get("autor")) : -1; //
-     * Long idcat = Long.parseLong(params.get("categoria")); // Long idautor =
-     * Long.parseLong(params.get("autor")); if (idgenero != -1 && idcat != -1 &&
-     * idautor != -1) { return repoLibro.findLibroByFiltrar(idgenero, idcat,
-     * idautor); } if (idgenero != -1 && idcat != -1) { return
-     * repoLibro.findLibroByFiltrar1(idgenero, idcat); } if (idgenero != -1 &&
-     * idautor != -1) { return repoLibro.findLibroByFiltrar2(idgenero, idautor); }
-     * if (idcat != -1 && idautor != -1) { return
-     * repoLibro.findLibroByFiltrar3(idcat, idautor); } return
-     * repoLibro.findLibroByFiltrar(idgenero, idcat, idautor); }
-     */
 
     @PostMapping("/genero/id")
     public Genero getCategoriaporGeneros(@RequestBody Map<String, String> params) {
@@ -162,20 +145,19 @@ public class ApiController {
         }
         //
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
-        if (reservaUsuario.size() > 3) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Máximo de reservas acometido, es 3");
+
+        if (reservaUsuario.size() > 2) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ha superado el límite máximo de reservas");
         }
         for (Reserva reserva : reservaUsuario) {
-            if (reserva.getF_devolucion() == null) {
-                reservaAnterior.add(reserva);
-            }
+            reservaAnterior.add(reserva);
         }
         // creamos un nuevo objeto reserva, introducimos datos y guardamos en la BD
         Reserva nuevaReserva = new Reserva();
         nuevaReserva.setLibro(libro.get());
         nuevaReserva.setUsuario(usuario);
         nuevaReserva.setF_reservaHecha(new Date());
-        nuevaReserva.setF_prestamo(new Date(new Date().getTime() + (1000 * 60 * 60 * 48)));
+        nuevaReserva.setF_devolucion(new Date(new Date().getTime() + (1000 * 60 * 60 * 48)));
         repoReserva.save(nuevaReserva);
         // añadimos el nuevo objeto reserva a la arraylist
         reservaAnterior.add(nuevaReserva);
@@ -192,13 +174,25 @@ public class ApiController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro Not Found"));
         // con el libro que hemos obtenido sacamos la id de la reserva
         // borramos reserva
-        repoReserva.deleteById(libro.getReserva().getId());
-        // cambiar situación del libro en Libro
-        libro.setLibroSituacion(LibroSituacion.DISPONIBLE);
-        repoLibro.save(libro);
+        Reserva reserva = libro.getReserva();
+        if (reserva != null) {
+            repoReserva.deleteById(reserva.getId());
+            // cambiar situación del libro en Libro
+            libro.setLibroSituacion(LibroSituacion.DISPONIBLE);
+            repoLibro.save(libro);
+        }
         // Devolvemos la lista de reserva actualizada al usuario
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
+        return new ResponseEntity<List<Reserva>>(reservaUsuario, HttpStatus.OK);
+    }
+
+    @PostMapping("/reserva/usuario")
+    public ResponseEntity<List<Reserva>> reservarLibro(HttpServletRequest request) {
+
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
+
         return new ResponseEntity<List<Reserva>>(reservaUsuario, HttpStatus.OK);
     }
 }

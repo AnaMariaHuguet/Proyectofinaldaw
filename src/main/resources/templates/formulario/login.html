@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/general.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloLogin.css" rel="stylesheet" type="text/css" />
-    <link
-      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
-      rel="stylesheet"
-    />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="/js/login.js"></script>
     <title>Document</title>
   </head>
@@ -29,7 +29,7 @@
           <label>Contraseña:</label><br />
           <input type="password" id="password" th:field="*{password}" />
           <button id="btnOjo" class="btnOjo">
-            <i class="icon-eye-open"></i>
+            <i class="fas fa-eye-slash"></i>
           </button>
           <br />
           <br />
@@ -43,7 +43,7 @@
         <form th:object="${usuario}" th:action="@{/form/login}" method="POST">
           <input type="hidden" value="visi@tante.ante" name="username" />
           <input type="hidden" value="visitante" name="password" />
-          <input class="boton" type="submit" id="btnEntrar" value="Entrar" />
+          <input class="boton" type="submit" id="btnEntrar1" value="Entrar" />
         </form>
         <form
           th:object="${usuario}"

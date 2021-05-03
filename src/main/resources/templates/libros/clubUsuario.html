@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloclub.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/js/nav.js"></script>
+    <title>Club Lectura</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+      <h2>CLUB DE LECTURA</h2>
+      <div>
+        <p th:switch="${session.nombre}">
+          ¡Hola
+          <span th:case="*" th:text="${ session.nombre }"></span>
+          !
+        </p>
+        <p>Vemos que todavía no formas parte del Club.</p>
+        <p>
+          La lectura elegida para este mes es :
+          <!--<span th:text="${ book.titulo }"></span>-->
+        </p>
+        <p>
+          Si te gusta leer y quieres interactuar con otras personas amantes de
+          la lectura como tú…
+        </p>
+        <p>¡No lo dudes! ¡únete al Club de Lectura!</p>
+
+        <p>
+          Así, estarás conectado con una comunidad de lectores afines y al mismo
+          tiempo, ampliarás tu entendimiento sobre lo que ofrece la literatura.
+        </p>
+
+        <p>
+          Es una forma de disfrutar de las múltiples historias a las cuales te
+          transportan los libros y poder compartir con los demás las vivencias y
+          sensaciones que han suscitado en tí. Ofrecer tu impresión y opinión,
+          junto con escuchar las opiniones de los demás, ayuda a enriquecer a
+          las personas intelectualmente.
+        </p>
+        <p>Te esperamos</p>
+      </div>
+      <form th:object="${usuario}" th:action="@{/inscripcion}" method="POST">
+        <fieldset>
+          <input
+            class="btnDetRes"
+            type="submit"
+            id="btnInscrip"
+            name="btnInscrip"
+            value="Inscripción Club"
+          />
+        </fieldset>
+      </form>
+    </main>
+    <aside></aside>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

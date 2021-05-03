@@ -1,0 +1,23 @@
+main > div {
+  border: 2px solid #ab413d;
+  margin: 20px;
+  padding: 5px;
+}
+.imaginate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.puntuacion {
+  border: 1px solid #ab413d;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+}
+
+.yellow {
+  color: rgb(250, 213, 4);
+}
+label ~ span {
+  margin: 10px;
+}

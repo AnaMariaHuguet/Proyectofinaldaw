@@ -15,20 +15,23 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "usuarios")
 @JsonIgnoreProperties(value = { "votaciones" })
 public class Usuario implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,11 +67,15 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     @NotBlank(message = "Contraseña obligatoria")
     private String contrasenya;
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Votacion> votaciones;
-    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER)
+    // @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,
+            CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @JoinTable(name = "funciones_usuarios", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "funciones_id") })
     private List<Funciones> funciones;
+    @OneToMany(mappedBy = "usuario")
+    @JsonBackReference
+    private List<ComentariosClub> comentariosClub;
 
     public List<Funciones> getFunciones() {
         return this.funciones;
@@ -76,14 +83,6 @@ public class Usuario implements Serializable {
 
     public void setFunciones(List<Funciones> funciones) {
         this.funciones = funciones;
-    }
-
-    public List<Votacion> getVotaciones() {
-        return this.votaciones;
-    }
-
-    public void setVotaciones(List<Votacion> votaciones) {
-        this.votaciones = votaciones;
     }
 
     public String getContrasenya() {
@@ -172,5 +171,28 @@ public class Usuario implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<ComentariosClub> getComentariosClub() {
+        return this.comentariosClub;
+    }
+
+    public void setComentariosClub(List<ComentariosClub> comentariosClub) {
+        this.comentariosClub = comentariosClub;
+    }
+
+    public void addFuncion(Funciones fun) {
+        funciones.add(fun);
+        fun.getUsuarios().add(this);
+    }
+
+    public void removeFuncion(Funciones fun) {
+
+        for (int i = 0; i < funciones.size(); i++) {
+            if (funciones.get(i).getId().equals(fun.getId())) {
+                funciones.remove(i);
+            }
+        }
+        fun.getUsuarios().remove(this);
     }
 }

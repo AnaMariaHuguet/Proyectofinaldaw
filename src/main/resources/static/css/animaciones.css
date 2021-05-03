@@ -2,7 +2,7 @@
 @keyframes cambioTamanyo {
   0% {
     opacity: 0;
-    left: 100%;
+    left: 90%;
     transform: scale(0);
   }
   50% {

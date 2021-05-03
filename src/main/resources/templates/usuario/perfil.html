@@ -9,197 +9,328 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloPerfil.css" rel="stylesheet" type="text/css" />
-    <link
-      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
-      rel="stylesheet"
-    />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/nav.js"></script>
     <title>Document</title>
   </head>
   <body>
     <div class="header" th:insert="fragments/header :: header"></div>
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
-      <h2>MI PERFIL</h2>
-      <form
-        action="#"
-        th:object="${usuario}"
-        th:action="@{/modificarPerfil}"
-        method="POST"
-      >
-        <fieldset>
-          <input
-            type="hidden"
-            for="id"
-            name="id"
-            th:field="*{id}"
-            th:errorclass="fieldError"
-          />
-          <section>
-            <div>
-              <label for="nombre">Nombre: </label>
-              <input
-                type="text"
-                for="nombre"
-                name="nombre"
-                th:field="*{nombre}"
-                th:errorclass="fieldError"
-              />
-            </div>
-
-            <small
-              th:if="${#fields.hasErrors('nombre')}"
-              th:errors="*{nombre}"
-            ></small>
-          </section>
-
-          <section>
-            <div>
-              <label>Apellidos: </label>
-              <input
-                type="text"
-                name="apellido"
-                th:field="*{apellido}"
-                th:errorclass="fieldError"
-              />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('apellido')}"
-              th:errors="*{apellido}"
-            >
-            </small>
-          </section>
-
-          <section>
-            <div>
-              <label>Dirección:</label>
-              <input
-                type="text"
-                name="direccion"
-                th:field="*{direccion}"
-                th:errorclass="fieldError"
-              />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('direccion')}"
-              th:errors="*{direccion}"
-            ></small>
-          </section>
-          <section>
-            <div>
-              <label>Código postal: </label>
-              <input
-                type="text"
-                name="cod_postal"
-                th:field="*{cod_postal}"
-                th:errorclass="fieldError"
-              />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('cod_postal')}"
-              th:errors="*{cod_postal}"
-            ></small>
-          </section>
-
-          <section>
-            <div>
-              <label>Población: </label>
-              <input
-                type="text"
-                name="poblacion"
-                th:field="*{poblacion}"
-                th:errorclass="fieldError"
-              />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('poblacion')}"
-              th:errors="*{poblacion}"
-            ></small>
-          </section>
-
-          <section>
-            <div>
-              <label>Email: </label>
-              <input
-                type="email"
-                name="email"
-                th:field="*{email}"
-                th:errorclass="fieldError"
-              />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('email')}"
-              th:errors="*{email}"
-            ></small>
-          </section>
-
-          <section>
-            <div>
-              <label>Teléfono: </label>
-              <input
-                type="tel"
-                name="telefono"
-                th:field="*{telefono}"
-                th:errorclass="fieldError"
-              />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('telefono')}"
-              th:errors="*{telefono}"
-            ></small>
-          </section>
-
-          <section>
-            <div>
-              <label>NIF: </label>
-              <input
-                type="text"
-                name="nif"
-                th:field="*{nif}"
-                th:errorclass="fieldError"
-              />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('nif')}"
-              th:errors="*{nif}"
-            ></small>
-          </section>
-
-          <section>
-            <div>
-              <label>Año nacimiento: </label>
-              <input type="text" name="anoNac" th:field="*{anoNac}" />
-            </div>
-            <small
-              th:if="${#fields.hasErrors('anoNac')}"
-              th:errors="*{anoNac}"
-            ></small>
-          </section>
-
-          <section>
-            <div>
-              <label>Contraseña: </label>
-              <input type="text" name="contrasenya" />
-            </div>
-          </section>
-          <div>
+      <section>
+        <h2>MI PERFIL</h2>
+        <form
+          action="#"
+          th:object="${usuario}"
+          th:action="@{/modificarPerfil}"
+          method="POST"
+        >
+          <fieldset>
             <input
-              class="boton"
-              type="submit"
-              id="btnModificarPerfil"
-              name="btnModificarPerfil"
-              value="Modificar"
+              type="hidden"
+              for="id"
+              name="id"
+              th:field="*{id}"
+              th:errorclass="fieldError"
             />
-          </div>
-          <br />
-        </fieldset>
-      </form>
+            <section>
+              <div>
+                <label for="nombre">Nombre: </label>
+                <input
+                  type="text"
+                  for="nombre"
+                  name="nombre"
+                  th:field="*{nombre}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+
+              <small
+                th:if="${#fields.hasErrors('nombre')}"
+                th:errors="*{nombre}"
+              ></small>
+            </section>
+
+            <section>
+              <div>
+                <label>Apellidos: </label>
+                <input
+                  type="text"
+                  name="apellido"
+                  th:field="*{apellido}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('apellido')}"
+                th:errors="*{apellido}"
+              >
+              </small>
+            </section>
+
+            <section>
+              <div>
+                <label>Dirección:</label>
+                <input
+                  type="text"
+                  name="direccion"
+                  th:field="*{direccion}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('direccion')}"
+                th:errors="*{direccion}"
+              ></small>
+            </section>
+            <section>
+              <div>
+                <label>Código postal: </label>
+                <input
+                  type="text"
+                  name="cod_postal"
+                  th:field="*{cod_postal}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('cod_postal')}"
+                th:errors="*{cod_postal}"
+              ></small>
+            </section>
+
+            <section>
+              <div>
+                <label>Población: </label>
+                <input
+                  type="text"
+                  name="poblacion"
+                  th:field="*{poblacion}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('poblacion')}"
+                th:errors="*{poblacion}"
+              ></small>
+            </section>
+
+            <section>
+              <div>
+                <label>Email: </label>
+                <input
+                  type="email"
+                  name="email"
+                  th:field="*{email}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"
+              ></small>
+            </section>
+
+            <section>
+              <div>
+                <label>Teléfono: </label>
+                <input
+                  type="tel"
+                  name="telefono"
+                  th:field="*{telefono}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('telefono')}"
+                th:errors="*{telefono}"
+              ></small>
+            </section>
+
+            <section>
+              <div>
+                <label>NIF: </label>
+                <input
+                  type="text"
+                  name="nif"
+                  th:field="*{nif}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('nif')}"
+                th:errors="*{nif}"
+              ></small>
+            </section>
+
+            <section>
+              <div>
+                <label>Año nacimiento: </label>
+                <input type="text" name="anoNac" th:field="*{anoNac}" />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('anoNac')}"
+                th:errors="*{anoNac}"
+              ></small>
+            </section>
+
+            <section>
+              <div>
+                <label>Contraseña: </label>
+                <input type="text" name="contrasenya" />
+              </div>
+            </section>
+            <div>
+              <input
+                class="boton"
+                type="submit"
+                id="btnModificarPerfil"
+                name="btnModificarPerfil"
+                value="Modificar"
+              />
+            </div>
+            <br />
+          </fieldset>
+        </form>
+      </section>
+
+      <section>
+        <h2>MIS PRÉSTAMOS ACTUALES</h2>
+        
+         
+        </div>
+      </section>
+      <section>
+        <h2>MI HISTORIAL</h2>        
+        <div>
+          <table class="tablaCatalogo" id="tablaHistorico">
+            <thead>
+              <tr>
+                <th>
+                  <div th:if="${sortBy ne 'titulo'}">
+                    <a th:href="@{'/perfil?sortby=titulo&order=asc'}">
+                      Título <i class="fas fa-sort"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'titulo'}"
+                    th:if="${order eq 'asc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=titulo&order=desc'}"
+                      >Título <i class="fas fa-sort-up"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'titulo'}"
+                    th:if="${order eq 'desc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=titulo&order=asc'}"
+                      >Título <i class="fas fa-sort-down"></i
+                    ></a>
+                  </div>
+                </th>
+                <th>
+                  <div th:if="${sortBy ne 'Autor.nombre'}">
+                    <a th:href="@{'/perfil?sortby=Autor.nombre&order=asc'}">
+                      Autor <i class="fas fa-sort"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'Autor.nombre'}"
+                    th:if="${order eq 'asc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=Autor.nombre&order=desc'}"
+                      >Autor <i class="fas fa-sort-up"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'Autor.nombre'}"
+                    th:if="${order eq 'desc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=Autor.nombre&order=asc'}"
+                      >Autor <i class="fas fa-sort-down"></i
+                    ></a>
+                  </div>
+                </th>
+                <th>
+                  <div th:if="${sortBy ne 'f_devolucion'}">
+                    <a th:href="@{'/perfil?sortby=f_devolucion&order=asc'}">
+                      Fecha <i class="fas fa-sort"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'f_devolucion'}"
+                    th:if="${order eq 'asc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=f_devolucion&order=desc'}"
+                      >Fecha<i class="fas fa-sort-up"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'f_devolucion'}"
+                    th:if="${order eq 'desc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=f_devolucion&order=asc'}"
+                      >Fecha<i class="fas fa-sort-down"></i
+                    ></a>
+                  </div>
+                </th>
+                <th>
+                  <div th:if="${sortBy ne 'puntuacion'}">
+                    <a th:href="@{'/perfil?sortby=puntuacion&order=asc'}">
+                      Puntuación <i class="fas fa-sort"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'puntuacion'}"
+                    th:if="${order eq 'asc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=puntuacion&order=desc'}"
+                      >Puntuación<i class="fas fa-sort-up"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'puntuacion'}"
+                    th:if="${order eq 'desc'}"
+                  >
+                    <a th:href="@{'/perfil?sortby=puntuacion&order=asc'}"
+                      >Puntuación<i class="fas fa-sort-down"></i
+                    ></a>
+                  </div>
+                </th>
+               
+              </tr>
+            </thead>
+            <tbody class="bodytabla" id="bodyhistorico">
+              <tr th:each="entrada : ${historico}">
+                <td>
+                  <a th:text="${entrada.Libro.titulo}" />
+                </td>
+                <td
+                  th:text="${entrada.Libro.getAutor().nombre+ ' ' +entrada.Libro.getAutor().apellido}"
+                />
+                <td>
+                  <a th:text="${entrada.f_devolucion}" />
+                </td>
+                <td>
+                  <div th:if="${entrada.votacion ne null}">
+                    <a th:text="${entrada.votacion.puntuacion.valor}" />
+                  </div>
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
-    <aside>
-      <h2>TABLÓN DE NOTAS</h2>
-      <p>sección en construcción</p>
-    </aside>
+    <aside></aside>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>

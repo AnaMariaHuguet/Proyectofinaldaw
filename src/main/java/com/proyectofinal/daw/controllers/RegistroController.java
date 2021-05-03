@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import com.proyectofinal.daw.entities.Funciones;
 import com.proyectofinal.daw.entities.Usuario;
-import com.proyectofinal.daw.entities.UsuarioLogin;
+import com.proyectofinal.daw.entities.dto.UsuarioLogin;
 import com.proyectofinal.daw.repositories.FuncionesRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

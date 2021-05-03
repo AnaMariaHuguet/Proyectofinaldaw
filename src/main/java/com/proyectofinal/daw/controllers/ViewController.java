@@ -8,19 +8,30 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.proyectofinal.daw.entities.Autor;
 import com.proyectofinal.daw.entities.Funciones;
+import com.proyectofinal.daw.entities.HistoricoPrestamos;
 import com.proyectofinal.daw.entities.Libro;
+import com.proyectofinal.daw.entities.Puntuacion;
+import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Usuario;
-import com.proyectofinal.daw.entities.UsuarioLogin;
+import com.proyectofinal.daw.entities.dto.UsuarioLogin;
 import com.proyectofinal.daw.entities.dto.UsuarioPerfilDTO;
+import com.proyectofinal.daw.enums.LibroSituacion;
 import com.proyectofinal.daw.repositories.AutorRepository;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
+
 import com.proyectofinal.daw.repositories.FuncionesRepository;
 import com.proyectofinal.daw.repositories.GeneroRepository;
+import com.proyectofinal.daw.repositories.HistoricoRepository;
+//import com.proyectofinal.daw.repositories.repoHistoricository;
 import com.proyectofinal.daw.repositories.LibroRepository;
+import com.proyectofinal.daw.repositories.PuntuacionRepository;
+import com.proyectofinal.daw.repositories.ReservaRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 import com.proyectofinal.daw.services.LibroService;
 
@@ -61,7 +72,15 @@ public class ViewController {
     @Autowired
     GeneroRepository repoGenero;
     @Autowired
+    ReservaRepository repoReserva;
+    @Autowired
     FuncionesRepository funcionesRepo;
+    @Autowired
+    HistoricoRepository repoHistorico;
+    @Autowired
+    PuntuacionRepository repoPuntuacion;
+    // @Autowired
+    // LibroSituacionRepository repoLibroSituacion;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -88,7 +107,7 @@ public class ViewController {
     @GetMapping("/catalogo")
     public String catalogo(@RequestParam Map<String, Object> params, Model model) {
         int currentPage = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
-        int pageSize = params.get("size") != null ? Integer.valueOf(params.get("size").toString()) : 5;
+        int pageSize = params.get("size") != null ? Integer.valueOf(params.get("size").toString()) : 6;
         String sortBy = params.get("sortby") != null ? params.get("sortby").toString() : "id";
         String order = params.get("order") != null ? params.get("order").toString() : "asc";
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize,
@@ -105,7 +124,6 @@ public class ViewController {
              * los Java Stream Collectors y convertir nuestro stream a una Lista o Conjunto
              * , utilizando la clase Collectors y su método toList() o toSet().
              */
-
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("paginas", pageNumbers);
         }
@@ -115,17 +133,53 @@ public class ViewController {
         model.addAttribute("generos", repoGenero.findAll());
         model.addAttribute("order", order);
         model.addAttribute("sortBy", sortBy);
-
         return "libros/catalogo";
-    }
-
-    @GetMapping("/club")
-    public String club() {
-        return "libros/club";
     }
 
     @GetMapping("/noticias")
     public String noticias() {
         return "libros/noticias";
+    }
+
+    @GetMapping("/libro/{id}")
+    public String libro(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Optional<Libro> libro = repoLibro.findById(id);
+        if (!libro.isPresent()) {
+            model.addAttribute("errorserver", "Libro no encontrado");
+            return null;
+        } else {
+            // el libro optional lo convierto en libro
+            Libro book = libro.get();
+            List<HistoricoPrestamos> historicoLibro = repoHistorico.findByLibro(book);
+            int votacion = 0;
+            int sumaVotacion = 0;
+            int cantidadVotacion = 0;
+            for (int i = 0; i < historicoLibro.size(); i++) {
+                if (historicoLibro.get(i).getVotacion() != null) {
+                    sumaVotacion = votacion + (historicoLibro.get(i).getVotacion().getPuntuacion().getValor());
+                    cantidadVotacion++;
+                }
+            }
+            int totalVotacion = 0;
+            if (cantidadVotacion > 0) {
+                totalVotacion = Math.round(sumaVotacion / cantidadVotacion);
+            }
+            Optional<Puntuacion> stringPuntuacion = repoPuntuacion.findByValor(sumaVotacion);
+            String strPuntuacion = stringPuntuacion.isPresent() ? stringPuntuacion.get().getDescripcion()
+                    : "No tiene votos";
+            model.addAttribute("stringPuntuacion", strPuntuacion);
+            model.addAttribute("cantidadVotacion", cantidadVotacion);
+            model.addAttribute("totalVotacion", totalVotacion);
+            model.addAttribute("libro", libro.get());
+            if (request.isUserInRole("ADMINISTRADOR")) {
+                model.addAttribute("autores", repoAutor.findAll());
+                model.addAttribute("categorias", repoCategoria.findAll());
+                model.addAttribute("generos", repoGenero.findAll());
+                model.addAttribute("librosituacion", LibroSituacion.values());
+                return "admin/editarLibroAdmin";
+            } else {
+                return "libros/libro";
+            }
+        }
     }
 }

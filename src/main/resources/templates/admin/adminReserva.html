@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/zonaAdmin.js"></script>
+    <title>Administración</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+
+    <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
+
+    <section class="contenido" id="contenido">
+      <h2>RESERVAS</h2>
+      <table class="tablaCatalogo1" id="tablaReserva">
+        <thead>
+          <tr>
+            <th>
+              <div th:if="${sortBy ne 'usuario'}">
+                <a th:href="@{'/admin/todasReservas?sortby=usuario&order=asc'}">
+                  Usuario <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'usuario'}" th:if="${order eq 'asc'}">
+                <a th:href="@{'/admin/todasReservas?sortby=usuario&order=desc'}"
+                  >Usuario <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div
+                th:unless="${sortBy ne 'usuario'}"
+                th:if="${order eq 'desc'}"
+              >
+                <a th:href="@{'/admin/todasReservas?sortby=usuario&order=asc'}"
+                  >Usuario <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'libro'}">
+                <a th:href="@{'/admin/todasReservas?sortby=libro&order=asc'}">
+                  Libro <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'libro'}" th:if="${order eq 'asc'}">
+                <a th:href="@{'/admin/todasReservas?sortby=libro&order=desc'}"
+                  >Libro<i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'libro'}" th:if="${order eq 'desc'}">
+                <a th:href="@{'/admin/todasReservas?sortby=libro&order=asc'}"
+                  >Libro<i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'libro.Autor.nombre'}">
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=libro.Autor.nombre&order=asc'}"
+                >
+                  Autor <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div
+                th:unless="${sortBy ne 'libro.Autor.nombre'}"
+                th:if="${order eq 'asc'}"
+              >
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=libro.Autor.nombre&order=desc'}"
+                  >Autor <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div
+                th:unless="${sortBy ne 'libro.Autor.nombre'}"
+                th:if="${order eq 'desc'}"
+              >
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=libro.Autor.nombre&order=asc'}"
+                  >Autor <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'f_reservaHecha'}">
+                <a th:href="@{'/admin/todasReservas?sortby=f_reservaHecha&order=asc'}">
+                  Fecha Reserva <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'f_reservaHecha'}" th:if="${order eq 'asc'}">
+                <a th:href="@{'/admin/todasReservas?sortby=f_reservaHecha&order=desc'}"></a>
+                  Fecha Reserva<i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'f_reservaHecha'}" th:if="${order eq 'desc'}">
+                <a th:href="@{'/admin/todasReservas?sortby=f_reservaHecha&order=asc'}">
+                  Fecha Reserva<i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+            <th>
+              <div th:if="${sortBy ne 'f_devolucion'}">
+                <a th:href="@{'/admin/todasReservas?sortby=f_devolucion&order=asc'}">
+                  Fecha máxima  <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'f_devolucion'}" th:if="${order eq 'asc'}">
+                <a th:href="@{'/admin/todasReservas?sortby=f_devolucion&order=desc'}"></a>
+                Fecha máxima<i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'f_devolucion'}" th:if="${order eq 'desc'}">
+                <a th:href="@{'/admin/todasReservas?sortby=f_devolucion&order=asc'}">
+                  Fecha máxima<i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bodytabla1" id="bodyreserva">
+          <tr th:each="reservas : ${reserva}">
+            <td>
+              <a th:text="${reservas.Usuario.nombre}" />
+            </td>
+            <td>
+              <a th:text="${reservas.Libro.titulo}" />
+            </td>
+            <td
+              th:text="${reservas.Libro.getAutor().nombre+ ' ' +reservas.Libro.getAutor().apellido}"
+            />
+            <td>
+              <a th:text="${#dates.format(reservas.f_reservaHecha, 'dd-MM-yyyy HH:mm')}"></a>
+                            
+            </td>
+            <td>
+                <a th:text="${#dates.format(reservas.f_devolucion, 'dd-MM-yyyy')}"></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

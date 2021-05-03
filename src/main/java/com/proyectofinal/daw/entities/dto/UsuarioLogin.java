@@ -1,4 +1,4 @@
-package com.proyectofinal.daw.entities;
+package com.proyectofinal.daw.entities.dto;
 
 public class UsuarioLogin {
 

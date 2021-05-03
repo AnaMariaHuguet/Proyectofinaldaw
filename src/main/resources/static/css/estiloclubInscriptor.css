@@ -1,0 +1,73 @@
+/***************     tipografia     ***************/
+
+/***************     body     ***************/
+
+/***************     header       ***************/
+
+/***************   main    ***************/
+main {
+  display: grid;
+  width: 100%;
+  grid-template-rows: 10% 15% 10% auto 30%;
+}
+fieldset {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 5px;
+}
+section > iframe {
+  width: 100%;
+  height: 87%;
+  border: none;
+  overflow: hidden;
+}
+
+section {
+  height: 100%;
+}
+.textinput {
+  /*float: left;*/
+  width: 100%;
+  height: 87%;
+  min-height: 75px;
+  outline: none;
+  resize: none;
+  border: 1px solid grey;
+  overflow: scroll;
+}
+/***************   aside  ***************/
+aside {
+  display: none;
+}
+
+/*****************media query***********************/
+
+@media (min-width: 800px) {
+  main {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 15% 20% auto 50%;
+    grid-column-gap: 50px;
+  }
+  h2,
+  p {
+    grid-column: 1/3;
+  }
+  form {
+    grid-column: 2/3;
+  }
+  section {
+    grid-row: 4/5;
+  }
+  main > section:first-child {
+    grid-column: 1/2;
+  }
+  main > section:last-child {
+    grid-column: 2/3;
+  }
+
+  fieldset {
+    width: 40%;
+    /*justify-self: right;*/
+  }
+}

@@ -22,9 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "Reserva")
 @JsonIgnoreProperties("votaciones")
 public class Reserva implements Serializable {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,10 +37,7 @@ public class Reserva implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date f_reservaHecha;
     @Temporal(TemporalType.DATE)
-    private Date f_prestamo;
-    @Temporal(TemporalType.DATE)
     private Date f_devolucion;
-    private boolean devuelto; // borrado logico
 
     public Long getId() {
         return this.id;
@@ -76,14 +71,6 @@ public class Reserva implements Serializable {
         this.f_reservaHecha = f_reservaHecha;
     }
 
-    public Date getF_prestamo() {
-        return this.f_prestamo;
-    }
-
-    public void setF_prestamo(Date f_prestamo) {
-        this.f_prestamo = f_prestamo;
-    }
-
     public Date getF_devolucion() {
         return this.f_devolucion;
     }
@@ -92,15 +79,4 @@ public class Reserva implements Serializable {
         this.f_devolucion = f_devolucion;
     }
 
-    public boolean isDevuelto() {
-        return this.devuelto;
-    }
-
-    public boolean getDevuelto() {
-        return this.devuelto;
-    }
-
-    public void setDevuelto(boolean devuelto) {
-        this.devuelto = devuelto;
-    }
 }

@@ -4,21 +4,14 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
-
   <body>
-    <!--<div class="carritoReserva" id="carritoReserva" th:fragment="carroReserva">-->
     <div id="popup2" class="popup" th:fragment="carroReserva">
       <button id="cerrarReserva">X</button>
       <h2>Carrito reserva</h2>
-      <table id="tabla">
-        <thead id="cabeceratablareserva"></thead>
-        <tbody id="tablareserva"></tbody>
+      <table id="tabla" class="carritotabla">
+        <thead id="cabeceratablareserva" class="carritothead"></thead>
+        <tbody id="tablareserva" class="carritotbody"></tbody>
       </table>
     </div>
-    <!--</div>-->
   </body>
 </html>

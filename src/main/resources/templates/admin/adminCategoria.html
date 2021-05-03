@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/zonaAdmin.js"></script>
+    <title>Administración</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
+
+    <section class="contenido" id="contenido">
+      <h2>Añadir categoría</h2>
+      <div>
+        <input
+          class="boton"
+          autofocus
+          type="text"
+          name="selcategoria"
+          id="selcategoria"
+          list="categoriaList"
+          placeholder="Buscar categoría"
+        />
+        <datalist id="categoriaList">
+          <option
+            th:each="categorias : ${categoria}"
+            th:value="${categorias.getNombre()}"
+            th:data-value="${categorias.getId()}"
+          ></option>
+        </datalist>
+        <form th:object="${categoria}" th:action="@{/}" method="POST">
+          <input
+            class="boton"
+            type="text"
+            name="newcategoria"
+            id="newcategoria"
+            placeholder="nueva categoría"
+          />
+          <input
+            class="boton"
+            type="submit"
+            id="btnNewCategoria"
+            name="btnNewCategoria"
+            value="Guardar"
+          />
+        </form>
+      </div>
+    </section>
+
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

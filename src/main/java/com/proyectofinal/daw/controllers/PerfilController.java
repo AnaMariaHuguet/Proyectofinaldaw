@@ -1,10 +1,15 @@
 package com.proyectofinal.daw.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.proyectofinal.daw.entities.HistoricoPrestamos;
+import com.proyectofinal.daw.entities.Puntuacion;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.entities.dto.UsuarioPerfilDTO;
+import com.proyectofinal.daw.repositories.HistoricoRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +28,8 @@ public class PerfilController {
 
     @Autowired
     UsuarioRepository usuarioRepo;
+    @Autowired
+    HistoricoRepository historicoRepo;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -31,10 +38,14 @@ public class PerfilController {
     public String perfil(Model model, HttpServletRequest request) {
 
         if (request.isUserInRole("SOLO_VISITANTE")) {
-            return "hahahahhaha";
+            return "/";
         }
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        List<HistoricoPrestamos> listahistoria = historicoRepo.findByUsuario(usuario);
+        Puntuacion puntuacion = new Puntuacion();
         model.addAttribute("usuario", usuario);
+        model.addAttribute("historico", listahistoria);
+        model.addAttribute("puntuacion", puntuacion);
         return PAG_PERFIL;
     }
 

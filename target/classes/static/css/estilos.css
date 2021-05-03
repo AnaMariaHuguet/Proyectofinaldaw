@@ -1,14 +1,6 @@
 /***************     tipografia     ***************/
-h1,
-h2,
-h5 {
-  color: #f7291e;
-  text-align: center;
-}
-
-h1,
-h5 {
-  font: 1.8rem Montserrat, fantasy;
+h4 {
+  color: red;
 }
 label {
   font-weight: bold;
@@ -17,7 +9,7 @@ label {
 
 body {
   grid-template-columns: 100%;
-  grid-template-rows: 15% 12% auto auto 10%;
+  grid-template-rows: 15% 12% auto 10%;
   background-color: #f8e29b;
 }
 nav,
@@ -41,140 +33,27 @@ header > img:first-child {
 }
 /***************     nav     ***************/
 
-ul {
-  display: flex;
-  justify-content: space-evenly;
-  list-style: none;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  border: #ab413d solid 2px;
-}
-.nav li {
-  width: 20%;
-  text-align: center;
-}
-
-.nav a {
-  display: block;
-  height: 100%;
-  text-decoration: none;
-  background-color: #a1a84c;
-  font-size: 18px;
-}
-
-.nav a:hover {
-  background-color: #0281f7;
-  color: #fae0cf;
-}
-
 /***************   main    ***************/
-.popup > button,
-.mensajeentrante button {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  background-color: #8b86aa;
-  top: 0px;
-  right: 0px;
-}
-
 article {
   padding: 10px;
 }
-
-.mensajeentrante {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 30%;
-  min-height: 100px;
-  width: 25%;
-  min-width: 300px;
-  border: #ab413d solid 2px;
-  box-shadow: 10px 10px 8px #969c42;
-  /*z-index: 100;*/
-  background: radial-gradient(ellipse, #fae0cf 30%, #ab413d 95%);
-  padding: 10px 20px;
+.bodytabla img {
+  width: 50%;
 }
-
-.oculto {
-  display: none;
-}
-.textomensajeerror {
-  text-align: center;
-  margin-top: 20px;
-}
-
 /***************   aside   ***************/
-aside {
-  background-color: rgb(167, 206, 207);
-  padding: 5px;
-}
 
-aside > iframe {
-  width: 100vw;
-  height: 200px;
-}
 /***************     footer      ***************/
 
 /*****************media query***********************/
 
-@media (max-width: 800px) {
-  .tablaCatalogo td:nth-child(1),
-  .tablaCatalogo td:nth-child(3),
-  .tablaCatalogo td:nth-child(5),
-  .tablaCatalogo td:nth-child(4),
-  .tablaCatalogo td:nth-child(6),
-  .tablaCatalogo th:nth-child(1),
-  .tablaCatalogo th:nth-child(3),
-  .tablaCatalogo th:nth-child(5),
-  .tablaCatalogo th:nth-child(4),
-  .tablaCatalogo th:nth-child(6) {
-    display: none;
-  }
-}
 @media (min-width: 800px) {
-  body {
-    grid-template-columns: 75% 25%;
-    grid-template-rows: 15% 12% auto 10%;
-  }
-  .header {
-    grid-row: 1/2;
-    grid-column: 1/3;
-  }
-  .nav {
-    grid-row: 2/3;
-    grid-column: 1/3;
-  }
-  a {
-    padding: 0%;
-    line-height: 12vh;
-  }
-  main {
-    grid-row: 3/4;
-    grid-column: 1/2;
-  }
-
-  td:nth-child(7),
-  th:nth-child(7) {
-    display: none;
-  }
-  
-  aside {
-    grid-row: 3/4;
-    grid-column: 2/3;
-  }
-
-  .footer {
-    grid-row: 4/5;
-    grid-column: 1/3;
-  }
   footer {
     justify-content: space-between;
     padding: 0 10px;
   }
 }
 @media (min-width: 1200px) {
+  h1 {
+    font: 3rem Montserrat, fantasy;
+  }
 }

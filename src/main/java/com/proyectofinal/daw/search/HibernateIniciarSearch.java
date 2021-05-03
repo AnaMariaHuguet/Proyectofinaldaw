@@ -13,25 +13,24 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-/*Al iniciar la aplicación ira a la BD e indexará los datos de alli
-interesante si se tienen datos anteriores o se hace un volcado maxivo en la BD
-sin pasar por el servidor.*/
-
-@Component
-public class HibernateIniciarSearch implements ApplicationListener<ContextRefreshedEvent> {
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    @Transactional
-    @Override
-
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        try {
-            SearchSession searchSession = Search.session(entityManager);
-            MassIndexer indexer = searchSession.massIndexer(Autor.class).threadsToLoadObjects(1);
-            indexer.startAndWait();
-        } catch (InterruptedException e) {
-            System.out.println("Error hibernate search" + e.toString());
-        }
-    }
-}
+/*
+ * Al iniciar la aplicación ira a la BD e indexará los datos de alli interesante
+ * si se tienen datos anteriores o se hace un volcado maxivo en la BD sin pasar
+ * por el servidor.
+ */
+/*
+ * @Component public class HibernateIniciarSearch implements
+ * ApplicationListener<ContextRefreshedEvent> {
+ * 
+ * @PersistenceContext private EntityManager entityManager;
+ * 
+ * @Transactional
+ * 
+ * @Override
+ * 
+ * public void onApplicationEvent(ContextRefreshedEvent event) { try {
+ * SearchSession searchSession = Search.session(entityManager); MassIndexer
+ * indexer = searchSession.massIndexer(Autor.class).threadsToLoadObjects(1);
+ * indexer.startAndWait(); } catch (InterruptedException e) {
+ * System.out.println("Error hibernate search" + e.toString()); } } }
+ */

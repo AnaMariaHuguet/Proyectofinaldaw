@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/js/nav.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+      <h2>MIS RESERVAS</h2>
+
+      <table>
+        <tbody class="bodytablaReserva" id="bodytablaReserva">
+          <tr th:each="reservas : ${reserva}">
+            <td>
+              <img th:src="'/img/imgLibros/'+${reservas.Libro.imagen}" />
+            </td>
+            <td th:text="${reservas.Libro.titulo}"></td>
+            <td
+              th:text="${reservas.Libro.getAutor().nombre+ ' ' +reservas.Libro.getAutor().apellido}"
+            />
+            <td th:text="${reservas.f_reservaHecha}"></td>
+            <td th:text="${reservas.f_devolucion}"></td>
+            <td>
+              <button
+                class="boton"
+                name="anularreserva"
+                th:value="${reservas.Libro.id}"
+              >
+                Anular
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

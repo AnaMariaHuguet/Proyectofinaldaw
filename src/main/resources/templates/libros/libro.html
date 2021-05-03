@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloLibro.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    
+    <script src="/js/nav.js"></script>
+    <script src="/js/libro.js"></script>
+    <title>Libro</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+      <h2 th:text="${libro.titulo}"></h2>
+      <h3 th:text="${libro.Autor.nombre}+' '+${libro.Autor.apellido}"></h3>
+      
+        <div class="imaginate" >
+          <img th:src="'/img/imgLibros/'+${libro.imagen}" />
+          <div class="puntuacion"><label>Puntuación: </label>
+            </br>
+            <div>
+            <label for="">Nota Media</label>  </br>
+            <label id="totalVotacion" th:text="${totalVotacion}"></label>
+            <span id="pintarestrella"></span>
+            <!--<div>
+              <span id="1estrella"><i class="far fa-star"></i></span>
+              <span id="2estrella"><i class="far fa-star"></i></span>
+              <span id="3estrella"><i class="far fa-star"></i></span>
+              <span id="4estrella"><i class="far fa-star"></i></span>
+              <span id="5estrella"><i class="far fa-star"></i></span>
+            </div>-->
+          </div> 
+            <label th:text="${stringPuntuacion}" ></label>  </br>
+            <label th:text="${cantidadVotacion}"></label><span> Votos</span>
+         </div>
+        </div> 
+        <div>  
+        <h4 >Sinopsis :</h4>  
+        <label th:text="${libro.sinopsis}" id="pagelibroSinopsis"></label>
+      </div>
+      <div>
+        <h4>Ficha Técnica :</h4>  
+        <label>Id: </label>
+        <span th:text="${libro.id}" id="pagelibroId" />
+        </br> 
+        <label>Isbn: </label>
+        <span th:text="${libro.isbn}" id="pagelibroIsbn" />
+        </br> 
+        <label>Editorial: </label>
+        <span th:text="${libro.editorial}" id="pagelibroEditorial" />
+        </br> 
+        <label>Género: </label>
+        <span
+          th:text="${libro.Categoria.genero.nombre}"
+          id="pagelibroGenero"
+        />
+        </br> 
+        <label>Categoría: </label>
+        <span th:text="${libro.Categoria.nombre}" id="pagelibroCategoria" />
+        </br> 
+        <label>Ubicación: </label>
+        <span th:text="${libro.ubicacion}" id="pagelibroUbicacion" />
+        </br> 
+        <label>Situación: </label>
+        <span
+          th:text="${libro.libroSituacion}"
+          id="pagelibroSituacion"          
+        />
+      </div>
+      <div sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">
+        <button class="btnDetRes" id="btnLibroReserva" name="btnLibroReserva" th:value="${libro.id}">
+          Reserva
+        </button>  
+     </div>
+    </main>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

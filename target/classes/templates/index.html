@@ -10,9 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="css/general.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloIndex.css" rel="stylesheet" type="text/css" />
     <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
     <link href="/css/notas.css" rel="stylesheet" type="text/css" />
-    <title>Inicio</title>
+
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <script src="/js/nav.js"></script>
     <title>Inicio</title>
   </head>
   <body>
@@ -37,24 +44,59 @@
           <span th:case="*">No es admin</span>
         </div>-->
         <p>Bienvenido a la Web de la Agencia de Lectura.</p>
+
         <p>
-          Puedes acceder a ver el catálogo de los libros que tenemos a tu
-          disposición, reservar el libro que te interesa y pasar a recogerlo por
-          nuestras instalaciones en horario de 17:00 h a 20:00h. de Lunes a
-          Viernes, excepto festivos.<br />
-          Para reservar un libro debes de ser usuario, sino lo eres todavía, ves
-          al Login y Registrate.
+          En el apartado Catálogo tienes la información relativa de los libros
+          que tenemos a tu disposición, puedes desde esa misma página reservar
+          el libro que te interesa y pasar a recogerlo por nuestras
+          instalaciones en horario de 17:00 h a 20:00h. de Lunes a Viernes,
+          excepto festivos.<br />
+          Si te interesa algún libro y deseas reservarlo, ten en cuenta que
+          debes de ser usuario, sino lo eres todavía, ves al apartado Registro y
+          regístrate.
         </p>
         <p>
-          Puedes acceder al Club de Lectura y ver la lectura elegida. Si te
-          gusta esa lectura y quieres participar debes de ser usuario e
+          En el apartado Club tienes la información correspondiente al Club de
+          Lectura. Puedes acceder al Club de Lectura y ver la lectura elegida.
+          Si te gusta esa lectura y quieres participar debes de ser usuario e
           inscribirte en el club.
         </p>
       </article>
     </main>
     <aside>
       <h2>TABLÓN DE NOTAS</h2>
-      <p>sección en construcción</p>
+      <div class="continente">
+        <div class="contenedor_flip">
+          <div class="flip">
+            <img
+              th:src="@{/img/post-it2_reducido.png}"
+              src="img/post-it2_reducido.png"
+              class="flip-1"
+              alt="horario"
+            />
+            <img
+              th:src="@{/img/post-it2reves_reducido.png}"
+              src="img/post-it2_reducido.png"
+              class="flip-2"
+              alt="horario"
+            />
+          </div>
+        </div>
+        <div class="contenedor_flip">
+          <div class="flipa">
+            <img
+              th:src="@{/img/post-itlista.png}"
+              src="img/post-it2_reducido.png"
+              class="flipa-1"
+              alt="horario"
+            />
+            <div class="flipa-2">
+              <h5>Lista</h5>
+              Texto de prueba
+            </div>
+          </div>
+        </div>
+      </div>
     </aside>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

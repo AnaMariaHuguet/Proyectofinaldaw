@@ -1,22 +1,9 @@
 
-var peticion, datosjson, opcion, url, selgenero, selcategoria, selautor, contenido,bodytabla;
-var todapantallapopup, todapantallaerror, todapantallapopup2, carritoReserva;
+var peticion, datosjson, opcion, url, selgenero, selcategoria, selautor, bodytabla;
 
-function crearElementoTexto( tipo="div", padre=contenido, texto=""){
-    let elemento=document.createElement(tipo);
-    if (texto != "")
-        elemento.textContent=texto;
-    padre.appendChild(elemento);
-    return elemento;
-}
-function salidaMensajeError(message){
-    const mensaje = document.getElementById("mensajeerror");
-    todapantallaerror.style.display="flex";
-    mensaje.style.display = "block";
-    const textomensaje = document.getElementById("textomensajeerror");
-    textomensaje.textContent = message;
-    document.getElementById("titulomensajeerror").textContent = "ERROR";
-}
+
+
+
 function procesaRespuesta(){    
     if(peticion.status===200){
         datosjson=JSON.parse(peticion.responseText);     
@@ -95,60 +82,35 @@ function procesaTodasCategoriasRespuesta(peti){
     }
 }
 
-function realizaPeticionNovedades(){
-    let peticion3=new XMLHttpRequest();
-    url="/api/libro";       
-    peticion3.open('POST', url);     
-    peticion3.setRequestHeader("Content-Type", "application/json;charset=UTF-8");       
-    peticion3.addEventListener('load',() => procesaNovedadesRespuesta(peticion3));
-    peticion3.send();
-}
-
-function procesaNovedadesRespuesta(peti){    
-    if(peti.status===200){
-        const datos=JSON.parse(peti.responseText);
-        if (datos) {
-            console.log(datos);            
-            //sacar los 10 ultimos libros del repolibro
-            datos.forEach( dato => {                
-                const nuevolabel = crearElementoTexto("label", novedades, dato.titulo)
-                nuevolabel.setAttribute("value", dato.id);
-            });
-        }
-    }
-}
-
 function mostrarLibros(libros){    
-    if(libros!=null){     
+    if(libros!=null){ 
         bodytabla.innerHTML = "";        
         for(let i=0; i<libros.length; i++){            
-            let fila=crearElementoTexto('tr',bodytabla);
+            let fila=crearElementoTexto('tr',bodytabla);            
             crearElementoTexto('td',fila, libros[i].id);
-            crearElementoTexto('td',fila, libros[i].titulo);
+            let titulo=crearElementoTexto('td',fila);
+            let enlace=crearElementoTexto('a', titulo,libros[i].titulo);
+             enlace.setAttribute("href","/libro/" +libros[i].id );
+             enlace.value= libros[i].id;
             crearElementoTexto('td',fila, libros[i].autor.nombre + ' '+ libros[i].autor.apellido);
             crearElementoTexto('td',fila, libros[i].categoria.nombre);
-            crearElementoTexto('td',fila, libros[i].isbn);
-            crearElementoTexto('td',fila, libros[i].ubicacion);
-            let td_detalles=crearElementoTexto('td',fila);            
-            let detalles=crearElementoTexto('button',td_detalles,"Detalles");
-            detalles.value = libros[i].id;
-            detalles.className='btnDetRes';
-            detalles.name = 'detalles';
-            let icon = crearElementoTexto('i', detalles);
-                icon.setAttribute("class","icon-info-sign margin-5"); 
+            crearElementoTexto('td',fila, libros[i].isbn); 
+           
+            if(nombreusuario!="Visitante"){
+                let td_reserva=crearElementoTexto('td',fila);           
+                let reserva=crearElementoTexto('button',td_reserva,"Reserva");
+                reserva.value = libros[i].id;
+                reserva.className='btnDetRes';
+                reserva.name = 'reserva';
+                reserva.addEventListener('click', realizaReserva);
+            }
+          
             
-            detalles.addEventListener('click', mostrarDetalles);
-            let td_reserva=crearElementoTexto('td',fila);            
-            let reserva=crearElementoTexto('button',td_reserva,"Reserva");
-            reserva.value = libros[i].id;
-            reserva.className='btnDetRes';
-            reserva.name = 'reserva';
-            reserva.addEventListener('click', realizaReserva);
         }
     }
     
 }
-function mostrarDetalles(e){
+/*function mostrarDetalles(e){
     e.preventDefault ();   
    
     const idLibro = e.target.value;
@@ -189,34 +151,20 @@ function mostrarDetalles(e){
             let mensaje="Libro no encontrado";
             salidaMensajeError(mensaje);
         }
-    })
-    
-}
+    })    
+}*/
 window.addEventListener('load',function(){
     selgenero=document.getElementById("selgenero");
     selcategoria=document.getElementById("selcategoria");
     let preselautor=document.getElementById("selautor");
-    let cerrarDetalles=document.getElementById("cerrarDetalles");
-    todapantallapopup=document.getElementById("popupcontenedor");
-    todapantallaerror=document.getElementById("errorcontenedor");
-    let popup = document.getElementById("popup");
-    bodytabla=document.getElementById('bodytabla');
-    todapantallapopup2=document.getElementById("popupcontenedor2");    
-    let popup2 = document.getElementById("popup2");
-    carritoReserva=document.getElementById("carrito");
-    let novedades=document.getElementById("novedades");
-    
+    bodytabla=document.getElementById('bodytabla'); 
+    nombreusuario=document.getElementById("nombreUsuario");
 
-    const botonesDetalles = document.getElementsByName('detalles'); 
-    for(let i = 0; i < botonesDetalles.length; i++) {
-        botonesDetalles[i].addEventListener('click', mostrarDetalles);
-    }  
     const botonesReserva = document.getElementsByName('reserva');     
     for(let i = 0; i < botonesReserva.length; i++) {
         botonesReserva[i].addEventListener('click', realizaReserva);
     }
     
-
     selgenero.addEventListener('change', function(){  
         if (selgenero.value == '') {
             realizaPeticionTodas();
@@ -235,44 +183,7 @@ window.addEventListener('load',function(){
     preselautor.addEventListener('change', function(){
         const au = preselautor.value;
         selautor=document.querySelector("#autorList option[value='"+au+"']").dataset.value;
-        realizaPeticionAjax('autor',selautor);
-        //console.log(selautor);
+        realizaPeticionAjax('autor',selautor);        
     }) 
-    todapantallapopup.addEventListener("click", function(){
-        this.style.display="none";
-    });
-
-    cerrarDetalles.addEventListener("click", function(){
-       todapantallapopup.style.display="none";
-    });
-    todapantallaerror.addEventListener("click", function(){
-        this.style.display="none";
-    });
-    cerrarError.addEventListener("click", function(){
-        todapantallaerror.style.display="none";
-     });
-    
-    popup.addEventListener("click", function (e) {
-        e.stopPropagation();
-    })
-    todapantallapopup2.addEventListener("click", function(){
-        this.style.display="none";
-    });
-    popup2.addEventListener("click", function (e) {
-        e.stopPropagation();
-    })
-    cerrarReserva.addEventListener("click", function(){
-        todapantallapopup2.style.display="none";
-     });
-
-     carritoReserva.addEventListener('click', mostrarReservas);   
-     
-     novedades.addEventListener("click", function(){
-        realizaPeticionNovedades();
-    });
-        
 })
 
-window.addEventListener('resize', function(){    
-    todapantallapopup.style.display="none";
-})

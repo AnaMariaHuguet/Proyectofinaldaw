@@ -9,13 +9,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloNoticias.css" rel="stylesheet" type="text/css" />
     <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
-    <link
-      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
-      rel="stylesheet"
-    />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
 
+    <script src="/js/nav.js"></script>
     <title>Noticias</title>
   </head>
   <body>
@@ -23,7 +26,7 @@
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
       <section>
-        <h2>NOTICIAS</h2>
+        <h2>ENLACES DE INTERÉS</h2>
 
         <iframe
           src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fseldageldo&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
@@ -34,19 +37,22 @@
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
         ></iframe>
         <iframe
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felolmoclublectura%2F&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fayuntamientogeldo%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+          style="border: none; overflow: hidden"
           scrolling="no"
           frameborder="0"
           allowfullscreen="true"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
         ></iframe>
         <iframe
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felolmoclublectura%2F&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FSociedad-Musical-Geldo-1645247145774070&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+          style="border: none; overflow: hidden"
           scrolling="no"
           frameborder="0"
           allowfullscreen="true"
           allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
         ></iframe>
+        <h2>OTROS CLUBS DE LECTURA</h2>
         <iframe
           src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Felolmoclublectura%2F&tabs=timeline&width=340&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
           scrolling="no"
@@ -56,10 +62,7 @@
         ></iframe>
       </section>
     </main>
-    <aside>
-      <h2>TABLÓN DE NOTAS</h2>
-      <p>sección en construcción</p>
-    </aside>
+    <aside></aside>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>
