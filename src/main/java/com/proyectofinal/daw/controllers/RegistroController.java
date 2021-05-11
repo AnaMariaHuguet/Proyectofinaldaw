@@ -59,6 +59,14 @@ public class RegistroController {
         if (result.hasErrors()) {
             return "formulario/registro";
         } else {
+            usuario.setNombre(
+                    usuario.getNombre().substring(0, 1).toUpperCase() + usuario.getNombre().substring(1).toLowerCase());
+            usuario.setApellido(usuario.getApellido().substring(0, 1).toUpperCase()
+                    + usuario.getApellido().substring(1).toLowerCase());
+            usuario.setDireccion(usuario.getDireccion().substring(0, 1).toUpperCase()
+                    + usuario.getDireccion().substring(1).toLowerCase());
+            usuario.setPoblacion(usuario.getPoblacion().substring(0, 1).toUpperCase()
+                    + usuario.getPoblacion().substring(1).toLowerCase());
             usuarioRepo.save(usuario);
         }
         return "redirect:/";

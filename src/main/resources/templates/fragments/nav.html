@@ -10,7 +10,7 @@
       <sec:authorize access="hasRole('ROLE_CLUB_LECTURA')" var="isRoleClubLectura"></sec:authorize>
       <button id="mostrarMenu" class="mostrarMenu" >
         <i class="fas fa-align-justify">Menu</i>
-      </button>
+      </button>      
       <ul id="navMenu">
         <button id="ocultarMenu" class="ocultarMenu">
           <i class="fas fa-times"></i>
@@ -49,7 +49,7 @@
         <li >
           <a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i>Salir</a>
         </li>
-      </ul>
+      </ul>   
       <div class="todapantalla" id="popupcontenedor2">
         <div class="fragmentCarro" th:insert="fragments/carritoReserva :: carroReserva"></div>
       </div>
@@ -60,6 +60,18 @@
           class="oculto"
         ></div>
       </div>
+      <div th:if="${errorserver}">       
+        <script th:inline="javascript">     
+          const todapantallaerror1=document.getElementById("errorcontenedor"); 
+          const mensaje1 = document.getElementById("mensajeerror");     
+          todapantallaerror1.style.display="flex";
+          mensaje1.style.display = "block";
+          const textomensaje = document.getElementById("textomensajeerror");
+          textomensaje.textContent = /*[[${errorserver}]]*/ "error";
+          document.getElementById("titulomensajeerror").textContent = "ERROR";
+        </script>
+      </div>
+      
     </nav>    
 
   </body>

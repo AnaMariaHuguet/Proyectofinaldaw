@@ -3,6 +3,7 @@ package com.proyectofinal.daw.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,10 +34,11 @@ public class HistoricoPrestamos implements Serializable {
     @JoinColumn(name = "libro_id", nullable = false)
     @JsonIgnoreProperties({ "historicoPrestamo", "reserva", "prestamo" })
     private Libro libro;
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date f_prestamo;
+    private Date fPrestamo;
     @Temporal(TemporalType.DATE)
-    private Date f_devolucion;
+    private Date fDevolucion;
     @OneToOne
     @JoinColumn(name = "votacion_id")
     @JsonManagedReference
@@ -66,20 +68,20 @@ public class HistoricoPrestamos implements Serializable {
         this.libro = libro;
     }
 
-    public Date getF_prestamo() {
-        return this.f_prestamo;
+    public Date getFPrestamo() {
+        return this.fPrestamo;
     }
 
-    public void setF_prestamo(Date f_prestamo) {
-        this.f_prestamo = f_prestamo;
+    public void setFPrestamo(Date fPrestamo) {
+        this.fPrestamo = fPrestamo;
     }
 
-    public Date getF_devolucion() {
-        return this.f_devolucion;
+    public Date getFDevolucion() {
+        return this.fDevolucion;
     }
 
-    public void setF_devolucion(Date f_devolucion) {
-        this.f_devolucion = f_devolucion;
+    public void setFDevolucion(Date fDevolucion) {
+        this.fDevolucion = fDevolucion;
     }
 
     public Votacion getVotacion() {

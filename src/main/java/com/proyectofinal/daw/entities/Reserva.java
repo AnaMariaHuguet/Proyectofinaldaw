@@ -2,10 +2,9 @@ package com.proyectofinal.daw.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,9 +34,10 @@ public class Reserva implements Serializable {
     @JsonIgnoreProperties("reserva")
     private Libro libro;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date f_reservaHecha;
+    @Column(nullable = false)
+    private Date fReservaHecha;
     @Temporal(TemporalType.DATE)
-    private Date f_devolucion;
+    private Date fDevolucion;
 
     public Long getId() {
         return this.id;
@@ -63,20 +63,20 @@ public class Reserva implements Serializable {
         this.libro = libro;
     }
 
-    public Date getF_reservaHecha() {
-        return this.f_reservaHecha;
+    public Date getFReservaHecha() {
+        return this.fReservaHecha;
     }
 
-    public void setF_reservaHecha(Date f_reservaHecha) {
-        this.f_reservaHecha = f_reservaHecha;
+    public void setFReservaHecha(Date fReservaHecha) {
+        this.fReservaHecha = fReservaHecha;
     }
 
-    public Date getF_devolucion() {
-        return this.f_devolucion;
+    public Date getFDevolucion() {
+        return this.fDevolucion;
     }
 
-    public void setF_devolucion(Date f_devolucion) {
-        this.f_devolucion = f_devolucion;
+    public void setFDevolucion(Date fDevolucion) {
+        this.fDevolucion = fDevolucion;
     }
 
 }

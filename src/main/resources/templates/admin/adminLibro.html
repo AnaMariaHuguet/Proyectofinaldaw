@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/zonaAdmin.js"></script>
+    <title>Administración</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
+    <section class="contenido" id="contenido">
+      <h2>Libro</h2>
+      <div>
+        <table class="tablaCatalogo" id="tablaCatalogo">
+          <thead>
+            <tr>
+              <th>
+                <div th:if="${sortBy ne 'id'}">
+                  <a th:href="@{'/admin/libro?page=1&sortby=id&order=asc'}"
+                    >ID <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'asc'}">
+                  <a th:href="@{'/admin/libro?page=1&sortby=id&order=desc'}"
+                    >ID <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'desc'}">
+                  <a th:href="@{'/admin/libro?page=1&sortby=id&order=asc'}"
+                    >ID <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'titulo'}">
+                  <a th:href="@{'/admin/libro?page=1&sortby=titulo&order=asc'}">
+                    Título <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'titulo'}"
+                  th:if="${order eq 'asc'}"
+                >
+                  <a th:href="@{'/admin/libro?page=1&sortby=titulo&order=desc'}"
+                    >Título <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'titulo'}"
+                  th:if="${order eq 'desc'}"
+                >
+                  <a th:href="@{'/admin/libro?page=1&sortby=titulo&order=asc'}"
+                    >Título <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'Autor.nombre'}">
+                  <a
+                    th:href="@{'/admin/libro?page=1&sortby=Autor.nombre&order=asc'}"
+                  >
+                    Autor <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Autor.nombre'}"
+                  th:if="${order eq 'asc'}"
+                >
+                  <a
+                    th:href="@{'/admin/libro?page=1&sortby=Autor.nombre&order=desc'}"
+                    >Autor <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Autor.nombre'}"
+                  th:if="${order eq 'desc'}"
+                >
+                  <a
+                    th:href="@{'/admin/libro?page=1&sortby=Autor.nombre&order=asc'}"
+                    >Autor <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'Categoria.nombre'}">
+                  <a
+                    th:href="@{'/admin/libro?page=1&sortby=Categoria.nombre&order=asc'}"
+                  >
+                    Categoría <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Categoria.nombre'}"
+                  th:if="${order eq 'asc'}"
+                >
+                  <a
+                    th:href="@{'/admin/libro?page=1&sortby=Categoria.nombre&order=desc'}"
+                    >Categoría <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Categoria.nombre'}"
+                  th:if="${order eq 'desc'}"
+                >
+                  <a
+                    th:href="@{'/admin/libro?page=1&sortby=Categoria.nombre&order=asc'}"
+                    >Categoría <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'Isbn'}">
+                  <a th:href="@{'/admin/libro?page=1&sortby=Isbn&order=asc'}">
+                    ISBN <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'asc'}">
+                  <a th:href="@{'/admin/libro?page=1&sortby=Isbn&order=desc'}"
+                    >ISBN <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'desc'}">
+                  <a th:href="@{'/admin/libro?page=1&sortby=Isbn&order=asc'}"
+                    >ISBN <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>Modificar</th>
+              <th>Borrar</th>
+              <th>Lectura Club</th>
+            </tr>
+          </thead>
+          <tbody class="bodytabla" id="bodytabla">
+            <tr th:each="book : ${libro}">
+              <td th:text="${book.id}" />
+              <td>
+                <a
+                  th:text="${book.titulo}"
+                  th:href="@{'/libro/' + ${book.id}}"
+                />
+              </td>
+              <td
+                th:text="${book.getAutor().nombre+ ' ' +book.getAutor().apellido}"
+              />
+              <td th:text="${book.getCategoria().nombre}" />
+              <td th:text="${book.isbn}" />
+
+              <td>
+                <form
+                  th:object="${libro}"
+                  th:action="@{/libro/editar}"
+                  method="POST"
+                >
+                  <button
+                    class="boton"
+                    id="btnEditarLibro"
+                    name="btnEditarLibro"
+                    th:value="${book.id}"
+                  >
+                    <i class="fas fa-edit"></i>
+                    Editar
+                  </button>
+                </form>
+              </td>
+              <td>
+                <form
+                  th:object="${libro}"
+                  th:action="@{'/libro/borrar/'+${book.id}}"
+                  method="POST"
+                >
+                  <button
+                    class="boton"
+                    id="btnBorrarLibro"
+                    name="btnBorrarLibro"
+                    th:value="${book.id}"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                    Borrar
+                  </button>
+                </form>
+              </td>
+              <td>
+                <form
+                  th:object="${libro}"
+                  th:action="@{'/libro/lecturaClub/'+${book.id}}"
+                  method="POST"
+                >
+                  <button
+                    class="boton"
+                    id="btnLecturaClub"
+                    name="btnLecturaClub"
+                    th:value="${book.id}"
+                  >
+                    Elección
+                  </button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div th:if="${ !paginas.isEmpty() }">
+          <nav class="navPagination">
+            <ul class="pagination">
+              <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
+              <li class="page-item" th:each="pagina : ${paginas}">
+                <a
+                  class="page-link"
+                  th:text="${pagina}"
+                  th:href="@{'/catalogo?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+                ></a>
+                <!--<a
+                    class="page-link"
+                    th:href="@{/catalogo/{page}/{sortby}/{order}
+    (page=1,sortby=${sortby},order=${order eq 'desc'} ? 'asc' : 'desc')}"
+                  ></a>-->
+              </li>
+              <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

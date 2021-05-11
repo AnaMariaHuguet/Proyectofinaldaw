@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloPerfil.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/borrarPerfilUsuario.js"></script>
+
+    <title>borrar Perfil</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+      <section>
+        <h2>PERFIL</h2>
+        <form action="#" th:object="${usuario}" method="POST">
+          <fieldset>
+            <section>
+              <div>
+                <label for="id">Id: </label>
+                <input
+                  type="text"
+                  for="id"
+                  name="id"
+                  th:field="*{id}"
+                  readonly
+                />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label for="nombre">Nombre: </label>
+                <input
+                  type="text"
+                  for="nombre"
+                  name="nombre"
+                  th:field="*{nombre}"
+                  readonly
+                />
+              </div>
+            </section>
+
+            <section>
+              <div>
+                <label>Apellidos: </label>
+                <input
+                  type="text"
+                  name="apellido"
+                  th:field="*{apellido}"
+                  readonly
+                />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label>Dirección:</label>
+                <input
+                  type="text"
+                  name="direccion"
+                  field="*{direccion}"
+                  readonly
+                />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label>Cod. postal: </label>
+                <input
+                  type="text"
+                  name="cod_postal"
+                  th:field="*{cod_postal}"
+                  readonly
+                />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label>Población: </label>
+                <input
+                  type="text"
+                  name="poblacion"
+                  th:field="*{poblacion}"
+                  readonly
+                />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label>Email: </label>
+                <input type="email" name="email" th:field="*{email}" readonly />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label>Teléfono: </label>
+                <input
+                  type="tel"
+                  name="telefono"
+                  th:field="*{telefono}"
+                  readonly
+                />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label>NIF: </label>
+                <input type="text" name="nif" th:field="*{nif}" readonly />
+              </div>
+            </section>
+            <section>
+              <div>
+                <label>Año nacimiento: </label>
+                <input
+                  type="text"
+                  name="anoNac"
+                  th:field="*{anoNac}"
+                  readonly
+                />
+              </div>
+            </section>
+          </fieldset>
+        </form>
+        <button class="boton" name="btnBorrarPerfil" id="btnBorrarPerfil">
+          <i class="fas fa-trash-alt"></i>
+          Borrar
+        </button>
+
+        <br />
+      </section>
+
+      <section>
+        <h2>PRÉSTAMOS ACTUALES</h2>
+        <table class="tablaCatalogo" id="tablaPrestamo">
+          <thead>
+            <tr>
+              <th>
+                <div th:if="${sortByprest ne 'titulo'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=titulo&orderprest=asc'}"
+                  >
+                    Título <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortByprest ne 'titulo'}"
+                  th:if="${orderprest eq 'asc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=titulo&orderprest=desc'}"
+                    >Título <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortByprest ne 'titulo'}"
+                  th:if="${orderprest eq 'desc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=titulo&orderprest=asc'}"
+                    >Título <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortByprest ne 'Autor.nombre'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=Autor.nombre&orderprest=asc'}"
+                  >
+                    Autor <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortByprest ne 'Autor.nombre'}"
+                  th:if="${orderprest eq 'asc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=Autor.nombre&orderprest=desc'}"
+                    >Autor <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortByprest ne 'Autor.nombre'}"
+                  th:if="${orderprest eq 'desc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=Autor.nombre&orderprest=asc'}"
+                    >Autor <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortByprest ne 'fDevolucion'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolucion&orderprest=asc'}"
+                  >
+                    Devolver <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortByprest ne 'fDevolucion'}"
+                  th:if="${orderprest eq 'asc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolucion&orderprest=desc'}"
+                    >Devolver<i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortByprest ne 'fDevolucion'}"
+                  th:if="${orderprest eq 'desc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolucion&orderprest=asc'}"
+                    >Devolver<i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bodytabla" id="bodyprestamos">
+            <tr th:each="prestamo : ${pageprestamo}">
+              <td>
+                <span th:text="${prestamo.Libro.titulo}" />
+              </td>
+              <td
+                th:text="${prestamo.Libro.getAutor().getNombre()+' '+prestamo.Libro.getAutor().getApellido()}"
+              ></td>
+              <td>
+                <span
+                  th:text="${#dates.format(prestamo.fDevolucion, 'dd-MM-yy')}"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h2>HISTORIAL</h2>
+        <div>
+          <table class="tablaCatalogo" id="tablaHistorico">
+            <thead>
+              <tr>
+                <th>
+                  <div th:if="${sortBy ne 'titulo'}">
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=titulo&order=asc'}"
+                    >
+                      Título <i class="fas fa-sort"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'titulo'}"
+                    th:if="${order eq 'asc'}"
+                  >
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=titulo&order=desc'}"
+                      >Título <i class="fas fa-sort-up"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'titulo'}"
+                    th:if="${order eq 'desc'}"
+                  >
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=titulo&order=asc'}"
+                      >Título <i class="fas fa-sort-down"></i
+                    ></a>
+                  </div>
+                </th>
+                <th>
+                  <div th:if="${sortBy ne 'Autor.nombre'}">
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=Autor.nombre&order=asc'}"
+                    >
+                      Autor <i class="fas fa-sort"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'Autor.nombre'}"
+                    th:if="${order eq 'asc'}"
+                  >
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=Autor.nombre&order=desc'}"
+                      >Autor <i class="fas fa-sort-up"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'Autor.nombre'}"
+                    th:if="${order eq 'desc'}"
+                  >
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=Autor.nombre&order=asc'}"
+                      >Autor <i class="fas fa-sort-down"></i
+                    ></a>
+                  </div>
+                </th>
+                <th>
+                  <div th:if="${sortBy ne 'fDevolucion'}">
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=fDevolucion&order=asc'}"
+                    >
+                      Leído <i class="fas fa-sort"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'fDevolucion'}"
+                    th:if="${order eq 'asc'}"
+                  >
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=fDevolucion&order=desc'}"
+                      >Leído<i class="fas fa-sort-up"></i
+                    ></a>
+                  </div>
+                  <div
+                    th:unless="${sortBy ne 'fDevolucion'}"
+                    th:if="${order eq 'desc'}"
+                  >
+                    <a
+                      class="thfalso"
+                      th:href="@{'/adminUsuarioPerfil?sortby=fDevolucion&order=asc'}"
+                      >Leído<i class="fas fa-sort-down"></i
+                    ></a>
+                  </div>
+                </th>
+                <th>Puntuación</th>
+              </tr>
+            </thead>
+            <tbody class="bodytabla" id="bodyhistorico">
+              <tr th:each="entrada : ${pagehistorico}">
+                <td>
+                  <a th:text="${entrada.Libro.titulo}" />
+                </td>
+                <td
+                  th:text="${entrada.Libro.getAutor().nombre+ ' ' +entrada.Libro.getAutor().apellido}"
+                ></td>
+                <td>
+                  <a
+                    th:text="${#dates.format(entrada.fDevolucion, 'dd-MM-yy')}"
+                  />
+                </td>
+                <td>
+                  <div th:if="${entrada.votacion ne null}">
+                    <span
+                      id="puntuacion"
+                      th:text="${entrada.votacion.puntuacion.valor}"
+                    />
+                    <span id="pintarestrella"></span>
+                  </div>
+                  <div
+                    th:unless="${entrada.votacion ne null}"
+                    th:if="${entrada.votacion eq null}"
+                  ></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

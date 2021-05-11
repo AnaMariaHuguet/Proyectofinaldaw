@@ -1,0 +1,17 @@
+table img {
+  width: 10vw;
+  max-width: 70px;
+}
+table td {
+  min-width: 82px;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  table th:nth-child(2),
+  table th:nth-child(3),
+  table td:nth-child(2),
+  table td:nth-child(3) {
+    display: none;
+  }
+}

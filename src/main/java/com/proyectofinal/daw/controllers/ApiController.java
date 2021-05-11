@@ -19,6 +19,7 @@ import com.proyectofinal.daw.repositories.AutorRepository;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
 import com.proyectofinal.daw.repositories.GeneroRepository;
 import com.proyectofinal.daw.repositories.LibroRepository;
+import com.proyectofinal.daw.repositories.PrestamoRepository;
 import com.proyectofinal.daw.repositories.ReservaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,8 @@ public class ApiController {
 
     @Autowired
     ReservaRepository repoReserva;
+    @Autowired
+    PrestamoRepository repoPrestamo;
 
     @PostMapping("/libro/genero")
     public List<Libro> getLibrosPorGenero(@RequestBody Map<String, String> params) {
@@ -106,6 +109,7 @@ public class ApiController {
     // POST -> Añadir
     @PostMapping("/libros")
     public Libro add(@RequestBody Libro libro) {
+        // ver que no este repetido
         return repoLibro.save(libro);
     }
 
@@ -121,6 +125,8 @@ public class ApiController {
 
     @DeleteMapping("/libros/{id}")
     public ResponseEntity<String> borrarLibros(@PathVariable Long id) {
+        // antes de borrar mirar que no este prestado o reservado
+
         repoLibro.deleteById(id);
         return new ResponseEntity<String>("borrado", HttpStatus.OK);
     }
@@ -156,8 +162,8 @@ public class ApiController {
         Reserva nuevaReserva = new Reserva();
         nuevaReserva.setLibro(libro.get());
         nuevaReserva.setUsuario(usuario);
-        nuevaReserva.setF_reservaHecha(new Date());
-        nuevaReserva.setF_devolucion(new Date(new Date().getTime() + (1000 * 60 * 60 * 48)));
+        nuevaReserva.setFReservaHecha(new Date());
+        nuevaReserva.setFDevolucion(new Date(new Date().getTime() + (1000 * 60 * 60 * 48)));
         repoReserva.save(nuevaReserva);
         // añadimos el nuevo objeto reserva a la arraylist
         reservaAnterior.add(nuevaReserva);

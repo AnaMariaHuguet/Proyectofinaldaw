@@ -24,37 +24,31 @@
   <body>
     <div class="header" th:insert="fragments/header :: header"></div>
     <div class="nav" th:insert="fragments/nav :: nav"></div>
-
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
     <section class="contenido" id="contenido">
-      <h2>Añadir género</h2>
-      <div>
-        <input
-          class="boton"
-          autofocus
-          type="text"
-          name="selgenero"
-          id="selgenero"
-          list="generoList"
-          placeholder="Buscar género"
-        />
-        <datalist id="generoList">
-          <option
-            th:each="generos: ${genero}"
-            th:value="${generos.getNombre()}"
-            th:data-value="${generos.getId()}"
-          ></option>
-        </datalist>
-      </div>
+      <h2>Género</h2>
       <div>
         <form th:object="${genero}" th:action="@{/newGenero}" method="POST">
           <input
-            class="boton"
+            class="boton2"
+            autofocus
             type="text"
-            name="newgenero"
-            id="newgenero"
-            placeholder="nuevo género"
+            name="nombre"
+            id="selgenero"
+            list="generoList"
+            placeholder="Introduce nuevo género "
+            th:field="*{nombre}"
+            th:errorclass="fieldError"
           />
+
+          <datalist id="generoList">
+            <option
+              th:each="genero : ${generos}"
+              th:value="${genero.nombre}"
+              th:data-value="${genero.id}"
+            ></option>
+          </datalist>
+
           <input
             class="boton"
             type="submit"
@@ -62,53 +56,105 @@
             name="btnNewGenero"
             value="Guardar"
           />
+          <br />
+          <small
+            th:if="${#fields.hasErrors('nombre')}"
+            th:errors="*{nombre}"
+          ></small>
         </form>
+        <br />
       </div>
-      <table class="tablaCatalogo1" id="tablaGenero">
-        <thead>
-          <table>
-            <th>
-              <div th:if="${sortBy ne 'nombre'}">
-                <a th:href="@{'/admin/genero?sortby=nombre&order=asc'}">
-                  Género <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'asc'}">
-                <a th:href="@{'/admin/genero?sortby=nombre&order=desc'}"
-                  >Usuario <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div
-                th:unless="${sortBy ne 'nombre'}"
-                th:if="${order eq 'desc'}"
+      <div class="tabla tablaCatalogo1" id="tablaGenero">
+        <div class="thead">
+          <div class="th">
+            <div th:if="${sortBy ne 'nombre'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/genero?page=1&sortby=nombre&order=asc'}"
               >
-                <a th:href="@{'/admin/genero?sortby=nombre&order=asc'}"
-                  >Usuario <i class="fas fa-sort-down"></i
-                ></a>
+                Género <i class="fas fa-sort"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'asc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/genero?page=1&sortby=nombre&order=desc'}"
+                >Género <i class="fas fa-sort-up"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'desc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/genero?page=1&sortby=nombre&order=asc'}"
+                >Género <i class="fas fa-sort-down"></i
+              ></a>
+            </div>
+          </div>
+          <div class="th">Modificar</div>
+          <div class="th">Borrar</div>
+        </div>
+        <div class="tbody bodytabla1" id="bodygenero">
+          <div class="tr" th:each="generos : ${generostodos}">
+            <form
+              th:object="${genero}"
+              th:action="@{/genero/editar}"
+              method="POST"
+            >
+              <div class="td">
+                <input
+                  type="text"
+                  name="nombre"
+                  th:value="${generos.nombre}"
+                  th:errorclass="fieldError"
+                />
               </div>
-            </th>
-            <th>Modificar</th>
-            <th>Borrar</th>
-            <tbody class="bodytabla1" id="bodygenero">
-              <form th:each="generos : ${genero}">
-                <tr>
-                  <td th:text="${generos.nombre}">
-                  </td>
-                  <td>
-                    <button  class="boton" id="btnEditarGenero" name="btnEditarGenero" th:value="${generos.id}">
-                      Editar
-                    </button> 
-                  </td>
-                  <td>
-                    <button class="boton" id="btnBorrarGenero" name="btnBorrarGenero" th:value="${generos.id}">
-                    Borrar
-                    </button>
-                  </td>
-                </tr>
+              <div class="td">
+                <button
+                  class="boton"
+                  type="submit"
+                  id="btnEditarGenero"
+                  name="id"
+                  th:value="${generos.id}"
+                >
+                  <i class="fas fa-edit"></i>
+                  Editar
+                </button>
+              </div>
+            </form>
+            <div class="td">
+              <form
+                th:action="@{'/genero/borrar/'+${generos.id}}"
+                method="POST"
+              >
+                <button
+                  class="boton"
+                  id="btnBorrarGenero"
+                  name="btnBorrarGenero"
+                  th:value="${generos.id}"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                  Borrar
+                </button>
               </form>
-            </tbody>
-          </table>
-          
+            </div>
+          </div>
+        </div>
+      </div>
+      <div th:if="${ !paginas.isEmpty() }">
+        <nav class="navPagination">
+          <ul class="pagination">
+            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
+            <li class="page-item" th:each="pagina : ${paginas}">
+              <a
+                class="page-link"
+                th:text="${pagina}"
+                th:href="@{'/admin/genero?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+              ></a>
+            </li>
+            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
+          </ul>
+        </nav>
+      </div>
     </section>
 
     <div class="footer" th:insert="fragments/footer :: footer"></div>

@@ -70,7 +70,8 @@ main {
   background-color: #0281f7;
   color: rgb(246, 247, 203);
 }
-input {
+input,
+select {
   height: 30px;
   max-height: 30px;
   padding-left: 5px;
@@ -78,6 +79,7 @@ input {
 
 input,
 select,
+.boton,
 .btnDetRes,
 .btnOjo {
   background-color: rgb(246, 247, 203);

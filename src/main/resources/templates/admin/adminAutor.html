@@ -24,37 +24,47 @@
   <body>
     <div class="header" th:insert="fragments/header :: header"></div>
     <div class="nav" th:insert="fragments/nav :: nav"></div>
-
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
-
     <section class="contenido" id="contenido">
-      <h2>Añadir Autor</h2>
-      <input
-        class="boton"
-        autofocus
-        type="text"
-        name="selautor"
-        id="selautor"
-        list="autorList"
-        placeholder="Buscar Autor"
-      />
-      <datalist id="autorList">
-        <option
-          th:each="autores : ${autor}"
-          th:value="${autores.getNombre()} + ' ' + ${autores.getApellido()}"
-          th:data-value="${autores.getId()}"
-        ></option>
-      </datalist>
-
+      <h2>Autor</h2>
       <div>
-        <form th:object="${autor}" th:action="@{/}" method="POST">
+        <form th:object="${autor}" th:action="@{/newAutor}" method="POST">
           <input
-            class="boton"
+            class="boton2"
+            autofocus
             type="text"
-            name="newautor"
-            id="newautor"
-            placeholder="nuevo autor"
+            name="nombre"
+            id="selnombreautor"
+            list="nombreList"
+            placeholder="Nombre"
           />
+          <!--<p>th:field="*{nombre}"
+            th:errorclass="fieldError"</p>-->
+          <datalist id="nombreList">
+            <option
+              th:each="autor : ${autores}"
+              th:value="${autor.getNombre()}"
+              th:data-value="${autor.getId()}"
+            ></option>
+          </datalist>
+          <input
+            class="boton2"
+            autofocus
+            type="text"
+            name="apellido"
+            id="selapellidoautor"
+            list="apellidoList"
+            placeholder="Apellido"
+          />
+          <!--<p>th:field="*{apellido}"
+            th:errorclass="fieldError"</p>-->
+          <datalist id="apellidoList">
+            <option
+              th:each="autor : ${autores}"
+              th:value="${autor.getApellido()}"
+              th:data-value="${autor.getId()}"
+            ></option>
+          </datalist>
           <input
             class="boton"
             type="submit"
@@ -62,10 +72,133 @@
             name="btnNewAutor"
             value="Guardar"
           />
+          <br />
+          <!--<small
+              th:if="${#fields.hasErrors('nombre')}"
+              th:errors="*{nombre}"
+            ></small> 
+            <small
+                th:if="${#fields.hasErrors('apellido')}"
+                th:errors="*{apellido}"
+              ></small>-->
         </form>
       </div>
+      <br />
+      <div class="tablaCatalogo1" id="tablaAutor">
+        <div class="thead">
+          <div class="th">
+            <div th:if="${sortBy ne 'nombre'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/autor?page=1&sortby=nombre&order=asc'}"
+              >
+                Nombre <i class="fas fa-sort"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'asc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/autor?page=1&sortby=nombre&order=desc'}"
+                >Nombre <i class="fas fa-sort-up"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'desc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/autor?page=1&sortby=nombre&order=asc'}"
+                >Nombre <i class="fas fa-sort-down"></i
+              ></a>
+            </div>
+          </div>
+          <div class="th">
+            <div th:if="${sortBy ne 'apellido'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/autor?page=1&sortby=apellido&order=asc'}"
+              >
+                Apellido <i class="fas fa-sort"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'apellido'}" th:if="${order eq 'asc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/autor?page=1&sortby=apellido&order=desc'}"
+                >Apellido <i class="fas fa-sort-up"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'apellido'}" th:if="${order eq 'desc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/autor?page=1&sortby=apellido&order=asc'}"
+                >Apellido <i class="fas fa-sort-down"></i
+              ></a>
+            </div>
+          </div>
+          <div class="th">Modificar</div>
+          <div class="th">Borrar</div>
+        </div>
+        <div class="tbody bodytabla1" id="bodyautor">
+          <div class="tr" th:each="autor : ${autorestodos}">
+            <form
+              th:object="${autor}"
+              th:action="@{/autor/editar}"
+              method="POST"
+            >
+              <div class="td">
+                <input type="text" name="nombre" th:value="${autor.nombre}" />
+              </div>
+              <div class="td">
+                <input
+                  type="text"
+                  name="apellido"
+                  th:value="${autor.apellido}"
+                />
+              </div>
+              <div class="td">
+                <button
+                  class="boton"
+                  type="submit"
+                  id="btnEditarAutor"
+                  name="id"
+                  th:value="${autor.id}"
+                >
+                  <i class="fas fa-edit"></i>
+                  Editar
+                </button>
+              </div>
+            </form>
+            <div class="td">
+              <form th:action="@{'/autor/borrar/'+${autor.id}}" method="POST">
+                <button
+                  class="boton"
+                  id="btnBorrarAutor"
+                  name="btnBorrarAutor"
+                  th:value="${autor.id}"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                  Borrar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div th:if="${ !paginas.isEmpty() }">
+        <nav class="navPagination">
+          <ul class="pagination">
+            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
+            <li class="page-item" th:each="pagina : ${paginas}">
+              <a
+                class="page-link"
+                th:text="${pagina}"
+                th:href="@{'/admin/autor?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+              ></a>
+            </li>
+            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
+          </ul>
+        </nav>
+      </div>
     </section>
-
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>

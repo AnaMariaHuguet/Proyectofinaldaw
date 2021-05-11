@@ -1,11 +1,16 @@
 package com.proyectofinal.daw.controllers;
 
+import com.proyectofinal.daw.entities.Prestamo;
+import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Usuario;
+import com.proyectofinal.daw.repositories.PrestamoRepository;
+import com.proyectofinal.daw.repositories.ReservaRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +30,10 @@ import java.util.Optional;
 public class UsuarioApiController {
     @Autowired
     UsuarioRepository usuarioRepo;
+    @Autowired
+    PrestamoRepository repoPrestamo;
+    @Autowired
+    ReservaRepository repoReserva;
 
     @GetMapping("/usuarios")
     public List<Usuario> getUsuario() {
@@ -49,11 +58,15 @@ public class UsuarioApiController {
     @PutMapping("/usuarios")
     public Usuario update(@RequestBody Usuario user) {
         return usuarioRepo.findById(user.getId()).map(usuar -> {
-            usuar.setNombre(user.getNombre());
-            usuar.setApellido(user.getApellido());
-            usuar.setDireccion(user.getDireccion());
+            usuar.setNombre(
+                    user.getNombre().substring(0, 1).toUpperCase() + user.getNombre().substring(1).toLowerCase());
+            usuar.setApellido(
+                    user.getApellido().substring(0, 1).toUpperCase() + user.getApellido().substring(1).toLowerCase());
+            usuar.setDireccion(
+                    user.getDireccion().substring(0, 1).toUpperCase() + user.getDireccion().substring(1).toLowerCase());
             usuar.setCod_postal(user.getCod_postal());
-            usuar.setPoblacion(user.getPoblacion());
+            usuar.setPoblacion(
+                    user.getPoblacion().substring(0, 1).toUpperCase() + user.getPoblacion().substring(1).toLowerCase());
             usuar.setEmail(user.getEmail());
             usuar.setTelefono(user.getTelefono());
             usuar.setNif(user.getNif());
@@ -67,10 +80,27 @@ public class UsuarioApiController {
     }
 
     @DeleteMapping("/usuarios/{id}")
-    public ResponseEntity<String> borrarUsuario(@PathVariable Long id) {
-        // antes de borrar deberia verificar que no tiene libros
-        usuarioRepo.deleteById(id);
-        return new ResponseEntity<String>("borrado", HttpStatus.OK);
+    public ResponseEntity<String> borrarUsuario(@PathVariable Long id, Model model) {
+        // antes de borrar deberia verificar que no tiene libros en prestamo ni
+        // reservados
+        Optional<Usuario> usuario = usuarioRepo.findById(id);
+        List<Prestamo> listaPrestamos = repoPrestamo.findByUsuario(usuario.get());
+        List<Reserva> listaReservas = repoReserva.findByUsuario(usuario.get());
+        if (!listaPrestamos.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario Not Found");
+            // model.addAttribute("errorserver", "No se puede borrar, tiene libros en
+            // préstamo.");
+            // ver que tengo que devolver aqui
+
+        } else if (!listaReservas.isEmpty()) {
+            // model.addAttribute("errorserver", "No se puede borrar, tiene libros en
+            // reserva.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario Not Found");
+            // ver que tengo que devolver aqui
+        } else {
+            usuarioRepo.deleteById(id);
+            return new ResponseEntity<String>("borrado", HttpStatus.OK);
+        }
     }
 
 }

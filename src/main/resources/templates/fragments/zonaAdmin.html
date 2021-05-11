@@ -10,22 +10,23 @@
       <button class="acordeon">Sección Libro</button>
       <div class="panel">
         <a th:href="@{/admin/libro}">
-          <button class="btnAcordeon">Nuevo libro</button>
+          <button class="btnAcordeon">Libro</button>
         </a>
         <a th:href="@{/admin/autor}">
-          <button class="btnAcordeon">Nuevo autor</button>
+          <button class="btnAcordeon">Autor</button>
         </a>
         <a th:href="@{/admin/genero}">
-          <button class="btnAcordeon">Nuevo género</button>
+          <button class="btnAcordeon">Género</button>
         </a>
         <a th:href="@{/admin/categoria}">
-          <button class="btnAcordeon">Nueva categoría</button>
+          <button class="btnAcordeon">Categoría</button>
         </a>
       </div>
       <button class="acordeon">Sección Usuario</button>
       <div class="panel">
-        <button class="btnAcordeon">Nuevo usuario</button>
-        <button class="btnAcordeon">Editar/borrar usuario</button>
+        <a th:href="@{/admin/usuario}">
+          <button class="btnAcordeon">Editar usuario</button>
+        </a>
       </div>
       <button class="acordeon">Sección reservas</button>
       <div class="panel">
@@ -35,9 +36,27 @@
       </div>
       <button class="acordeon">Sección prestamos</button>
       <div class="panel">
-        <button class="btnAcordeon">Ver</button>
-        <button class="btnAcordeon">Nuevo prestamo</button>
-        <button class="btnAcordeon">Borrar prestamo</button>
+        <a th:href="@{/admin/prestamo}">
+          <button class="btnAcordeon">Ver</button>
+        </a>
+        <a th:href="@{/admin/prestamo/nuevo}">
+          <button class="btnAcordeon">Nuevo prestamo</button>
+        </a>
+        <a th:href="@{/admin/prestamo}">
+          <button class="btnAcordeon">Borrar prestamo</button>
+        </a>
+      </div>
+      <button class="acordeon">Sección Club</button>
+      <div class="panel">
+        <a th:href="@{/admin/club}">
+          <button class="btnAcordeon">Ver</button>
+        </a>
+      </div>
+      <button class="acordeon">Sección Notícias</button>
+      <div class="panel">
+        <a th:href="@{/admin/noticias}">
+          <button class="btnAcordeon">Ver</button>
+        </a>
       </div>
       <section class="contenido" id="contenido"></section>
     </main>

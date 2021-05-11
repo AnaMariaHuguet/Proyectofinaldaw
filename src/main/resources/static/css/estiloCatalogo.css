@@ -29,32 +29,7 @@
 /*.bodytabla img {
   width: 50%;
 }*/
-.navPagination {
-  margin-top: 10px;
-  background-color: #a1a84c;
-  display: flex;
-  justify-content: center;
-  height: 40px;
-  padding: 5px;
-}
-.pagination {
-  border: none;
-}
 
-.page-link {
-  height: 100%;
-  color: #000;
-  display: block;
-  background-color: #ab413d;
-  width: 40px;
-  text-align: center;
-  border: 1px solid transparent;
-  border-radius: 50%;
-  margin-left: 5px;
-}
-aside {
-  display: none;
-}
 /*****************media query***********************/
 
 @media (max-width: 800px) {

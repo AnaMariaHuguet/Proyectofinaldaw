@@ -87,9 +87,6 @@ nav button i {
   flex-direction: row;
   justify-content: space-evenly;
 }
-div label {
-  width: 20%;
-}
 
 .popup > .btnirReserva {
   position: absolute;
@@ -132,27 +129,77 @@ div label {
   margin-top: 20px;
 }
 /* tabla*/
-table {
+table,
+.table {
   border-collapse: collapse;
   border: #ab413d solid 2px;
   width: 100%;
 }
-th {
+th,
+.th {
   font-weight: bold;
   border: #ab413d solid 2px;
   width: 60px;
   min-width: 60px;
 }
 
-td {
+td,
+.td {
   padding: 1px 5px;
   border: #ab413d solid 2px;
   text-decoration: none;
 }
-/* Mobile */
+.contenido {
+  padding: 10px;
+}
+.thfalso {
+  font-weight: bold;
+  color: black;
+}
+.contenedorButton {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  top: calc(100%-10px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contenedorButton button {
+  position: relative;
+  width: 50px;
+  height: 40px;
+}
+/**************** paginación ******************/
+.navPagination {
+  margin-top: 10px;
+  background-color: #a1a84c;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  padding: 5px;
+}
+.pagination {
+  border: none;
+}
+
+.page-link {
+  height: 100%;
+  color: #000;
+  display: block;
+  background-color: #ab413d;
+  width: 40px;
+  text-align: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+/**************** Mobile ******************/
 
 @media (max-width: 800px) {
-  ul {
+  nav ul {
     position: fixed;
     top: 0;
     left: 0;

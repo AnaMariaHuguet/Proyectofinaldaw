@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/zonaAdmin.js"></script>
+    <title>Administración</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
+    <section class="contenido" id="contenido">
+      <h2>Nuevo Préstamo</h2>
+      <div>
+        <form th:object="${prestamo}" th:action="@{/newPrestamo}" method="POST">
+          <input
+            class="boton2"
+            autofocus
+            type="text"
+            name="nombre"
+            id="selnombreusuario"
+            list="nombreUsuarioList"
+            placeholder="Nombre usuario"
+          />
+          <datalist id="nombreUsuarioList">
+            <option
+              th:each="usuario : ${usuarios}"
+              th:value="${usuario.nombre}"
+              th:data-value="${usuario.id}"
+            ></option>
+          </datalist>
+          <input
+            class="boton2"
+            autofocus
+            type="text"
+            name="titulo"
+            id="seltitulo"
+            list="tituloList"
+            placeholder="Título"
+          />
+          <datalist id="tituloList">
+            <option
+              th:each="libro : ${libros}"
+              th:value="${libro.titulo}"
+              th:data-value="${libro.id}"
+            ></option>
+          </datalist>
+          <input
+            type="text"
+            th:value="${#temporals.format(localDateTime, 'dd-MM-yyyy HH:mm')}"
+          />
+          <input
+            type="text"
+            th:value="${#temporals.format(devolucionEstimada, 'dd-MM-yyyy')}"
+          />
+          <input
+            class="boton"
+            type="submit"
+            id="btnNewPrestamo"
+            name="btnNewPrestamo"
+            value="Guardar"
+          />
+        </form>
+      </div>
+      <br />
+    </section>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

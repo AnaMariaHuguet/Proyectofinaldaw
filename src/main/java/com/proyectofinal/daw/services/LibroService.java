@@ -1,8 +1,5 @@
 package com.proyectofinal.daw.services;
 
-import java.util.Collections;
-import java.util.List;
-
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.repositories.LibroRepository;
 

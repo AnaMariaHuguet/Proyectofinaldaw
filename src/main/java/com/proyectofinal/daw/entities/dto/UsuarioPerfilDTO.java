@@ -11,11 +11,11 @@ import org.hibernate.validator.constraints.Range;
 public class UsuarioPerfilDTO {
 
     private Long id;
-    @Pattern(regexp = "^[a-zA-Z ]{3,20}$", message = "Error al introducir el nombre")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{3,20}$", message = "Error al introducir el nombre")
     @NotBlank(message = "Nombre obligatorio")
     private String nombre;
 
-    @Pattern(regexp = "^[a-zA-Z ]{1,20}$", message = "Error al introducir el apellido")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{1,20}$", message = "Error al introducir el apellido")
     private String apellido;
 
     @NotBlank(message = "NIF obligatorio")
@@ -26,7 +26,7 @@ public class UsuarioPerfilDTO {
     private int anoNac;
     @NotBlank(message = "direccion obligatorio")
     private String direccion;
-    @Pattern(regexp = "^[a-zA-Z]{1,20}$", message = "Error al introducir la poblacion")
+    @Pattern(regexp = "^[a-zA-Z\s]{1,20}$", message = "Error al introducir la poblacion")
     @NotBlank(message = "poblacion obligatorio")
     private String poblacion;
 

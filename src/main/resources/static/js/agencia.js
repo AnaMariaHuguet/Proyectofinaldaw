@@ -100,59 +100,17 @@ function mostrarLibros(libros){
                 let td_reserva=crearElementoTexto('td',fila);           
                 let reserva=crearElementoTexto('button',td_reserva,"Reserva");
                 reserva.value = libros[i].id;
-                reserva.className='btnDetRes';
+                reserva.className='btnDetRes'; 
+                //iconores=insertBefore(crearElementoTexto('i',reserva))
+                iconores=crearElementoTexto('i',reserva)
+                iconores.setAttribute("class","fas fa-check");                           
                 reserva.name = 'reserva';
                 reserva.addEventListener('click', realizaReserva);
-            }
-          
-            
+            } 
         }
-    }
-    
+    }    
 }
-/*function mostrarDetalles(e){
-    e.preventDefault ();   
-   
-    const idLibro = e.target.value;
-    fetch('/api/libros/' + idLibro,{
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        method: "GET",        
-    }).then( res => {
-        res.json()
-        .then( data => {            
-            console.log(data)
-            localStorage.setItem("detalle", JSON.stringify(data));            
-            todapantallapopup.style.display="flex";
-            popup.style.display="block";
-            let valorId=document.getElementById("valorId");
-            valorId.setAttribute("value",data.id) ;
-            let valorTitulo=document.getElementById("valorTitulo");
-            valorTitulo.setAttribute("value",data.titulo) ;
-            let valorAutor=document.getElementById("valorAutor");
-            valorAutor.setAttribute("value",data.autor.nombre + ' '+ data.autor.apellido) ;
-            let valorIsbn=document.getElementById("valorIsbn");
-            valorIsbn.setAttribute("value",data.isbn) ;
-            let valorEditorial=document.getElementById("valorEditorial");
-            valorEditorial.setAttribute("value",data.editorial) ;
-            let valorGenero=document.getElementById("valorGenero");
-            valorGenero.setAttribute("value",data.categoria.genero.nombre) ;
-            let valorCategoria=document.getElementById("valorCategoria");
-            valorCategoria.setAttribute("value",data.categoria.nombre) ;
-            let valorUbicacion=document.getElementById("valorUbicacion");
-            valorUbicacion.setAttribute("value",data.ubicacion) ;
-            let valorSituacion=document.getElementById("valorSituacion");
-            valorSituacion.setAttribute("value",data.libroSituacion) ; 
-        })       
-    }).catch(err => {        
-        if (err.status == 406) {
-            let mensaje="Libro no encontrado";
-            salidaMensajeError(mensaje);
-        }
-    })    
-}*/
+
 window.addEventListener('load',function(){
     selgenero=document.getElementById("selgenero");
     selcategoria=document.getElementById("selcategoria");

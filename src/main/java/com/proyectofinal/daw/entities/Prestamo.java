@@ -3,6 +3,7 @@ package com.proyectofinal.daw.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,19 +33,20 @@ public class Prestamo implements Serializable {
     @JoinColumn(name = "libro_id", nullable = false)
     @JsonIgnoreProperties({ "prestamo, votaciones" })
     private Libro libro;
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date f_prestamo;
+    private Date fPrestamo;
     @Temporal(TemporalType.DATE)
-    private Date f_devolucion;
+    private Date fDevolucion;
     @Temporal(TemporalType.DATE)
-    private Date f_devol_Estimada;
+    private Date fDevolEstimada;
 
-    public Date getF_devol_Estimada() {
-        return this.f_devol_Estimada;
+    public Date getFDevolEstimada() {
+        return this.fDevolEstimada;
     }
 
-    public void setF_devol_Estimada(Date f_devol_Estimada) {
-        this.f_devol_Estimada = f_devol_Estimada;
+    public void setFDevolEstimada(Date fDevolEstimada) {
+        this.fDevolEstimada = fDevolEstimada;
     }
 
     public Long getId() {
@@ -71,20 +73,20 @@ public class Prestamo implements Serializable {
         this.libro = libro;
     }
 
-    public Date getF_prestamo() {
-        return this.f_prestamo;
+    public Date getFPrestamo() {
+        return this.fPrestamo;
     }
 
-    public void setF_prestamo(Date f_prestamo) {
-        this.f_prestamo = f_prestamo;
+    public void setFPrestamo(Date fPrestamo) {
+        this.fPrestamo = fPrestamo;
     }
 
-    public Date getF_devolucion() {
-        return this.f_devolucion;
+    public Date getFDevolucion() {
+        return this.fDevolucion;
     }
 
-    public void setF_devolucion(Date f_devolucion) {
-        this.f_devolucion = f_devolucion;
+    public void setFDevolucion(Date fDevolucion) {
+        this.fDevolucion = fDevolucion;
     }
 
 }

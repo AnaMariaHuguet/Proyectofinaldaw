@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/zonaAdmin.js"></script>
+    <title>Administración</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
+    <section class="contenido" id="contenido">
+      <h2>Usuario</h2>
+      <div class="tabla tablaCatalogo1" id="tablaUsuario">
+        <div class="thead">
+          <div class="th">
+            <div th:if="${sortBy ne 'nombre'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/usuario?page=1&sortby=nombre&order=asc'}"
+              >
+                Usuario <i class="fas fa-sort"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'asc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/usuario?page=1&sortby=nombre&order=desc'}"
+                >Usuario <i class="fas fa-sort-up"></i
+              ></a>
+            </div>
+            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'desc'}">
+              <a
+                class="thfalso"
+                th:href="@{'/admin/usuario?page=1&sortby=nombre&order=asc'}"
+                >Usuario <i class="fas fa-sort-down"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="tbody bodytabla1" id="bodyusuario">
+          <div class="tr" th:each="usuario : ${usuariostodos}">
+            <div class="td">
+              <a
+                th:text="${usuario.nombre+ ' ' +usuario.apellido}"
+                th:href="@{'/admin/perfilUsuario/' + ${usuario.id}}"
+              />
+            </div>           
+          </div>
+        </div>
+      </div>
+      <div th:if="${ !paginas.isEmpty() }">
+        <nav class="navPagination">
+          <ul class="pagination">
+            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
+            <li class="page-item" th:each="pagina : ${paginas}">
+              <a
+                class="page-link"
+                th:text="${pagina}"
+                th:href="@{'/admin/usuario?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+              ></a>
+            </li>
+            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
+          </ul>
+        </nav>
+      </div>
+    </section>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

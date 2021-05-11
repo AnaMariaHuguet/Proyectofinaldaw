@@ -60,6 +60,20 @@ body > div:nth-child(5) {
   background-color: #0281f7;
   color: rgb(246, 247, 203);
 }
+.table {
+  display: table;
+  border-collapse: collapse;
+}
+.tr {
+  display: table-row;
+}
+.td,
+.th {
+  padding: 5px;
+  text-align: center;
+  display: table-cell;
+  width: 250px;
+}
 
 @media (max-width: 800px) {
   body {

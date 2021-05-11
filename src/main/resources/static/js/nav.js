@@ -135,6 +135,7 @@ function mostrarReservas (carrito) {
         let irReserva=crearElementoTexto('button',popup2,"ir a Reserva");
         irReserva.className="btnirReserva"; 
         irReserva.addEventListener('click',function(){ 
+            //redireccionar a otra ventana
             window.location.href = "/usuario/reserva";
         })
     }   

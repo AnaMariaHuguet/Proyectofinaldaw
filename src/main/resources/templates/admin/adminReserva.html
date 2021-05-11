@@ -98,35 +98,59 @@
               </div>
             </th>
             <th>
-              <div th:if="${sortBy ne 'f_reservaHecha'}">
-                <a th:href="@{'/admin/todasReservas?sortby=f_reservaHecha&order=asc'}">
+              <div th:if="${sortBy ne 'fReservaHecha'}">
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=fReservaHecha&order=asc'}"
+                >
                   Fecha Reserva <i class="fas fa-sort"></i
                 ></a>
               </div>
-              <div th:unless="${sortBy ne 'f_reservaHecha'}" th:if="${order eq 'asc'}">
-                <a th:href="@{'/admin/todasReservas?sortby=f_reservaHecha&order=desc'}"></a>
+              <div
+                th:unless="${sortBy ne 'fReservaHecha'}"
+                th:if="${order eq 'asc'}"
+              >
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=fReservaHecha&order=desc'}"
+                >
                   Fecha Reserva<i class="fas fa-sort-up"></i
                 ></a>
               </div>
-              <div th:unless="${sortBy ne 'f_reservaHecha'}" th:if="${order eq 'desc'}">
-                <a th:href="@{'/admin/todasReservas?sortby=f_reservaHecha&order=asc'}">
+              <div
+                th:unless="${sortBy ne 'fReservaHecha'}"
+                th:if="${order eq 'desc'}"
+              >
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=fReservaHecha&order=asc'}"
+                >
                   Fecha Reserva<i class="fas fa-sort-down"></i
                 ></a>
               </div>
             </th>
             <th>
-              <div th:if="${sortBy ne 'f_devolucion'}">
-                <a th:href="@{'/admin/todasReservas?sortby=f_devolucion&order=asc'}">
-                  Fecha máxima  <i class="fas fa-sort"></i
+              <div th:if="${sortBy ne 'fDevolucion'}">
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=fDevolucion&order=asc'}"
+                >
+                  Fecha máxima <i class="fas fa-sort"></i
                 ></a>
               </div>
-              <div th:unless="${sortBy ne 'f_devolucion'}" th:if="${order eq 'asc'}">
-                <a th:href="@{'/admin/todasReservas?sortby=f_devolucion&order=desc'}"></a>
-                Fecha máxima<i class="fas fa-sort-up"></i
+              <div
+                th:unless="${sortBy ne 'fDevolucion'}"
+                th:if="${order eq 'asc'}"
+              >
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=fDevolucion&order=desc'}"
+                >
+                  Fecha máxima<i class="fas fa-sort-up"></i
                 ></a>
               </div>
-              <div th:unless="${sortBy ne 'f_devolucion'}" th:if="${order eq 'desc'}">
-                <a th:href="@{'/admin/todasReservas?sortby=f_devolucion&order=asc'}">
+              <div
+                th:unless="${sortBy ne 'fDevolucion'}"
+                th:if="${order eq 'desc'}"
+              >
+                <a
+                  th:href="@{'/admin/todasReservas?sortby=fDevolucion&order=asc'}"
+                >
                   Fecha máxima<i class="fas fa-sort-down"></i
                 ></a>
               </div>
@@ -145,11 +169,14 @@
               th:text="${reservas.Libro.getAutor().nombre+ ' ' +reservas.Libro.getAutor().apellido}"
             />
             <td>
-              <a th:text="${#dates.format(reservas.f_reservaHecha, 'dd-MM-yyyy HH:mm')}"></a>
-                            
+              <a
+                th:text="${#dates.format(reservas.fReservaHecha, 'dd-MM-yyyy HH:mm')}"
+              ></a>
             </td>
             <td>
-                <a th:text="${#dates.format(reservas.f_devolucion, 'dd-MM-yyyy')}"></a>
+              <a
+                th:text="${#dates.format(reservas.fDevolucion, 'dd-MM-yyyy')}"
+              ></a>
             </td>
           </tr>
         </tbody>
