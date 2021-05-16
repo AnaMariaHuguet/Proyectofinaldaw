@@ -26,7 +26,6 @@
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
       <h2>MIS RESERVAS</h2>
-
       <table>
         <thead>
           <tr>
@@ -38,7 +37,7 @@
             <th>Anular</th>
           </tr>
         </thead>
-        <tbody class="bodytablaReserva" id="bodytablaReserva">
+        <tbody id="bodytablaReserva">
           <tr th:each="reservas : ${reserva}" id="reservas.id">
             <td>
               <img th:src="'/img/imgLibros/'+${reservas.Libro.imagen}" />

@@ -7,58 +7,59 @@
   <script src="/js/zonaAdmin.js"></script>
   <body>
     <main class="main" th:fragment="main">
-      <button class="acordeon">Sección Libro</button>
-      <div class="panel">
-        <a th:href="@{/admin/libro}">
-          <button class="btnAcordeon">Libro</button>
-        </a>
-        <a th:href="@{/admin/autor}">
-          <button class="btnAcordeon">Autor</button>
-        </a>
-        <a th:href="@{/admin/genero}">
-          <button class="btnAcordeon">Género</button>
-        </a>
-        <a th:href="@{/admin/categoria}">
-          <button class="btnAcordeon">Categoría</button>
-        </a>
+      <div class="contenedorAcordeon">
+        <button class="acordeon">Sección Libro</button>
+        <div class="panel">
+          <a th:href="@{/admin/libro}">
+            <button class="btnAcordeon">Libro</button>
+          </a>
+          <a th:href="@{/admin/autor}">
+            <button class="btnAcordeon">Autor</button>
+          </a>
+          <a th:href="@{/admin/genero}">
+            <button class="btnAcordeon">Género</button>
+          </a>
+          <a th:href="@{/admin/categoria}">
+            <button class="btnAcordeon">Categoría</button>
+          </a>
+        </div>
+        <button class="acordeon">Sección Usuario</button>
+        <div class="panel">
+          <a th:href="@{/admin/usuario}">
+            <button class="btnAcordeon">Editar usuario</button>
+          </a>
+        </div>
+        <button class="acordeon">Sección reservas</button>
+        <div class="panel">
+          <a th:href="@{/admin/todasReservas}">
+            <button class="btnAcordeon" id="btnVerReservas">Ver</button>
+          </a>
+        </div>
+        <button class="acordeon">Sección prestamos</button>
+        <div class="panel">
+          <a th:href="@{/admin/prestamo}">
+            <button class="btnAcordeon">Ver</button>
+          </a>
+          <a th:href="@{/admin/prestamo/nuevo}">
+            <button class="btnAcordeon">Nuevo prestamo</button>
+          </a>
+          <a th:href="@{/admin/prestamo}">
+            <button class="btnAcordeon">Borrar prestamo</button>
+          </a>
+        </div>
+        <button class="acordeon">Sección Club</button>
+        <div class="panel">
+          <a th:href="@{/admin/club}">
+            <button class="btnAcordeon">Ver</button>
+          </a>
+        </div>
+        <button class="acordeon">Sección Notícias</button>
+        <div class="panel">
+          <a th:href="@{/admin/noticias}">
+            <button class="btnAcordeon">Ver</button>
+          </a>
+        </div>
       </div>
-      <button class="acordeon">Sección Usuario</button>
-      <div class="panel">
-        <a th:href="@{/admin/usuario}">
-          <button class="btnAcordeon">Editar usuario</button>
-        </a>
-      </div>
-      <button class="acordeon">Sección reservas</button>
-      <div class="panel">
-        <a th:href="@{/admin/todasReservas}">
-          <button class="btnAcordeon" id="btnVerReservas">Ver</button>
-        </a>
-      </div>
-      <button class="acordeon">Sección prestamos</button>
-      <div class="panel">
-        <a th:href="@{/admin/prestamo}">
-          <button class="btnAcordeon">Ver</button>
-        </a>
-        <a th:href="@{/admin/prestamo/nuevo}">
-          <button class="btnAcordeon">Nuevo prestamo</button>
-        </a>
-        <a th:href="@{/admin/prestamo}">
-          <button class="btnAcordeon">Borrar prestamo</button>
-        </a>
-      </div>
-      <button class="acordeon">Sección Club</button>
-      <div class="panel">
-        <a th:href="@{/admin/club}">
-          <button class="btnAcordeon">Ver</button>
-        </a>
-      </div>
-      <button class="acordeon">Sección Notícias</button>
-      <div class="panel">
-        <a th:href="@{/admin/noticias}">
-          <button class="btnAcordeon">Ver</button>
-        </a>
-      </div>
-      <section class="contenido" id="contenido"></section>
     </main>
   </body>
 </html>

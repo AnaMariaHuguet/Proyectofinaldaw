@@ -43,7 +43,7 @@
         <form th:object="${usuario}" th:action="@{/form/login}" method="POST">
           <input type="hidden" value="visi@tante.ante" name="username" />
           <input type="hidden" value="visitante" name="password" />
-          <input class="boton" type="submit" id="btnEntrar1" value="Entrar" />
+          <input class="boton" type="submit" value="Entrar" />
         </form>
         <form
           th:object="${usuario}"
@@ -53,7 +53,6 @@
           <input
             class="boton"
             type="submit"
-            id="btnRegistro"
             name="btnRegistro"
             value="Registrate"
           />

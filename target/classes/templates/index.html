@@ -11,7 +11,6 @@
     <link href="css/general.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloIndex.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
     <link href="/css/notas.css" rel="stylesheet" type="text/css" />
 
     <script
@@ -33,18 +32,7 @@
           <span th:case="*" th:text="${ session.nombre }"></span>
           !
         </p>
-        <!--<div
-          th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}"
-        >
-          <span th:case="${false}">User is not logged in</span>
-          <span th:case="${true}">Logged in user</span>
-        </div>
-        <div th:switch="${session.rol}">
-          <span th:case="'ADMIN'">Es admin</span>
-          <span th:case="*">No es admin</span>
-        </div>-->
         <p>Bienvenido a la Web de la Agencia de Lectura.</p>
-
         <p>
           En el apartado Catálogo tienes la información relativa de los libros
           que tenemos a tu disposición, puedes desde esa misma página reservar

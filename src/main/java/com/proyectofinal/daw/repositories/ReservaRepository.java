@@ -1,5 +1,6 @@
 package com.proyectofinal.daw.repositories;
 
+import java.util.Date;
 import java.util.List;
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Reserva;
@@ -14,5 +15,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
     List<Reserva> findByUsuario(Usuario usuario);
 
     List<Reserva> findByLibro(Libro libro);
+
+    void deleteAllByfDevolucion(Date fDevolucion);
 
 }

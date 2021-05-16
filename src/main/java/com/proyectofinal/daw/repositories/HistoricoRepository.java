@@ -1,7 +1,6 @@
 package com.proyectofinal.daw.repositories;
 
 import java.util.List;
-
 import com.proyectofinal.daw.entities.HistoricoPrestamos;
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Usuario;

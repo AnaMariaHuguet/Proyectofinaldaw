@@ -17,6 +17,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="/js/nav.js"></script>
+    <script src="/js/votacion.js"></script>
     <script src="/js/borrarPerfilUsuario.js"></script>
 
     <title>borrar Perfil</title>
@@ -71,7 +72,7 @@
                 <input
                   type="text"
                   name="direccion"
-                  field="*{direccion}"
+                  th:field="*{direccion}"
                   readonly
                 />
               </div>
@@ -134,17 +135,21 @@
             </section>
           </fieldset>
         </form>
-        <button class="boton" name="btnBorrarPerfil" id="btnBorrarPerfil">
+        <button
+          class="boton"
+          name="btnBorrarPerfil"
+          id="btnBorrarPerfil"
+          th:value="${usuario.id}"
+        >
           <i class="fas fa-trash-alt"></i>
           Borrar
         </button>
-
         <br />
       </section>
 
       <section>
         <h2>PRÉSTAMOS ACTUALES</h2>
-        <table class="tablaCatalogo" id="tablaPrestamo">
+        <table class="tablaCatalogo">
           <thead>
             <tr>
               <th>
@@ -208,38 +213,38 @@
                 </div>
               </th>
               <th>
-                <div th:if="${sortByprest ne 'fDevolucion'}">
+                <div th:if="${sortByprest ne 'fDevolEstimada'}">
                   <a
                     class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolucion&orderprest=asc'}"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolEstimada&orderprest=asc'}"
                   >
                     Devolver <i class="fas fa-sort"></i
                   ></a>
                 </div>
                 <div
-                  th:unless="${sortByprest ne 'fDevolucion'}"
+                  th:unless="${sortByprest ne 'fDevolEstimada'}"
                   th:if="${orderprest eq 'asc'}"
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolucion&orderprest=desc'}"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolEstimada&orderprest=desc'}"
                     >Devolver<i class="fas fa-sort-up"></i
                   ></a>
                 </div>
                 <div
-                  th:unless="${sortByprest ne 'fDevolucion'}"
+                  th:unless="${sortByprest ne 'fDevolEstimada'}"
                   th:if="${orderprest eq 'desc'}"
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolucion&orderprest=asc'}"
+                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolEstimada&orderprest=asc'}"
                     >Devolver<i class="fas fa-sort-down"></i
                   ></a>
                 </div>
               </th>
             </tr>
           </thead>
-          <tbody class="bodytabla" id="bodyprestamos">
+          <tbody class="bodytabla">
             <tr th:each="prestamo : ${pageprestamo}">
               <td>
                 <span th:text="${prestamo.Libro.titulo}" />
@@ -249,7 +254,7 @@
               ></td>
               <td>
                 <span
-                  th:text="${#dates.format(prestamo.fDevolucion, 'dd-MM-yy')}"
+                  th:text="${#dates.format(prestamo.fDevolEstimada, 'dd-MM-yy')}"
                 />
               </td>
             </tr>
@@ -259,7 +264,7 @@
       <section>
         <h2>HISTORIAL</h2>
         <div>
-          <table class="tablaCatalogo" id="tablaHistorico">
+          <table class="tablaCatalogo">
             <thead>
               <tr>
                 <th>
@@ -355,7 +360,7 @@
                 <th>Puntuación</th>
               </tr>
             </thead>
-            <tbody class="bodytabla" id="bodyhistorico">
+            <tbody class="bodytabla">
               <tr th:each="entrada : ${pagehistorico}">
                 <td>
                   <a th:text="${entrada.Libro.titulo}" />
@@ -369,17 +374,33 @@
                   />
                 </td>
                 <td>
-                  <div th:if="${entrada.votacion ne null}">
-                    <span
-                      id="puntuacion"
-                      th:text="${entrada.votacion.puntuacion.valor}"
-                    />
-                    <span id="pintarestrella"></span>
-                  </div>
+                  <span th:id="pintarestrella + ${entrada.id}"></span>
                   <div
-                    th:unless="${entrada.votacion ne null}"
-                    th:if="${entrada.votacion eq null}"
-                  ></div>
+                    th:with="puntuacion=${entrada.votacion} ? ${entrada.votacion.puntuacion.valor} : '0'"
+                  >
+                    <script th:inline="javascript">
+                      var entradaId = /*[[${entrada.id}]]*/ "0";
+                      var pintarestrella = document.getElementById(
+                        "pintarestrella" + entradaId
+                      );
+
+                      var puntuac = /*[[${puntuacion}]]*/ 0;
+                      var iconoVotado =
+                        puntuac < 3
+                          ? "fas fa-thumbs-down yellow"
+                          : "fas fa-thumbs-up yellow";
+                      var iconoVacio = "far fa-thumbs-up";
+
+                      for (let i = 0; i < 5; i++) {
+                        var star = crearElementoTexto("span", pintarestrella);
+                        iconostar = crearElementoTexto("i", star);
+                        star.setAttribute(
+                          "class",
+                          "hovyell " + (i < puntuac ? iconoVotado : iconoVacio)
+                        );
+                      }
+                    </script>
+                  </div>
                 </td>
               </tr>
             </tbody>

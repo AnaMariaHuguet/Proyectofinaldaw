@@ -9,17 +9,12 @@ import com.proyectofinal.daw.entities.dto.CategoriaDTO;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
 import com.proyectofinal.daw.repositories.GeneroRepository;
 
-import org.atteo.evo.inflector.English.MODE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.server.ResponseStatusException;
-
-import jdk.javadoc.internal.doclets.toolkit.util.DocFileIOException.Mode;
 
 @Service
 public class CategoriaService {
@@ -30,29 +25,28 @@ public class CategoriaService {
     @Autowired
     GeneroRepository repoGenero;
 
-    public String addCategoria(CategoriaDTO cat) throws ResponseStatusException {
-        // categoriaDTo: nombre categoria y nombre genero elegidos por usuario, saco un
-        // opcional objeto genero para
-        // incluirlo junto con el nombre de la categoria en el nuevo objeto categoria
+    public void addCategoria(CategoriaDTO cat, Model model) {
+        /*
+         * categoriaDTo: nombre categoria y nombre genero elegidos por usuario, saco un
+         * opcional objeto genero para incluirlo junto con el nombre de la categoria en
+         * el nuevo objeto categoria
+         */
         Optional<Genero> genero = repoGenero.findById(cat.getGenero());
 
         if (genero.isPresent()) {
-            // creo objeto categoria
+            /* creo objeto categoria */
             Categoria categoria = new Categoria();
             categoria.setNombre(
                     cat.getNombre().substring(0, 1).toUpperCase() + cat.getNombre().substring(1).toLowerCase());
             categoria.setGenero(genero.get());
             if (!repoCategoria.findByNombre(categoria.getNombre()).isPresent()) {
                 repoCategoria.save(categoria);
-            } // else {
-              // throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Categoría
-              // repetida");
-              // model.addAttribute("errorserver", "Ya existe ese género");
-              // }
+            } else {
+                model.addAttribute("errorserver", "Ya existe esa categoria");
+            }
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Género no encontrado");
+            model.addAttribute("errorserver", "No existe el género.");
         }
-
     }
 
     public Page<Categoria> findAll(Map<String, String> params) {

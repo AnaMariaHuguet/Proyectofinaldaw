@@ -1,8 +1,11 @@
 package com.proyectofinal.daw.controllers;
 
+import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Prestamo;
 import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Usuario;
+import com.proyectofinal.daw.enums.LibroSituacion;
+import com.proyectofinal.daw.repositories.LibroRepository;
 import com.proyectofinal.daw.repositories.PrestamoRepository;
 import com.proyectofinal.daw.repositories.ReservaRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
@@ -34,6 +37,8 @@ public class UsuarioApiController {
     PrestamoRepository repoPrestamo;
     @Autowired
     ReservaRepository repoReserva;
+    @Autowired
+    LibroRepository repoLibro;
 
     @GetMapping("/usuarios")
     public List<Usuario> getUsuario() {
@@ -49,58 +54,26 @@ public class UsuarioApiController {
         return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
     }
 
-    // POST -> Añadir
-    @PostMapping("/usuarios")
-    public Usuario add(@RequestBody Usuario newUser) {
-        return usuarioRepo.save(newUser);
-    }
-
-    @PutMapping("/usuarios")
-    public Usuario update(@RequestBody Usuario user) {
-        return usuarioRepo.findById(user.getId()).map(usuar -> {
-            usuar.setNombre(
-                    user.getNombre().substring(0, 1).toUpperCase() + user.getNombre().substring(1).toLowerCase());
-            usuar.setApellido(
-                    user.getApellido().substring(0, 1).toUpperCase() + user.getApellido().substring(1).toLowerCase());
-            usuar.setDireccion(
-                    user.getDireccion().substring(0, 1).toUpperCase() + user.getDireccion().substring(1).toLowerCase());
-            usuar.setCod_postal(user.getCod_postal());
-            usuar.setPoblacion(
-                    user.getPoblacion().substring(0, 1).toUpperCase() + user.getPoblacion().substring(1).toLowerCase());
-            usuar.setEmail(user.getEmail());
-            usuar.setTelefono(user.getTelefono());
-            usuar.setNif(user.getNif());
-            usuar.setAnoNac(user.getAnoNac());
-            usuar.setContrasenya(user.getContrasenya());
-
-            return usuarioRepo.save(usuar);
-        }).orElseGet(() -> {
-            return usuarioRepo.save(user);
-        });
-    }
-
     @DeleteMapping("/usuarios/{id}")
     public ResponseEntity<String> borrarUsuario(@PathVariable Long id, Model model) {
-        // antes de borrar deberia verificar que no tiene libros en prestamo ni
-        // reservados
+        // antes de borrar deberia verificar que no tiene libros en prestamo
+        // ni reservados
         Optional<Usuario> usuario = usuarioRepo.findById(id);
         List<Prestamo> listaPrestamos = repoPrestamo.findByUsuario(usuario.get());
         List<Reserva> listaReservas = repoReserva.findByUsuario(usuario.get());
         if (!listaPrestamos.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario Not Found");
-            // model.addAttribute("errorserver", "No se puede borrar, tiene libros en
-            // préstamo.");
-            // ver que tengo que devolver aqui
-
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Tiene préstamos en marcha.");
         } else if (!listaReservas.isEmpty()) {
-            // model.addAttribute("errorserver", "No se puede borrar, tiene libros en
-            // reserva.");
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario Not Found");
-            // ver que tengo que devolver aqui
-        } else {
-            usuarioRepo.deleteById(id);
-            return new ResponseEntity<String>("borrado", HttpStatus.OK);
+            for (int i = 0; i < listaReservas.size(); i++) {
+                Libro libroDisp = listaReservas.get(i).getLibro();
+                libroDisp.setLibroSituacion(LibroSituacion.DISPONIBLE);
+                repoLibro.save(libroDisp);
+                repoReserva.deleteById(listaReservas.get(i).getId());
+            }
         }
+        usuarioRepo.deleteById(id);
+        return new ResponseEntity<String>("Borrado con éxito", HttpStatus.OK);
+
     }
 
 }

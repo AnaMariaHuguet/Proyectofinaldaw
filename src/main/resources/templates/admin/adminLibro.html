@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+    
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -28,7 +28,13 @@
     <section class="contenido" id="contenido">
       <h2>Libro</h2>
       <div>
-        <table class="tablaCatalogo" id="tablaCatalogo">
+        <button class="boton2">
+          <a th:href="@{'/newLibro'}">Nuevo</a>
+        </button>
+      </div>
+    </br>
+      <div>
+        <table class="tablaCatalogo" >
           <thead>
             <tr>
               <th>
@@ -142,18 +148,17 @@
                   ></a>
                 </div>
               </th>
-              <th>Modificar</th>
               <th>Borrar</th>
               <th>Lectura Club</th>
             </tr>
           </thead>
-          <tbody class="bodytabla" id="bodytabla">
+          <tbody class="bodytabla" >
             <tr th:each="book : ${libro}">
               <td th:text="${book.id}" />
               <td>
                 <a
                   th:text="${book.titulo}"
-                  th:href="@{'/libro/' + ${book.id}}"
+                  th:href="@{'/editaLibro/' + ${book.id}}"
                 />
               </td>
               <td
@@ -161,24 +166,6 @@
               />
               <td th:text="${book.getCategoria().nombre}" />
               <td th:text="${book.isbn}" />
-
-              <td>
-                <form
-                  th:object="${libro}"
-                  th:action="@{/libro/editar}"
-                  method="POST"
-                >
-                  <button
-                    class="boton"
-                    id="btnEditarLibro"
-                    name="btnEditarLibro"
-                    th:value="${book.id}"
-                  >
-                    <i class="fas fa-edit"></i>
-                    Editar
-                  </button>
-                </form>
-              </td>
               <td>
                 <form
                   th:object="${libro}"
@@ -198,7 +185,6 @@
               </td>
               <td>
                 <form
-                  th:object="${libro}"
                   th:action="@{'/libro/lecturaClub/'+${book.id}}"
                   method="POST"
                 >
@@ -215,25 +201,20 @@
             </tr>
           </tbody>
         </table>
-        <div th:if="${ !paginas.isEmpty() }">
-          <nav class="navPagination">
+        <div th:if="${!paginas.isEmpty() }">
+          <div class="navPagination">
             <ul class="pagination">
               <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
               <li class="page-item" th:each="pagina : ${paginas}">
                 <a
                   class="page-link"
                   th:text="${pagina}"
-                  th:href="@{'/catalogo?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+                  th:href="@{'admin/libro?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
                 ></a>
-                <!--<a
-                    class="page-link"
-                    th:href="@{/catalogo/{page}/{sortby}/{order}
-    (page=1,sortby=${sortby},order=${order eq 'desc'} ? 'asc' : 'desc')}"
-                  ></a>-->
               </li>
               <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
             </ul>
-          </nav>
+          </div>
         </div>
       </div>
     </section>

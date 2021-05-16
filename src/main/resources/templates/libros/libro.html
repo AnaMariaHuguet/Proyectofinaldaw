@@ -19,6 +19,7 @@
     
     <script src="/js/nav.js"></script>
     <script src="/js/libro.js"></script>
+    <script src="/js/votacion.js"></script>
     <title>Libro</title>
   </head>
   <body>
@@ -34,7 +35,7 @@
             </br>
             <div>
             <label for="">Nota Media</label>  </br>
-            <label id="totalVotacion" th:text="${totalVotacion}"></label>
+            <label id="puntuacion" th:text="${totalVotacion}"></label>
             <span id="pintarestrella"></span>            
           </div> 
             <label th:text="${stringPuntuacion}" ></label>  </br>
@@ -43,36 +44,41 @@
         </div> 
         <div>  
         <h4 >Sinopsis :</h4>  
-        <label th:text="${libro.sinopsis}" id="pagelibroSinopsis"></label>
+        <p th:text="${libro.sinopsis}" ></p>
       </div>
-      <div>
+      <div >
         <h4>Ficha Técnica :</h4>  
         <label>Id: </label>
-        <span th:text="${libro.id}" id="pagelibroId" />
+        <span th:text="${libro.id}"  />
         </br> 
         <label>Isbn: </label>
-        <span th:text="${libro.isbn}" id="pagelibroIsbn" />
+        <span th:text="${libro.isbn}"  />
         </br> 
         <label>Editorial: </label>
-        <span th:text="${libro.editorial}" id="pagelibroEditorial" />
+        <span th:text="${libro.editorial}"  />
         </br> 
         <label>Género: </label>
         <span
-          th:text="${libro.Categoria.genero.nombre}"
-          id="pagelibroGenero"
+          th:text="${libro.Categoria.genero.nombre}"          
         />
         </br> 
         <label>Categoría: </label>
-        <span th:text="${libro.Categoria.nombre}" id="pagelibroCategoria" />
+        <span th:text="${libro.Categoria.nombre}"  />
         </br> 
         <label>Ubicación: </label>
-        <span th:text="${libro.ubicacion}" id="pagelibroUbicacion" />
+        <span th:text="${libro.ubicacion}"  />
         </br> 
         <label>Situación: </label>
         <span
-          th:text="${libro.libroSituacion}"
-          id="pagelibroSituacion"          
+          th:text="${libro.libroSituacion}"              
         />
+      </br>
+      <div th:if="${prestamo}" >
+        <label>Aprox. Disponibilidad: </label>
+        <span                
+          th:text="${#dates.format(prestamo.fDevolEstimada, 'dd-MM-yy')}"                   
+        />
+      </div>      
       </div>
       <div sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">
         <button class="btnDetRes" id="btnLibroReserva" name="btnLibroReserva" th:value="${libro.id}">

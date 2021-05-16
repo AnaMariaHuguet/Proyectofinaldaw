@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -33,7 +33,6 @@
           autofocus
           type="text"
           name="nombre"
-          id="selcategoria"
           list="categoriaList"
           placeholder="Nueva categoria"
           th:field="*{nombre}"
@@ -50,7 +49,7 @@
           th:if="${#fields.hasErrors('nombre')}"
           th:errors="*{nombre}"
         ></small>
-        <select class="boton2" name="genero" id="selgenero">
+        <select class="boton2" name="genero">
           <option
             th:each="genero : ${generostodos}"
             th:text="${genero.getNombre()}"
@@ -66,7 +65,8 @@
         />
       </form>
       <br />
-      <div class="tablaCatalogo1" id="tablaCategoria">
+      <div>
+        <!--<div class="tablaCatalogo1">-->
         <div class="thead">
           <div class="th">
             <div th:if="${sortBy ne 'nombre'}">
@@ -119,7 +119,7 @@
           <div class="th">Modificar</div>
           <div class="th">Borrar</div>
         </div>
-        <div class="tbody bodytabla1" id="bodycategoria">
+        <div class="tbody">
           <div class="tr" th:each="categorias : ${categoriastodas}">
             <form
               th:object="${categoria}"
@@ -134,7 +134,7 @@
                 />
               </div>
               <div class="td">
-                <select class="boton2" name="genero" id="selgenero">
+                <select class="boton2" name="genero">
                   <option
                     th:each="genero : ${generostodos}"
                     th:text="${genero.getNombre()}"
@@ -145,14 +145,14 @@
               </div>
               <div class="td">
                 <button
-                  class="boton"
+                  class="boton ancho"
                   type="submit"
                   id="btnEditarCategoria"
                   name="id"
                   th:value="${categorias.id}"
                 >
                   <i class="fas fa-edit"></i>
-                  Editar
+                  <span class="ocultarMovil"> Editar</span>
                 </button>
               </div>
             </form>
@@ -162,13 +162,13 @@
                 method="POST"
               >
                 <button
-                  class="boton"
+                  class="boton ancho"
                   id="btnBorrarCategoria"
                   name="btnBorrarCategoria"
                   th:value="${categorias.id}"
                 >
                   <i class="fas fa-trash-alt"></i>
-                  Borrar
+                  <span class="ocultarMovil"> Borrar</span>
                 </button>
               </form>
             </div>
@@ -176,7 +176,7 @@
         </div>
       </div>
       <div th:if="${ !paginas.isEmpty() }">
-        <nav class="navPagination">
+        <div class="navPagination">
           <ul class="pagination">
             <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
@@ -188,7 +188,7 @@
             </li>
             <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
-        </nav>
+        </div>
       </div>
     </section>
     <div class="footer" th:insert="fragments/footer :: footer"></div>

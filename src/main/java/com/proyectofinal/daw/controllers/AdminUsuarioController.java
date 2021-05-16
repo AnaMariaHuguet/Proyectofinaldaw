@@ -18,13 +18,11 @@ import com.proyectofinal.daw.services.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class AdminUsuarioController {
@@ -48,13 +46,17 @@ public class AdminUsuarioController {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
             model.addAttribute("paginas", pageNumbers);
         }
-        model.addAttribute("usuariostodos", pageUsuario.getContent());
-        model.addAttribute("order", order);
-        model.addAttribute("paginaactual", pageUsuario.getNumber());
-        model.addAttribute("sortBy", sortBy);
-        model.addAttribute("usuarios", repoUsuario.findAll());
-        model.addAttribute("usuario", new Usuario());
-        model.addAttribute("usuariostodos", repoUsuario.findAll());
+        if (!pageUsuario.isEmpty()) {
+            model.addAttribute("usuariostodos", pageUsuario.getContent());
+            model.addAttribute("order", order);
+            model.addAttribute("paginaactual", pageUsuario.getNumber());
+            model.addAttribute("sortBy", sortBy);
+            model.addAttribute("usuarios", repoUsuario.findAll());
+            model.addAttribute("usuario", new Usuario());
+            model.addAttribute("usuariostodos", repoUsuario.findAll());
+        } else {
+            model.addAttribute("errorserver", "No hay ningún usuario");
+        }
         return "admin/adminUsuario";
     }
 

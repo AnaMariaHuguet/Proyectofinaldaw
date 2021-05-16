@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.proyectofinal.daw.entities.HistoricoPrestamos;
 import com.proyectofinal.daw.entities.Libro;
+import com.proyectofinal.daw.entities.Prestamo;
 import com.proyectofinal.daw.entities.Puntuacion;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.entities.dto.UsuarioLogin;
@@ -21,6 +22,7 @@ import com.proyectofinal.daw.repositories.FuncionesRepository;
 import com.proyectofinal.daw.repositories.GeneroRepository;
 import com.proyectofinal.daw.repositories.HistoricoRepository;
 import com.proyectofinal.daw.repositories.LibroRepository;
+import com.proyectofinal.daw.repositories.PrestamoRepository;
 import com.proyectofinal.daw.repositories.PuntuacionRepository;
 import com.proyectofinal.daw.repositories.ReservaRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
@@ -62,8 +64,8 @@ public class ViewController {
     HistoricoRepository repoHistorico;
     @Autowired
     PuntuacionRepository repoPuntuacion;
-    // @Autowired
-    // LibroSituacionRepository repoLibroSituacion;
+    @Autowired
+    PrestamoRepository repoPrestamo;
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
@@ -82,7 +84,6 @@ public class ViewController {
         if (usuario.isPresent()) {
             request.getSession().setAttribute("nombre", usuario.get().getNombre());
             request.getSession().setAttribute("usuario", usuario.get());
-            // request.getSession().setAttribute("rol", usuario.get().getRoleName());
         }
         return "index";
     }
@@ -127,6 +128,7 @@ public class ViewController {
     @GetMapping("/libro/{id}")
     public String libro(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response, Model model) {
         Optional<Libro> libro = repoLibro.findById(id);
+        Optional<Prestamo> prestamo = repoPrestamo.findByLibro(libro.get());
         if (!libro.isPresent()) {
             model.addAttribute("errorserver", "Libro no encontrado");
             return null;
@@ -154,16 +156,18 @@ public class ViewController {
             model.addAttribute("cantidadVotacion", cantidadVotacion);
             model.addAttribute("totalVotacion", totalVotacion);
             model.addAttribute("libro", libro.get());
-
-            if (request.isUserInRole("ADMINISTRADOR")) {
-                model.addAttribute("autores", repoAutor.findAll());
-                model.addAttribute("categorias", repoCategoria.findAll());
-                model.addAttribute("generos", repoGenero.findAll());
-                model.addAttribute("librosituacion", LibroSituacion.values());
-                return "admin/editarLibroAdmin";
-            } else {
-                return "libros/libro";
+            if (prestamo.isPresent()) {
+                model.addAttribute("prestamo", prestamo.get());
             }
+            /*
+             * if (request.isUserInRole("ADMINISTRADOR")) { model.addAttribute("autores",
+             * repoAutor.findAll()); model.addAttribute("categorias",
+             * repoCategoria.findAll()); model.addAttribute("generos",
+             * repoGenero.findAll()); model.addAttribute("librosituacion",
+             * LibroSituacion.values()); return "admin/editarLibroAdmin"; } else {
+             */
+            return "libros/libro";
+            // }
 
         }
     }

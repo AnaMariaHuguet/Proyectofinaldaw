@@ -48,9 +48,10 @@ public class Usuario implements Serializable {
     @Column(length = 4)
     @Digits(fraction = 0, integer = 4, message = "Error al introducir el año")
     private int anoNac;
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,30}$", message = "Error al introducir la dirección")
     @NotBlank(message = "direccion obligatorio")
     private String direccion;
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{1,20}[0-9]$", message = "Error al introducir la poblacion")
+
     @NotBlank(message = "poblacion obligatorio")
     private String poblacion;
     @Column(length = 5, name = "`codigo postal`")

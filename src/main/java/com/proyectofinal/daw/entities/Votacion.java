@@ -34,7 +34,7 @@ public class Votacion implements Serializable {
     @JsonManagedReference
     private Puntuacion puntuacion;
     @Temporal(TemporalType.DATE)
-    private Date f_votacion;
+    private Date fVotacion;
 
     public Puntuacion getPuntuacion() {
         return this.puntuacion;
@@ -60,12 +60,12 @@ public class Votacion implements Serializable {
         this.historico = historico;
     }
 
-    public Date getF_votacion() {
-        return this.f_votacion;
+    public Date getFVotacion() {
+        return this.fVotacion;
     }
 
-    public void setF_votacion(Date f_votacion) {
-        this.f_votacion = f_votacion;
+    public void setFVotacion(Date fVotacion) {
+        this.fVotacion = fVotacion;
     }
 
 }

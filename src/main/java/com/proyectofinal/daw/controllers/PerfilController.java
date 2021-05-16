@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 import com.proyectofinal.daw.entities.HistoricoPrestamos;
 import com.proyectofinal.daw.entities.Prestamo;
-import com.proyectofinal.daw.entities.Puntuacion;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.entities.dto.UsuarioPerfilDTO;
 import com.proyectofinal.daw.repositories.HistoricoRepository;
@@ -72,7 +71,7 @@ public class PerfilController {
         // Ver prestamos
         String sortByprest = params.get("sortbyprest") != null ? params.get("sortbyprest").toString() : "id";
         String orderprest = params.get("orderprest") != null ? params.get("orderprest").toString() : "asc";
-        Page<Prestamo> pagePrestamo = prestamoService.findAll(params, usuario);
+        Page<Prestamo> pagePrestamo = prestamoService.findAllByUsuario(params, usuario);
         int totalPagesprest = pagePrestamo.getTotalPages();
         if (totalPagesprest > 0) {
             List<Integer> pageNumbersprest = IntStream.rangeClosed(1, totalPagesprest).boxed()

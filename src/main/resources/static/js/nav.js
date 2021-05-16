@@ -160,11 +160,11 @@ function getReservas(){
         })               
     }).catch(err => { console.log(err)})
 }
-function salidaMensajeError(message){
+function salidaMensajeError(message, titulo="ERROR"){
     const mensaje = document.getElementById("mensajeerror");
     todapantallaerror.style.display="flex";
     mensaje.style.display = "block";
     const textomensaje = document.getElementById("textomensajeerror");
     textomensaje.textContent = message;
-    document.getElementById("titulomensajeerror").textContent = "ERROR";
+    document.getElementById("titulomensajeerror").textContent = titulo;
 }

@@ -1,6 +1,7 @@
 package com.proyectofinal.daw.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Prestamo;
@@ -18,6 +19,8 @@ public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
 
     List<Prestamo> findByUsuario(Usuario usuario);
 
-    List<Prestamo> findByLibro(Libro libro);
+    List<Prestamo> findAllByLibro(Libro libro);
+
+    Optional<Prestamo> findByLibro(Libro libro);
 
 }

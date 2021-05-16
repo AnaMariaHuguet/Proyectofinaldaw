@@ -48,6 +48,7 @@ public class AdminAutorController {
         model.addAttribute("autores", repoAutor.findAll());
         model.addAttribute("order", order);
         model.addAttribute("sortBy", sortBy);
+        model.addAttribute("autor", new Autor());
         return "admin/adminAutor";
     }
 
@@ -56,10 +57,6 @@ public class AdminAutorController {
             HttpServletRequest request) {
 
         if (!result.hasErrors()) {
-            // model.addAttribute("autores", repoAutor.findAll());
-            // return "/admin/adminAutor";
-            // } else {
-            // ver que el autor no esta en la BD
             Optional<Autor> autorencontrado = repoAutor.findByNombreAndApellido(autor.getNombre(), autor.getApellido());
             if (!autorencontrado.isPresent()) {
                 autor.setNombre(
@@ -73,7 +70,20 @@ public class AdminAutorController {
             }
         }
         Map<String, String> params = new HashMap<>();
-        return autor(model, request, params);
+        String sortBy = params.get("sortby") != null ? params.get("sortby").toString() : "id";
+        String order = params.get("order") != null ? params.get("order").toString() : "asc";
+        Page<Autor> pageAutor = autorService.findAll(params);
+        int totalPages = pageAutor.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+            model.addAttribute("paginas", pageNumbers);
+        }
+        model.addAttribute("autorestodos", pageAutor.getContent());
+        model.addAttribute("autores", repoAutor.findAll());
+        model.addAttribute("order", order);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("autor", new Autor());
+        return "admin/adminAutor";
     }
 
     @PostMapping("/autor/borrar/{id}")

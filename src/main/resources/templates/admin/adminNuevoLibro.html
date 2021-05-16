@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html
+  lang="es"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/general.css" rel="stylesheet" type="text/css" />
+    <link href="/css/nav.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloAdminNuevoLibro.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://kit.fontawesome.com/9d750b8f51.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/js/nav.js"></script>   
+    <title>Libro</title>
+  </head>
+  <body>
+    <div class="header" th:insert="fragments/header :: header"></div>
+    <div class="nav" th:insert="fragments/nav :: nav"></div>
+    <main>
+     <form
+        action="#"
+        th:object="${libro}"
+        th:action="@{/crearlibro}"
+        method="POST"
+      >
+        <fieldset>
+          <legend><h2>Registro nuevo libro</h2></legend>
+          <div class="box1">
+            <section>
+              <div>
+                <label for="titulo">Titulo: </label>  
+                <input
+                  type="text"
+                  for="titulo"
+                  name="titulo"
+                  th:field="*{titulo}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('titulo')}"
+                th:errors="*{titulo}"
+              ></small>
+            </section>  
+            <section>
+              <div>
+                <label>Año Publicación: </label>
+                <input
+                  type="text"
+                  name="ano"
+                  th:field="*{ano}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('ano')}"
+                th:errors="*{ano}"
+              ></small>
+            </section>                 
+            <section>
+              <div>
+                <label>Isbn: </label>
+                <input
+                  type="text"
+                  name="isbn"
+                  th:field="*{isbn}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('isbn')}"
+                th:errors="*{isbn}"
+              ></small>
+            </section>
+            <section>
+              <div>
+                <label>Editorial: </label>
+                <input
+                  type="text"
+                  name="editorial"
+                  th:field="*{editorial}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('editorial')}"
+                th:errors="*{editorial}"
+              ></small>            
+            </section>
+            <section>
+              <div>
+                <label>Ubicación: </label>
+                <input type="text" name="ubicacion" th:field="*{ubicacion}" />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('ubicacion')}"
+                th:errors="*{ubicacion}"
+              ></small>
+            </section>
+            <section>
+              <div>
+                <label>Sinopsis:</label>
+                <input
+                  type="text"
+                  name="sinopsis"
+                  th:field="*{sinopsis}"
+                  th:errorclass="fieldError"
+                />
+              </div>
+              <small
+                th:if="${#fields.hasErrors('sinopsis')}"
+                th:errors="*{sinopsis}"
+              ></small>
+            </section>
+          </div> 
+          <div> 
+            <section>
+            <div>
+              <label for="nombreAutor">Nombre autor: </label> 
+              <select class="boton2">               
+                <option
+                  th:each="autor : ${autores}"
+                  th:text="${autor.getNombre()} + ' ' + ${autor.getApellido()}"
+                  th:value="${autor.getId()}"
+                ></option>
+              </select>
+            </section>
+          </div> 
+          <div>  
+            <section>
+              <div>
+                <label>Categoría: </label>
+                <select class="boton2" >               
+                  <option
+                    th:each="categoria : ${categorias}"
+                    th:text="${categoria.getNombre()}"
+                    th:value="${categoria.getId()}"
+                  ></option>
+                </select>
+              </div>           
+            </section>
+          </div>
+          <div>
+            <section>
+              <div class="imaginate" >
+                <input type="button" for="id"  name="id" value="importar imagen"/>
+        <!--<img th:src="'/img/imgLibros/'+${libro.imagen}" />-->
+        </div> 
+            </section>
+          </div>   
+          <div>
+            <input
+              class="boton"
+              type="submit"
+              id="btnGuardarLibro"
+              name="btnGuardarLibro"
+              value="Guardar"
+            />            
+          </div>
+          <br />
+        </fieldset>
+      </form>
+    </main>
+    <div class="footer" th:insert="fragments/footer :: footer"></div>
+  </body>
+</html>

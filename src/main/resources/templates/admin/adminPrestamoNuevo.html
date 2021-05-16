@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -28,7 +28,7 @@
     <section class="contenido" id="contenido">
       <h2>Nuevo Préstamo</h2>
       <div>
-        <form th:object="${prestamo}" th:action="@{/newPrestamo}" method="POST">
+        <form th:action="@{/newPrestamo}" method="POST">
           <input
             class="boton2"
             autofocus
@@ -63,10 +63,12 @@
           </datalist>
           <input
             type="text"
+            name="fPrestamo"
             th:value="${#temporals.format(localDateTime, 'dd-MM-yyyy HH:mm')}"
           />
           <input
             type="text"
+            name="fDevolEstimada"
             th:value="${#temporals.format(devolucionEstimada, 'dd-MM-yyyy')}"
           />
           <input

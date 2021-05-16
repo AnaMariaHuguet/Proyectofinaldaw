@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -25,9 +25,9 @@
     <div class="header" th:insert="fragments/header :: header"></div>
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
-    <section class="contenido" id="contenido">
+    <section class="contenido">
       <h2>Usuario</h2>
-      <div class="tabla tablaCatalogo1" id="tablaUsuario">
+      <div class="tabla tablaCatalogo1">
         <div class="thead">
           <div class="th">
             <div th:if="${sortBy ne 'nombre'}">
@@ -54,19 +54,20 @@
             </div>
           </div>
         </div>
-        <div class="tbody bodytabla1" id="bodyusuario">
+        <!--<div class="tbody bodytabla1">-->
+        <div>
           <div class="tr" th:each="usuario : ${usuariostodos}">
             <div class="td">
               <a
                 th:text="${usuario.nombre+ ' ' +usuario.apellido}"
                 th:href="@{'/admin/perfilUsuario/' + ${usuario.id}}"
               />
-            </div>           
+            </div>
           </div>
         </div>
       </div>
       <div th:if="${ !paginas.isEmpty() }">
-        <nav class="navPagination">
+        <div class="navPagination">
           <ul class="pagination">
             <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
@@ -78,7 +79,7 @@
             </li>
             <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
-        </nav>
+        </div>
       </div>
     </section>
     <div class="footer" th:insert="fragments/footer :: footer"></div>

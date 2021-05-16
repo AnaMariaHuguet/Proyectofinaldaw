@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -34,13 +34,11 @@
             autofocus
             type="text"
             name="nombre"
-            id="selgenero"
             list="generoList"
             placeholder="Introduce nuevo género "
             th:field="*{nombre}"
             th:errorclass="fieldError"
           />
-
           <datalist id="generoList">
             <option
               th:each="genero : ${generos}"
@@ -64,7 +62,7 @@
         </form>
         <br />
       </div>
-      <div class="tabla tablaCatalogo1" id="tablaGenero">
+      <div class="tabla">
         <div class="thead">
           <div class="th">
             <div th:if="${sortBy ne 'nombre'}">
@@ -93,7 +91,8 @@
           <div class="th">Modificar</div>
           <div class="th">Borrar</div>
         </div>
-        <div class="tbody bodytabla1" id="bodygenero">
+
+        <div class="tbody">
           <div class="tr" th:each="generos : ${generostodos}">
             <form
               th:object="${genero}"
@@ -110,14 +109,14 @@
               </div>
               <div class="td">
                 <button
-                  class="boton"
+                  class="boton ancho"
                   type="submit"
                   id="btnEditarGenero"
                   name="id"
                   th:value="${generos.id}"
                 >
-                  <i class="fas fa-edit"></i>
-                  Editar
+                  <i class="fas fa-edit"></i
+                  ><span class="ocultarMovil"> Editar</span>
                 </button>
               </div>
             </form>
@@ -127,13 +126,13 @@
                 method="POST"
               >
                 <button
-                  class="boton"
+                  class="boton ancho"
                   id="btnBorrarGenero"
                   name="btnBorrarGenero"
                   th:value="${generos.id}"
                 >
                   <i class="fas fa-trash-alt"></i>
-                  Borrar
+                  <span class="ocultarMovil"> Borrar</span>
                 </button>
               </form>
             </div>
@@ -141,7 +140,7 @@
         </div>
       </div>
       <div th:if="${ !paginas.isEmpty() }">
-        <nav class="navPagination">
+        <div class="navPagination">
           <ul class="pagination">
             <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
@@ -153,7 +152,7 @@
             </li>
             <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
-        </nav>
+        </div>
       </div>
     </section>
 

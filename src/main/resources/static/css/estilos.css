@@ -29,9 +29,7 @@ header > img {
 header > img:first-child {
   position: relative;
   left: 1%;
-  animation: cambioTamanyo 7s linear;
 }
-/***************     nav     ***************/
 
 /***************   main    ***************/
 article {
@@ -40,10 +38,9 @@ article {
 .bodytabla img {
   width: 50%;
 }
-/***************   aside   ***************/
-
-/***************     footer      ***************/
-
+.yellow {
+  color: rgb(228, 156, 2);
+}
 /*****************media query***********************/
 
 @media (min-width: 800px) {

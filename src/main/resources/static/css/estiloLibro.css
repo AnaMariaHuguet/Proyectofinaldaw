@@ -14,10 +14,6 @@ main > div {
   padding: 5px;
   text-align: center;
 }
-
-.yellow {
-  color: rgb(250, 213, 4);
-}
 label ~ span {
   margin: 10px;
 }

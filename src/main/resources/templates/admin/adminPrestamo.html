@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -30,7 +30,8 @@
 
     <section class="contenido" id="contenido">
       <h2>PRÉSTAMOS</h2>
-      <table class="tablaCatalogo1" id="tablaPrestamo">
+      <table>
+        <!--<table class="tablaCatalogo1">-->
         <thead>
           <tr>
             <th>
@@ -94,29 +95,29 @@
               </div>
             </th>
             <th>
-              <div th:if="${sortBy ne 'fDevolucionEstimada'}">
+              <div th:if="${sortBy ne 'fDevolEstimada'}">
                 <a
-                  th:href="@{'/admin/prestamo?sortby=fDevolucionEstimada&order=asc'}"
+                  th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=asc'}"
                 >
                   Plazo <i class="fas fa-sort"></i
                 ></a>
               </div>
               <div
-                th:unless="${sortBy ne 'fDevolucionEstimada'}"
+                th:unless="${sortBy ne 'fDevolEstimada'}"
                 th:if="${order eq 'asc'}"
               >
                 <a
-                  th:href="@{'/admin/prestamo?sortby=fDevolucionEstimada&order=desc'}"
+                  th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=desc'}"
                 >
                   Plazo<i class="fas fa-sort-up"></i
                 ></a>
               </div>
               <div
-                th:unless="${sortBy ne 'fDevolucionEstimada'}"
+                th:unless="${sortBy ne 'fDevolEstimada'}"
                 th:if="${order eq 'desc'}"
               >
                 <a
-                  th:href="@{'/admin/prestamo?sortby=fDevolucionEstimada&order=asc'}"
+                  th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=asc'}"
                 >
                   Plazo<i class="fas fa-sort-down"></i
                 ></a>
@@ -147,7 +148,8 @@
             </th>
           </tr>
         </thead>
-        <tbody class="bodytabla1" id="bodyprestamo">
+        <!--<tbody class="bodytabla1" id="bodyprestamo">-->
+        <tbody id="bodyprestamo">
           <tr th:each="prestamos : ${prestamo}">
             <td>
               <a th:text="${prestamos.Usuario.nombre}" />
@@ -156,21 +158,36 @@
               <a th:text="${prestamos.Libro.titulo}" />
             </td>
             <td
-              th:text="${#dates.format(prestamos.fPrestamo, 'dd-MM-yyyy HH:mm')}"
+              th:text="${#dates.format(prestamos.fPrestamo, 'dd-MM-yy HH:mm')}"
             />
             <td>
               <a
-                th:text="${#dates.format(prestamos.fDevolucionEstimada, 'dd-MM-yyyy HH:mm')}"
+                th:text="${#dates.format(prestamos.fDevolEstimada, 'dd-MM-yy')}"
               ></a>
             </td>
             <td>
               <a
-                th:text="${#dates.format(prestamos.fDevolucion, 'dd-MM-yyyy')}"
+                th:text="${#dates.format(prestamos.fDevolucion, 'dd-MM-yy')}"
               ></a>
             </td>
           </tr>
         </tbody>
       </table>
+      <div th:if="${ !paginas.isEmpty() }">
+        <div class="navPagination">
+          <ul class="pagination">
+            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
+            <li class="page-item" th:each="pagina : ${paginas}">
+              <a
+                class="page-link"
+                th:text="${pagina}"
+                th:href="@{'/admin/prestamo?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+              ></a>
+            </li>
+            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
+          </ul>
+        </div>
+      </div>
     </section>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

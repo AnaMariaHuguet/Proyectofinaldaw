@@ -1,9 +1,6 @@
 
 var peticion, datosjson, opcion, url, selgenero, selcategoria, selautor, bodytabla;
 
-
-
-
 function procesaRespuesta(){    
     if(peticion.status===200){
         datosjson=JSON.parse(peticion.responseText);     
@@ -68,8 +65,7 @@ function realizaPeticionTodas(){
 function procesaTodasCategoriasRespuesta(peti){    
     if(peti.status===200){
         const datos=JSON.parse(peti.responseText);
-        if (datos) {
-            console.log(datos);            
+        if (datos) {                    
             selcategoria.innerHTML = '';
             const categorias = datos; 
             const apt = crearElementoTexto("option", selcategoria, " Buscar categoría");
@@ -98,12 +94,12 @@ function mostrarLibros(libros){
            
             if(nombreusuario!="Visitante"){
                 let td_reserva=crearElementoTexto('td',fila);           
-                let reserva=crearElementoTexto('button',td_reserva,"Reserva");
+                let reserva=crearElementoTexto('button',td_reserva);
                 reserva.value = libros[i].id;
                 reserva.className='btnDetRes'; 
-                //iconores=insertBefore(crearElementoTexto('i',reserva))
-                iconores=crearElementoTexto('i',reserva)
-                iconores.setAttribute("class","fas fa-check");                           
+                iconores= reserva.appendChild(crearElementoTexto('i',reserva));
+                iconores.setAttribute("class","fas fa-check"); 
+                reserva.appendChild(crearElementoTexto('span',reserva, 'Reserva'));
                 reserva.name = 'reserva';
                 reserva.addEventListener('click', realizaReserva);
             } 

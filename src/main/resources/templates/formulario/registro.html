@@ -119,6 +119,7 @@
               th:if="${#fields.hasErrors('email')}"
               th:errors="*{email}"
             ></small>
+            <small th:if="${emailrepetido}" th:text="${emailrepetido}"></small>
           </section>
 
           <section>
@@ -151,6 +152,7 @@
               th:if="${#fields.hasErrors('nif')}"
               th:errors="*{nif}"
             ></small>
+            <small th:if="${dnimal}" th:text="${dnimal}"></small>
           </section>
 
           <section>

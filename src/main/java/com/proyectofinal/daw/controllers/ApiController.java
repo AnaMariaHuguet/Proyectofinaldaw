@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,16 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import com.proyectofinal.daw.entities.Autor;
 import com.proyectofinal.daw.entities.Categoria;
 import com.proyectofinal.daw.entities.Genero;
+import com.proyectofinal.daw.entities.HistoricoPrestamos;
 import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Libro;
+import com.proyectofinal.daw.entities.Puntuacion;
 import com.proyectofinal.daw.entities.Usuario;
+import com.proyectofinal.daw.entities.Votacion;
 import com.proyectofinal.daw.enums.LibroSituacion;
 import com.proyectofinal.daw.repositories.AutorRepository;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
 import com.proyectofinal.daw.repositories.GeneroRepository;
+import com.proyectofinal.daw.repositories.HistoricoRepository;
 import com.proyectofinal.daw.repositories.LibroRepository;
 import com.proyectofinal.daw.repositories.PrestamoRepository;
+import com.proyectofinal.daw.repositories.PuntuacionRepository;
 import com.proyectofinal.daw.repositories.ReservaRepository;
+import com.proyectofinal.daw.repositories.VotacionRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +39,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -54,6 +62,12 @@ public class ApiController {
     ReservaRepository repoReserva;
     @Autowired
     PrestamoRepository repoPrestamo;
+    @Autowired
+    HistoricoRepository repoHistorico;
+    @Autowired
+    VotacionRepository repoVotacion;
+    @Autowired
+    PuntuacionRepository repoPuntuacion;
 
     @PostMapping("/libro/genero")
     public List<Libro> getLibrosPorGenero(@RequestBody Map<String, String> params) {
@@ -160,7 +174,8 @@ public class ApiController {
         }
         // creamos un nuevo objeto reserva, introducimos datos y guardamos en la BD
         Reserva nuevaReserva = new Reserva();
-        nuevaReserva.setLibro(libro.get());
+        Libro lib = libro.get();
+        nuevaReserva.setLibro(lib);
         nuevaReserva.setUsuario(usuario);
         nuevaReserva.setFReservaHecha(new Date());
         nuevaReserva.setFDevolucion(new Date(new Date().getTime() + (1000 * 60 * 60 * 48)));
@@ -168,8 +183,8 @@ public class ApiController {
         // añadimos el nuevo objeto reserva a la arraylist
         reservaAnterior.add(nuevaReserva);
         // cambiamos situación del objeto libro
-        libro.get().setLibroSituacion(LibroSituacion.RESERVADO);
-        repoLibro.save(libro.get());
+        lib.setLibroSituacion(LibroSituacion.RESERVADO);
+        repoLibro.save(lib);
         return new ResponseEntity<List<Reserva>>(reservaAnterior, HttpStatus.OK);
     }
 
@@ -200,5 +215,26 @@ public class ApiController {
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
 
         return new ResponseEntity<List<Reserva>>(reservaUsuario, HttpStatus.OK);
+    }
+
+    @PostMapping("/votahistorico")
+    public ResponseEntity<String> votar(@RequestBody Map<String, String> params) {
+        long id = Long.parseLong(params.get("id"));
+        int puntuacion = Integer.parseInt(params.get("puntuacion"));
+        Optional<HistoricoPrestamos> historico = repoHistorico.findById(id);
+        Optional<Puntuacion> puntuacionObj = repoPuntuacion.findByValor(puntuacion);
+        Date hoy = new Date();
+        Votacion votacion = historico.get().getVotacion();
+        if (Objects.isNull(votacion)) {// if(votacion==null)
+            votacion = new Votacion();
+        }
+        votacion.setPuntuacion(puntuacionObj.get());
+        votacion.setFVotacion(hoy);
+        votacion.setHistorico(historico.get());
+        repoVotacion.save(votacion);
+        historico.get().setVotacion(votacion);
+        repoHistorico.save(historico.get());
+
+        return new ResponseEntity<String>("OK", HttpStatus.OK);
     }
 }

@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -34,12 +34,15 @@
             autofocus
             type="text"
             name="nombre"
-            id="selnombreautor"
+            th:field="*{nombre}"
             list="nombreList"
             placeholder="Nombre"
+            th:errorclass="fieldError"
           />
-          <!--<p>th:field="*{nombre}"
-            th:errorclass="fieldError"</p>-->
+          <small
+            th:if="${#fields.hasErrors('nombre')}"
+            th:errors="*{nombre}"
+          ></small>
           <datalist id="nombreList">
             <option
               th:each="autor : ${autores}"
@@ -52,12 +55,15 @@
             autofocus
             type="text"
             name="apellido"
-            id="selapellidoautor"
             list="apellidoList"
             placeholder="Apellido"
+            th:field="*{apellido}"
+            th:errorclass="fieldError"
           />
-          <!--<p>th:field="*{apellido}"
-            th:errorclass="fieldError"</p>-->
+          <small
+            th:if="${#fields.hasErrors('apellido')}"
+            th:errors="*{apellido}"
+          ></small>
           <datalist id="apellidoList">
             <option
               th:each="autor : ${autores}"
@@ -73,18 +79,11 @@
             value="Guardar"
           />
           <br />
-          <!--<small
-              th:if="${#fields.hasErrors('nombre')}"
-              th:errors="*{nombre}"
-            ></small> 
-            <small
-                th:if="${#fields.hasErrors('apellido')}"
-                th:errors="*{apellido}"
-              ></small>-->
         </form>
       </div>
       <br />
-      <div class="tablaCatalogo1" id="tablaAutor">
+      <div>
+        <!--<div class="tablaCatalogo1">-->
         <div class="thead">
           <div class="th">
             <div th:if="${sortBy ne 'nombre'}">
@@ -137,13 +136,10 @@
           <div class="th">Modificar</div>
           <div class="th">Borrar</div>
         </div>
-        <div class="tbody bodytabla1" id="bodyautor">
+        <!--<div class="tbody bodytabla1">-->
+        <div class="tbody">
           <div class="tr" th:each="autor : ${autorestodos}">
-            <form
-              th:object="${autor}"
-              th:action="@{/autor/editar}"
-              method="POST"
-            >
+            <form th:action="@{/autor/editar}" method="POST">
               <div class="td">
                 <input type="text" name="nombre" th:value="${autor.nombre}" />
               </div>
@@ -156,27 +152,27 @@
               </div>
               <div class="td">
                 <button
-                  class="boton"
+                  class="boton ancho"
                   type="submit"
                   id="btnEditarAutor"
                   name="id"
                   th:value="${autor.id}"
                 >
                   <i class="fas fa-edit"></i>
-                  Editar
+                  <span class="ocultarMovil"> Editar</span>
                 </button>
               </div>
             </form>
             <div class="td">
               <form th:action="@{'/autor/borrar/'+${autor.id}}" method="POST">
                 <button
-                  class="boton"
+                  class="boton ancho"
                   id="btnBorrarAutor"
                   name="btnBorrarAutor"
                   th:value="${autor.id}"
                 >
                   <i class="fas fa-trash-alt"></i>
-                  Borrar
+                  <span class="ocultarMovil"> Borrar</span>
                 </button>
               </form>
             </div>
@@ -184,7 +180,7 @@
         </div>
       </div>
       <div th:if="${ !paginas.isEmpty() }">
-        <nav class="navPagination">
+        <div class="navPagination">
           <ul class="pagination">
             <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
@@ -196,7 +192,7 @@
             </li>
             <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
-        </nav>
+        </div>
       </div>
     </section>
     <div class="footer" th:insert="fragments/footer :: footer"></div>

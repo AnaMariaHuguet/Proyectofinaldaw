@@ -66,7 +66,7 @@ public class AdminCategoriaController {
             BindingResult result, Model model, HttpServletRequest request) {
 
         if (!result.hasErrors()) {
-            categoriaService.addCategoria(categoriaDTO);
+            categoriaService.addCategoria(categoriaDTO, model);
         }
         Map<String, String> params = new HashMap<>();
         return categoria(model, request, params);

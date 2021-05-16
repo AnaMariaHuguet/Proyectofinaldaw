@@ -1,9 +1,3 @@
-/***************     tipografia     ***************/
-
-/***************     body     ***************/
-
-/***************     header       ***************/
-
 /***************   main    ***************/
 main {
   display: grid;
@@ -35,10 +29,6 @@ section {
   resize: none;
   border: 1px solid grey;
   overflow: scroll;
-}
-/***************   aside  ***************/
-aside {
-  display: none;
 }
 
 /*****************media query***********************/

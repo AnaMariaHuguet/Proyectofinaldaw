@@ -70,8 +70,6 @@ public class AdminGeneroController {
         } else {
             model.addAttribute("errorserver", "Ya existe ese género");
         }
-        // model.addAttribute("generostodos", repoGenero.findAll());
-        // return "/admin/adminGenero";
         Map<String, String> params = new HashMap<>();
         return genero(model, request, params);
     }
@@ -85,10 +83,6 @@ public class AdminGeneroController {
         } else {
             repoGenero.deleteById(id);
         }
-        // model.addAttribute("generostodos", repoGenero.findAll());
-        // Esto para que lo puse??
-        // model.addAttribute("genero", new Genero());
-        // return "/admin/adminGenero";
         Map<String, String> params = new HashMap<>();
         return genero(model, request, params);
     }

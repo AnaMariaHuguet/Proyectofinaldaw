@@ -12,7 +12,7 @@
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
     <link href="/css/estiloAdmin.css" rel="stylesheet" type="text/css" />
-    <link href="/css/animaciones.css" rel="stylesheet" type="text/css" />
+
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
@@ -28,9 +28,10 @@
 
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
 
-    <section class="contenido" id="contenido">
+    <section class="contenido">
       <h2>RESERVAS</h2>
-      <table class="tablaCatalogo1" id="tablaReserva">
+      <!--<table class="tablaCatalogo1" id="tablaReserva">-->
+      <table id="tablaReserva">
         <thead>
           <tr>
             <th>
@@ -157,7 +158,8 @@
             </th>
           </tr>
         </thead>
-        <tbody class="bodytabla1" id="bodyreserva">
+        <!--<tbody class="bodytabla1">-->
+        <tbody>
           <tr th:each="reservas : ${reserva}">
             <td>
               <a th:text="${reservas.Usuario.nombre}" />
@@ -170,17 +172,32 @@
             />
             <td>
               <a
-                th:text="${#dates.format(reservas.fReservaHecha, 'dd-MM-yyyy HH:mm')}"
+                th:text="${#dates.format(reservas.fReservaHecha, 'dd-MM-yy HH:mm')}"
               ></a>
             </td>
             <td>
               <a
-                th:text="${#dates.format(reservas.fDevolucion, 'dd-MM-yyyy')}"
+                th:text="${#dates.format(reservas.fDevolucion, 'dd-MM-yy')}"
               ></a>
             </td>
           </tr>
         </tbody>
       </table>
+      <div th:if="${ !paginas.isEmpty() }">
+        <div class="navPagination">
+          <ul class="pagination">
+            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
+            <li class="page-item" th:each="pagina : ${paginas}">
+              <a
+                class="page-link"
+                th:text="${pagina}"
+                th:href="@{'/admin/todasReservas?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+              ></a>
+            </li>
+            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
+          </ul>
+        </div>
+      </div>
     </section>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
