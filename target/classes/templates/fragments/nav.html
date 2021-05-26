@@ -5,9 +5,10 @@
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
   <body>
-    <nav class="nav" th:fragment="nav">
+    <nav class="nav" th:fragment="nav">      
       <sec:authorize access="hasRole('ROLE_VER_PAGINAS')" var="isRoleVerPaginas"></sec:authorize>
       <sec:authorize access="hasRole('ROLE_CLUB_LECTURA')" var="isRoleClubLectura"></sec:authorize>
+      <input id="nombreUsuario"  type="hidden"  th:value="${ session.nombre }"></input>
       <button id="mostrarMenu" class="mostrarMenu" >
         <i class="fas fa-align-justify">Menu</i>
       </button>      

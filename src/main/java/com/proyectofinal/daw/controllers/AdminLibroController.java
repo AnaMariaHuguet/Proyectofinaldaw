@@ -1,5 +1,6 @@
 package com.proyectofinal.daw.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,8 +17,11 @@ import com.proyectofinal.daw.entities.Prestamo;
 import com.proyectofinal.daw.entities.Puntuacion;
 import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.dto.LibroDTO;
+import com.proyectofinal.daw.entities.dto.LibroDTOconID;
+import com.proyectofinal.daw.enums.LibroSituacion;
 import com.proyectofinal.daw.repositories.AutorRepository;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
+import com.proyectofinal.daw.repositories.ClubLecturaRepository;
 import com.proyectofinal.daw.repositories.GeneroRepository;
 import com.proyectofinal.daw.repositories.HistoricoRepository;
 import com.proyectofinal.daw.repositories.LibroRepository;
@@ -60,11 +64,13 @@ public class AdminLibroController {
     PuntuacionRepository repoPuntuacion;
     @Autowired
     LibroService libroService;
+    @Autowired
+    ClubLecturaRepository repoCL;
 
     @GetMapping("admin/libro")
     public String libro(Model model, HttpServletRequest request, @RequestParam Map<String, String> params) {
         int currentPage = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
-        int pageSize = params.get("size") != null ? Integer.valueOf(params.get("size").toString()) : 6;
+        int pageSize = params.get("size") != null ? Integer.valueOf(params.get("size").toString()) : 7;
         String sortBy = params.get("sortby") != null ? params.get("sortby").toString() : "id";
         String order = params.get("order") != null ? params.get("order").toString() : "asc";
         PageRequest pageRequest = PageRequest.of(currentPage, pageSize,
@@ -80,53 +86,65 @@ public class AdminLibroController {
         model.addAttribute("libro", pageLibro.getContent());
         model.addAttribute("order", order);
         model.addAttribute("sortBy", sortBy);
-
         return "admin/adminLibro";
     }
 
-    @GetMapping("/newLibro")
+    @GetMapping("admin/newLibro")
     public String nuevoLibro(Model model, HttpServletRequest request) {
         model.addAttribute("autores", repoAutor.findAll());
         model.addAttribute("categorias", repoCategoria.findAll());
         model.addAttribute("generos", repoGenero.findAll());
+        /* enviamos un modelo libro vacio para que lo cree a su semejanza */
         model.addAttribute("libro", new Libro());
         return "/admin/adminNuevoLibro";
     }
 
-    @PostMapping("/crearlibro")
-    /* @RequestMapping(value = "/newGenero", method =RequestMethod.POST) */
-    public String createLibro(@Valid @ModelAttribute("libroDTO") LibroDTO libroDTO, BindingResult result, Model model) {
-
+    @PostMapping("admin/crearlibro")
+    public String createLibro(@Valid @ModelAttribute("libroDTO") LibroDTO libroDTO, BindingResult result, Model model,
+            HttpServletRequest request) {
+        System.out.println(result.getAllErrors());
         if (!result.hasErrors()) {
             libroService.addLibro(libroDTO, model);
+            Map<String, String> params = new HashMap<>();
+            return libro(model, request, params);
+        } else {
+            Map<String, String> params = new HashMap<>();
+            return libro(model, request, params);
         }
-        model.addAttribute("libros", repoLibro.findAll());
-        return "/admin/adminNuevoLibro";
     }
 
     @PostMapping("/libro/borrar/{id}")
-    public String borrarLibro(@PathVariable Long id, Model model) {
+    public String borrarLibro(@PathVariable Long id, Model model, HttpServletRequest request) {
 
         Optional<Libro> libro = repoLibro.findById(id);
         Optional<Prestamo> listaPrestamos = repoPrestamo.findByLibro(libro.get());
-        List<Reserva> listaReservas = repoReserva.findByLibro(libro.get());
+        Optional<Reserva> listaReservas = repoReserva.findByLibro(libro);
         if (!listaPrestamos.isEmpty()) {
             model.addAttribute("errorserver", "No se puede borrar, esta prestado.");
 
         } else if (!listaReservas.isEmpty()) {
             model.addAttribute("errorserver", "No se puede borrar, esta reservado.");
-
         } else
             repoLibro.deleteById(id);
+        Map<String, String> params = new HashMap<>();
+        return libro(model, request, params);
+    }
 
-        model.addAttribute("libros", repoLibro.findAll());
-        model.addAttribute("libro", new Libro());
-        return "/admin/adminLibro";
+    @PostMapping("libro/editar")
+    public String updateLibro(Model model, @Valid @ModelAttribute("libroDTOconID") LibroDTOconID libroDTOconID,
+            BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+
+        if (!result.hasErrors()) {
+            libroService.updateLibro(libroDTOconID, model);
+            Map<String, String> params = new HashMap<>();
+            return libro(model, request, params);
+        } else {
+            return editalibro(libroDTOconID.getId(), request, model);
+        }
     }
 
     @GetMapping("/editaLibro/{id}")
-    public String editalibro(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response,
-            Model model) {
+    public String editalibro(@PathVariable Long id, HttpServletRequest request, Model model) {
         Optional<Libro> libro = repoLibro.findById(id);
         Optional<Prestamo> prestamo = repoPrestamo.findByLibro(libro.get());
         if (!libro.isPresent()) {
@@ -159,13 +177,11 @@ public class AdminLibroController {
             if (prestamo.isPresent()) {
                 model.addAttribute("prestamo", prestamo.get());
             }
-
             model.addAttribute("autores", repoAutor.findAll());
             model.addAttribute("categorias", repoCategoria.findAll());
             model.addAttribute("generos", repoGenero.findAll());
-            // model.addAttribute("librosituacion", LibroSituacion.values());
+            model.addAttribute("librosituacion", LibroSituacion.values());
             return "admin/editarLibroAdmin";
-
         }
     }
 }

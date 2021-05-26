@@ -62,11 +62,15 @@ public class RegistroController {
             return "formulario/registro";
         } else {
             Optional<Usuario> usEmail = usuarioRepo.findByEmail(usuario.getEmail());
+            Optional<Usuario> usNif = usuarioRepo.findByNif(usuario.getNif());
             if (usEmail.isPresent()) {
                 model.addAttribute("emailrepetido", "Usuario ya registrado.");
                 return "formulario/registro";
-            } else if (!Utiles.esDniValido(usuario.getNif())) {
-                model.addAttribute("dnimal", "El dni no es válido.");
+            } else if (Utiles.esDniValido(usuario.getNif().toUpperCase()) == false) {
+                model.addAttribute("dnimal1", "El dni no es válido.");
+                return "formulario/registro";
+            } else if (usNif.isPresent()) {
+                model.addAttribute("dnimal2", "El dni esta repetido");
                 return "formulario/registro";
             } else {
                 usuario.setNombre(usuario.getNombre().substring(0, 1).toUpperCase()
@@ -79,7 +83,6 @@ public class RegistroController {
                         + usuario.getPoblacion().substring(1).toLowerCase());
                 usuarioRepo.save(usuario);
             }
-
         }
         return "redirect:/";
     }

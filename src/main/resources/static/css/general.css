@@ -21,17 +21,18 @@
 /***************     tipografia     ***************/
 h1 {
   font: 3.2rem Montserrat, fantasy;
-  color: #f7291e;
+  color: rgb(232, 53, 24);
 }
 h2 {
   font: 1.5rem Montserrat, fantasy;
-  color: #f7291e;
+  color: rgb(232, 53, 24);
   text-align: center;
+  margin-top: 5px;
 }
 h3 {
   font: 1rem "Lobster", "Impallari Type", "Cyreal";
   text-align: center;
-  color: #f7291e;
+  color: rgb(232, 53, 24);
 }
 h4 {
   font-weight: bold;
@@ -41,15 +42,9 @@ small {
   font-size: 12px;
 }
 /***************     body     ***************/
-html,
-body {
-  height: 100vh;
-}
-
 body {
   display: grid;
 }
-
 /***************     header       ***************/
 
 header {
@@ -88,22 +83,32 @@ select,
 }
 i {
   margin-right: 5px;
-  color: darkred;
+  color: rgba(139, 0, 0);
 }
+
 .btnDetRes {
   width: 100%;
   height: 100%;
 }
-/***************   aside   ***************/
-aside {
-  background-color: rgb(167, 206, 207);
-  padding: 5px;
+.pintaEnlace {
+  color: #0281f7;
+  font-weight: bold;
+}
+.trHover:hover {
+  /* background-color: #8f4522;*/
+  /* background-color: #521501;*/
+  background-color: #583f12;
+  color: rgb(246, 247, 203);
+}
+textarea {
+  width: 100%;
+  display: block;
+  line-height: 1.5;
+  /* height: calc(font-size * line-height * rows); */
+  height: calc(1.6em * 1.5 * 5);
+  padding: 8px 8px;
 }
 
-aside > iframe {
-  width: 100vw;
-  height: 200px;
-}
 /***************     footer      ***************/
 footer {
   display: flex;
@@ -118,12 +123,7 @@ footer {
 }
 
 /*****************media query***********************/
-/*@media (max-width: 1200px) {
 
-  h1 {
-    font: 2.3rem Montserrat, fantasy;
-  }
-}*/
 @media (max-width: 800px) {
   h1 {
     font: 1.8rem Montserrat, fantasy;
@@ -133,11 +133,15 @@ footer {
     max-height: 26px;
   }
 }
-
+@media (max-width: 1200px) {
+}
 /** general margin */
 .height-100 {
   height: 100%;
 }
 .margin-5 {
   margin: 5px;
+}
+.margin-10 {
+  margin: 10px;
 }

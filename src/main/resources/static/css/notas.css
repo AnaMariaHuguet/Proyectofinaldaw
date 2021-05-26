@@ -6,16 +6,14 @@
   min-height: 210px;
 }
 .contenedor_flip {
-  width: 170px;
-  height: 170px;
-  margin: 10px;
-}
-.flip,
-.flipa,
-.flip1 {
   width: 160px;
   height: 160px;
   margin: 10px;
+}
+.flip,
+.flipa {
+  width: 150px;
+  height: 150px;
   position: relative;
 }
 .flip,
@@ -27,10 +25,11 @@
 }
 .flip {
   transform: rotate(-15deg);
+  margin: 0px 5px 10px 5px;
 }
-.flipa,
-.flip1 {
+.flipa {
   transform: rotate(15deg);
+  margin: 10px 0 0 5px;
 }
 .contenedor_flip:hover .flip,
 .contenedor_flip:hover .flipa {
@@ -42,8 +41,8 @@
 .flipa-2 {
   position: absolute;
   backface-visibility: hidden;
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
 }
 .flip-2,
 .flipa-2 {
@@ -52,6 +51,8 @@
 
 .flipa-2 {
   background-color: rgb(250, 250, 176);
+
+  padding: 5px;
 }
 
 @media (min-width: 800px) {

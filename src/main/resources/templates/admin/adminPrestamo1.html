@@ -23,20 +23,22 @@
   </head>
   <body>
     <div class="header" th:insert="fragments/header :: header"></div>
+
     <div class="nav" th:insert="fragments/nav :: nav"></div>
+
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
 
-    <section class="contenido">
-      <h2>RESERVAS</h2>
-      <div class="alturaMin">
-        <table id="tablaReserva">
+    <section class="contenido" id="contenido">
+      <h2>PRÉSTAMOS</h2>
+      <div class="tabla">
+        <table>          
           <thead>
             <tr>
               <th>
                 <div th:if="${sortBy ne 'usuario'}">
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=usuario&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=usuario&order=asc'}"
                   >
                     User <i class="fas fa-sort"></i
                   ></a>
@@ -47,7 +49,7 @@
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=usuario&order=desc'}"
+                    th:href="@{'/admin/prestamo?sortby=usuario&order=desc'}"
                     >User <i class="fas fa-sort-up"></i
                   ></a>
                 </div>
@@ -57,7 +59,7 @@
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=usuario&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=usuario&order=asc'}"
                     >User <i class="fas fa-sort-down"></i
                   ></a>
                 </div>
@@ -66,7 +68,7 @@
                 <div th:if="${sortBy ne 'libro'}">
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=libro&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=libro&order=asc'}"
                   >
                     Libro <i class="fas fa-sort"></i
                   ></a>
@@ -74,7 +76,7 @@
                 <div th:unless="${sortBy ne 'libro'}" th:if="${order eq 'asc'}">
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=libro&order=desc'}"
+                    th:href="@{'/admin/prestamo?sortby=libro&order=desc'}"
                     >Libro<i class="fas fa-sort-up"></i
                   ></a>
                 </div>
@@ -84,71 +86,70 @@
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=libro&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=libro&order=asc'}"
                     >Libro<i class="fas fa-sort-down"></i
                   ></a>
                 </div>
               </th>
               <th>
-                <div th:if="${sortBy ne 'libro.Autor.nombre'}">
+                <div th:if="${sortBy ne 'fPrestamo'}">
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=libro.Autor.nombre&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=fPrestamo&order=asc'}"
                   >
-                    Autor <i class="fas fa-sort"></i
+                    Préstamo <i class="fas fa-sort"></i
                   ></a>
                 </div>
                 <div
-                  th:unless="${sortBy ne 'libro.Autor.nombre'}"
+                  th:unless="${sortBy ne 'fPrestamo'}"
                   th:if="${order eq 'asc'}"
                 >
-                  <div
+                  <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=libro.Autor.nombre&order=desc'}"
-                  >
-                    Autor <i class="fas fa-sort-up"></i>
-                  </div>
+                    th:href="@{'/admin/prestamo?sortby=fPrestamo&order=desc'}"
+                    >Préstamo <i class="fas fa-sort-up"></i
+                  ></a>
                 </div>
                 <div
-                  th:unless="${sortBy ne 'libro.Autor.nombre'}"
+                  th:unless="${sortBy ne 'fPrestamo'}"
                   th:if="${order eq 'desc'}"
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=libro.Autor.nombre&order=asc'}"
-                    >Autor <i class="fas fa-sort-down"></i
+                    th:href="@{'/admin/prestamo?sortby=fPrestamo&order=asc'}"
+                    >Préstamo <i class="fas fa-sort-down"></i
                   ></a>
                 </div>
               </th>
               <th>
-                <div th:if="${sortBy ne 'fReservaHecha'}">
+                <div th:if="${sortBy ne 'fDevolEstimada'}">
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=fReservaHecha&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=asc'}"
                   >
-                    Reserva <i class="fas fa-sort"></i
+                    Plazo <i class="fas fa-sort"></i
                   ></a>
                 </div>
                 <div
-                  th:unless="${sortBy ne 'fReservaHecha'}"
+                  th:unless="${sortBy ne 'fDevolEstimada'}"
                   th:if="${order eq 'asc'}"
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=fReservaHecha&order=desc'}"
+                    th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=desc'}"
                   >
-                    Reserva<i class="fas fa-sort-up"></i
+                    Plazo<i class="fas fa-sort-up"></i
                   ></a>
                 </div>
                 <div
-                  th:unless="${sortBy ne 'fReservaHecha'}"
+                  th:unless="${sortBy ne 'fDevolEstimada'}"
                   th:if="${order eq 'desc'}"
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=fReservaHecha&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=asc'}"
                   >
-                    Reserva<i class="fas fa-sort-down"></i
+                    Plazo<i class="fas fa-sort-down"></i
                   ></a>
                 </div>
               </th>
@@ -156,9 +157,9 @@
                 <div th:if="${sortBy ne 'fDevolucion'}">
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=fDevolucion&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=fDevolucion&order=asc'}"
                   >
-                    Plazo <i class="fas fa-sort"></i
+                    Devolución <i class="fas fa-sort"></i
                   ></a>
                 </div>
                 <div
@@ -167,9 +168,9 @@
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=fDevolucion&order=desc'}"
+                    th:href="@{'/admin/prestamo?sortby=fDevolucion&order=desc'}"
                   >
-                    Plazo<i class="fas fa-sort-up"></i
+                    Devolución<i class="fas fa-sort-up"></i
                   ></a>
                 </div>
                 <div
@@ -178,33 +179,33 @@
                 >
                   <a
                     class="thfalso"
-                    th:href="@{'/admin/todasReservas?sortby=fDevolucion&order=asc'}"
+                    th:href="@{'/admin/prestamo?sortby=fDevolucion&order=asc'}"
                   >
-                    Plazo<i class="fas fa-sort-down"></i
+                    Devolución<i class="fas fa-sort-down"></i
                   ></a>
                 </div>
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr th:each="reservas : ${reserva}">
+          <tbody id="bodyprestamo">
+            <tr th:each="prestamos : ${prestamo}">
               <td>
-                <a th:text="${reservas.Usuario.nombre}" />
+                <a th:text="${prestamos.Usuario.nombre}" />
               </td>
               <td>
-                <a th:text="${reservas.Libro.titulo}" />
+                <a th:text="${prestamos.Libro.titulo}" />
               </td>
               <td
-                th:text="${reservas.Libro.getAutor().nombre+ ' ' +reservas.Libro.getAutor().apellido}"
+                th:text="${#dates.format(prestamos.fPrestamo, 'dd-MM-yy HH:mm')}"
               />
               <td>
                 <a
-                  th:text="${#dates.format(reservas.fReservaHecha, 'dd-MM-yy HH:mm')}"
+                  th:text="${#dates.format(prestamos.fDevolEstimada, 'dd-MM-yy')}"
                 ></a>
               </td>
               <td>
                 <a
-                  th:text="${#dates.format(reservas.fDevolucion, 'dd-MM-yy')}"
+                  th:text="${#dates.format(prestamos.fDevolucion, 'dd-MM-yy')}"
                 ></a>
               </td>
             </tr>
@@ -214,13 +215,15 @@
       <div th:if="${ !paginas.isEmpty() }">
         <div class="navPagination">
           <ul class="pagination">
+            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
               <a
                 class="page-link"
                 th:text="${pagina}"
-                th:href="@{'/admin/todasReservas?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
+                th:href="@{'/admin/prestamo?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
               ></a>
             </li>
+            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
         </div>
       </div>

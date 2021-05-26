@@ -1,6 +1,6 @@
 /***************     tipografia     ***************/
 h4 {
-  color: red;
+  color: rgb(232, 53, 24);
 }
 label {
   font-weight: bold;
@@ -9,13 +9,14 @@ label {
 
 body {
   grid-template-columns: 100%;
-  grid-template-rows: 15% 12% auto 10%;
+  grid-template-rows: 100px 80px auto 60px;
   background-color: #f8e29b;
 }
 nav,
 header {
   height: 100%;
 }
+
 /***************     header       ***************/
 
 header {
@@ -23,7 +24,7 @@ header {
   padding: 0px 1% 0px 0%;
 }
 header > img {
-  height: 90%;
+  height: 75px;
   object-fit: cover;
 }
 header > img:first-child {
@@ -41,16 +42,136 @@ article {
 .yellow {
   color: rgb(228, 156, 2);
 }
+.lecturaElegida {
+  text-align: center;
+}
+.letraEspecial {
+  font: bold 2.5rem French Script MT;
+  color: rgb(232, 53, 24);
+}
+.tdancho {
+  width: 210px;
+  min-width: 210px;
+  max-width: 210px;
+}
+
+.tdancho1 {
+  width: 160px;
+  min-width: 160px;
+  max-width: 160px;
+}
+.tdancho2 {
+  width: 70px;
+  min-width: 70px;
+  max-width: 70px;
+}
+.tdancho3 {
+  width: 110px;
+  min-width: 110px;
+  max-width: 110px;
+}
+.tdancho4 {
+  width: 35px;
+  min-width: 35px;
+  max-width: 35px;
+}
+.tdancho5 {
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+}
+.tdancho6 {
+  width: 110px;
+  min-width: 90px;
+}
+.tdancho7 {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+}
+.ancho {
+  width: 45px;
+}
+
+.inputancho {
+  width: 200px;
+}
+.inputancho1 {
+  width: 140px;
+}
 /*****************media query***********************/
 
 @media (min-width: 800px) {
+  html,
+  body {
+    height: 100vh;
+  }
+  body {
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 12% auto 10%;
+  }
   footer {
     justify-content: space-between;
     padding: 0 10px;
+  }
+  .tdancho {
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+  }
+  .tdancho5 {
+    width: 120px;
+    min-width: 120px;
+    max-width: 140px;
+  }
+  .tdancho2 {
+    width: 140px;
+    min-width: 110px;
+    max-width: 140px;
+  }
+  .tdancho3 {
+    width: 95px;
+    min-width: 95px;
+    max-width: 95px;
   }
 }
 @media (min-width: 1200px) {
   h1 {
     font: 3rem Montserrat, fantasy;
+  }
+  header > img {
+    height: 90%;
+    object-fit: cover;
+  }
+  .ancho {
+    width: 150px;
+  }
+  .tdancho,
+  .tdancho1 {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+  }
+
+  .tdancho2,
+  .tdancho5 {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+  }
+  .tdancho3 {
+    width: 75px;
+    min-width: 75px;
+    max-width: 75px;
+  }
+  .inputancho,
+  .inputancho1 {
+    width: 235px;
+    max-width: 240px;
+  }
+  .tdancho6 {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
   }
 }

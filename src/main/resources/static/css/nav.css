@@ -1,7 +1,9 @@
 /***************     nav     ***************/
 nav {
-  background-color: #a1a84c;
+  /*background-color: #a1a84c;*/
+  background-color: rgb(161, 168, 76);
 }
+
 ul {
   display: flex;
   justify-content: space-evenly;
@@ -10,7 +12,6 @@ ul {
   height: 100%;
   padding: 0;
   margin: 0;
-  border: #ab413d solid 2px;
   flex-wrap: wrap;
 }
 a {
@@ -32,6 +33,7 @@ a {
 .nav a:hover {
   color: #fae0cf;
   background-color: #0281f7;
+  /*background-color: rgb(104, 108, 124);*/
   border: 1px solid;
   border-radius: 50%;
   box-shadow: 2px 1px 4px white;
@@ -133,7 +135,7 @@ table,
 .table {
   border-collapse: collapse;
   border: #ab413d solid 2px;
-  width: 100%;
+  width: 99%;
 }
 th,
 .th {
@@ -149,9 +151,7 @@ td,
   border: #ab413d solid 2px;
   text-decoration: none;
 }
-.contenido {
-  padding: 10px;
-}
+
 .thfalso {
   font-weight: bold;
   color: black;
@@ -196,7 +196,7 @@ td,
   border-radius: 50%;
   margin-left: 5px;
 }
-/**************** Mobile ******************/
+/*****************media query***********************/
 
 @media (max-width: 800px) {
   nav ul {
@@ -227,7 +227,7 @@ td,
     left: 75%;
   }
   .nav > ul > li {
-    width: 100%;
+    width: 98%;
     text-align: left;
   }
 

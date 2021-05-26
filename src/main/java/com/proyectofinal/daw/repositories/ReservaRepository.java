@@ -2,6 +2,8 @@ package com.proyectofinal.daw.repositories;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Usuario;
@@ -14,7 +16,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 
     List<Reserva> findByUsuario(Usuario usuario);
 
-    List<Reserva> findByLibro(Libro libro);
+    Optional<Reserva> findByLibro(Optional<Libro> libro);
 
     void deleteAllByfDevolucion(Date fDevolucion);
 

@@ -1,5 +1,5 @@
 
-var peticion, datosjson, opcion, url, selgenero, selcategoria, selautor, bodytabla;
+var peticion, datosjson, opcion, url, selgenero, selcategoria, selautor, bodytabla,navPagination;
 
 function procesaRespuesta(){    
     if(peticion.status===200){
@@ -104,6 +104,7 @@ function mostrarLibros(libros){
                 reserva.addEventListener('click', realizaReserva);
             } 
         }
+        navPagination.style.display="none";
     }    
 }
 
@@ -111,9 +112,8 @@ window.addEventListener('load',function(){
     selgenero=document.getElementById("selgenero");
     selcategoria=document.getElementById("selcategoria");
     let preselautor=document.getElementById("selautor");
-    bodytabla=document.getElementById('bodytabla'); 
-    nombreusuario=document.getElementById("nombreUsuario");
-
+    bodytabla=document.getElementById('bodytabla');
+    navPagination=document.getElementById("navPagination");   
     const botonesReserva = document.getElementsByName('reserva');     
     for(let i = 0; i < botonesReserva.length; i++) {
         botonesReserva[i].addEventListener('click', realizaReserva);

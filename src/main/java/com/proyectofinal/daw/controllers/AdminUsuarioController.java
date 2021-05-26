@@ -53,7 +53,6 @@ public class AdminUsuarioController {
             model.addAttribute("sortBy", sortBy);
             model.addAttribute("usuarios", repoUsuario.findAll());
             model.addAttribute("usuario", new Usuario());
-            model.addAttribute("usuariostodos", repoUsuario.findAll());
         } else {
             model.addAttribute("errorserver", "No hay ningún usuario");
         }

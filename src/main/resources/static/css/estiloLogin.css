@@ -8,8 +8,8 @@ h1 {
 
 body {
   grid-template-rows: 15% auto 10%;
-  background: #fae0cf url(../img/textos-libres.jpg.crdownload) center center
-    no-repeat fixed;
+  background: rgb(227, 198, 136) url(../img/textos-libres.jpg.crdownload) center
+    center no-repeat fixed;
   background-size: cover;
 }
 
@@ -38,7 +38,7 @@ fieldset {
 }
 legend {
   text-align: center;
-  color: #f7291e;
+  color: rgb(232, 53, 24);
 }
 label {
   font-weight: bold;
@@ -46,15 +46,18 @@ label {
 }
 
 main > div {
-  background-color: rgb(84, 164, 218);
-  border: 3px solid rgb(4, 63, 102);
+  background-color: #8f4522;
+  border: 3px solid #521501;
+  color: rgb(246, 247, 203);
+  /*background-color: rgb(84, 164, 218);
+  border: 3px solid rgb(4, 63, 102);*/
   text-align: center;
-  padding: 3px;
-  height: auto;
+  padding: 10px;
+  height: 80px;
 }
 
 .fieldError {
-  border: 2px solid red;
+  border: 2px solid rgb(232, 53, 24);
   background-color: rgb(233, 203, 194);
 }
 section {
@@ -82,11 +85,14 @@ section ~ div {
 small {
   margin: 0 20px;
 }
-/***************     footer      ***************/
 
 /*****************media query***********************/
 
 @media (min-width: 800px) {
+  html,
+  body {
+    height: 100vh;
+  }
   h2 {
     font: 1.6rem Montserrat, fantasy;
   }

@@ -21,7 +21,7 @@
     <script src="/js/nav.js"></script>
     <title>Inicio</title>
   </head>
-  <body>
+  <body class="bodyIndex">
     <div class="header" th:insert="fragments/header :: header"></div>
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
@@ -29,7 +29,11 @@
         <h2>INFORMACIÓN</h2>
         <p th:switch="${session.nombre}">
           ¡Hola
-          <span th:case="*" th:text="${ session.nombre }"></span>
+          <span
+            class="letraEspecial"
+            th:case="*"
+            th:text="${ session.nombre }"
+          ></span>
           !
         </p>
         <p>Bienvenido a la Web de la Agencia de Lectura.</p>
@@ -73,14 +77,16 @@
         <div class="contenedor_flip">
           <div class="flipa">
             <img
-              th:src="@{/img/post-itlista.png}"
-              src="img/post-it2_reducido.png"
+              th:src="@{/img/postWeb.png}"
+              src="img/postWeb.png"
               class="flipa-1"
               alt="horario"
             />
             <div class="flipa-2">
-              <h5>Lista</h5>
-              Texto de prueba
+              <h3>Atributo</h3>
+              <p>Baúl de cursos</p>
+              <p>Pixabay:</p>
+              <p>Pexels, Alexas-fotos</p>
             </div>
           </div>
         </div>

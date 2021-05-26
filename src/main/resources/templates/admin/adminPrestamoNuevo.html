@@ -26,61 +26,74 @@
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
     <section class="contenido" id="contenido">
-      <h2>Nuevo Préstamo</h2>
-      <div>
-        <form th:action="@{/newPrestamo}" method="POST">
-          <input
-            class="boton2"
-            autofocus
-            type="text"
-            name="nombre"
-            id="selnombreusuario"
-            list="nombreUsuarioList"
-            placeholder="Nombre usuario"
-          />
-          <datalist id="nombreUsuarioList">
-            <option
-              th:each="usuario : ${usuarios}"
-              th:value="${usuario.nombre}"
-              th:data-value="${usuario.id}"
-            ></option>
-          </datalist>
-          <input
-            class="boton2"
-            autofocus
-            type="text"
-            name="titulo"
-            id="seltitulo"
-            list="tituloList"
-            placeholder="Título"
-          />
-          <datalist id="tituloList">
-            <option
-              th:each="libro : ${libros}"
-              th:value="${libro.titulo}"
-              th:data-value="${libro.id}"
-            ></option>
-          </datalist>
-          <input
-            type="text"
-            name="fPrestamo"
-            th:value="${#temporals.format(localDateTime, 'dd-MM-yyyy HH:mm')}"
-          />
-          <input
-            type="text"
-            name="fDevolEstimada"
-            th:value="${#temporals.format(devolucionEstimada, 'dd-MM-yyyy')}"
-          />
-          <input
-            class="boton"
-            type="submit"
-            id="btnNewPrestamo"
-            name="btnNewPrestamo"
-            value="Guardar"
-          />
-        </form>
+      <div class="box1">
+        <h2>Nuevo Préstamo</h2>
+        <div>
+          <form class="formPrest" th:action="@{/newPrestamo}" method="POST">
+            <div>
+              <label for="">Fecha préstamo</label>
+              <input
+                type="text"
+                name="fPrestamo"
+                th:value="${#temporals.format(localDateTime, 'dd-MM-yy HH:mm')}"
+              />
+            </div>
+            <div>
+              <label for="">Fecha Devolución</label>
+              <input
+                type="text"
+                name="fDevolEstimada"
+                th:value="${#temporals.format(devolucionEstimada, 'dd-MM-yy')}"
+              />
+            </div>
+            <div>
+              <input
+                class="boton2"
+                autofocus
+                type="text"
+                name="usuario"
+                id="selnombreusuario"
+                list="nombreUsuarioList"
+                placeholder="Nombre usuario"
+              />
+              <datalist id="nombreUsuarioList">
+                <option
+                  th:each="usuario : ${usuarios}"
+                  th:text="${usuario.nombre} +' '+${usuario.apellido}"
+                  th:value="${usuario.id}"
+                ></option>
+              </datalist>
+            </div>
+            <div>
+              <input
+                class="boton2"
+                autofocus
+                type="text"
+                name="libro"
+                id="seltitulo"
+                list="tituloList"
+                placeholder="Título"
+              />
+              <datalist id="tituloList">
+                <option
+                  th:each="libro : ${libros}"
+                  th:text="${libro.titulo}"
+                  th:value="${libro.id}"
+                ></option>
+              </datalist>
+            </div>
+            <div>
+              <input
+                class="boton"
+                type="submit"
+                id="btnNewPrestamo"
+                name="btnNewPrestamo"
+                value="Guardar"
+              />
+            </div>
+          </form>
+        </div>
       </div>
-      <br />
     </section>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

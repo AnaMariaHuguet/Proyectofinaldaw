@@ -152,111 +152,21 @@
         <table class="tablaCatalogo">
           <thead>
             <tr>
-              <th>
-                <div th:if="${sortByprest ne 'titulo'}">
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=titulo&orderprest=asc'}"
-                  >
-                    Título <i class="fas fa-sort"></i
-                  ></a>
-                </div>
-                <div
-                  th:unless="${sortByprest ne 'titulo'}"
-                  th:if="${orderprest eq 'asc'}"
-                >
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=titulo&orderprest=desc'}"
-                    >Título <i class="fas fa-sort-up"></i
-                  ></a>
-                </div>
-                <div
-                  th:unless="${sortByprest ne 'titulo'}"
-                  th:if="${orderprest eq 'desc'}"
-                >
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=titulo&orderprest=asc'}"
-                    >Título <i class="fas fa-sort-down"></i
-                  ></a>
-                </div>
-              </th>
-              <th>
-                <div th:if="${sortByprest ne 'Autor.nombre'}">
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=Autor.nombre&orderprest=asc'}"
-                  >
-                    Autor <i class="fas fa-sort"></i
-                  ></a>
-                </div>
-                <div
-                  th:unless="${sortByprest ne 'Autor.nombre'}"
-                  th:if="${orderprest eq 'asc'}"
-                >
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=Autor.nombre&orderprest=desc'}"
-                    >Autor <i class="fas fa-sort-up"></i
-                  ></a>
-                </div>
-                <div
-                  th:unless="${sortByprest ne 'Autor.nombre'}"
-                  th:if="${orderprest eq 'desc'}"
-                >
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=Autor.nombre&orderprest=asc'}"
-                    >Autor <i class="fas fa-sort-down"></i
-                  ></a>
-                </div>
-              </th>
-              <th>
-                <div th:if="${sortByprest ne 'fDevolEstimada'}">
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolEstimada&orderprest=asc'}"
-                  >
-                    Devolver <i class="fas fa-sort"></i
-                  ></a>
-                </div>
-                <div
-                  th:unless="${sortByprest ne 'fDevolEstimada'}"
-                  th:if="${orderprest eq 'asc'}"
-                >
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolEstimada&orderprest=desc'}"
-                    >Devolver<i class="fas fa-sort-up"></i
-                  ></a>
-                </div>
-                <div
-                  th:unless="${sortByprest ne 'fDevolEstimada'}"
-                  th:if="${orderprest eq 'desc'}"
-                >
-                  <a
-                    class="thfalso"
-                    th:href="@{'/adminUsuarioPerfil?sortbyprest=fDevolEstimada&orderprest=asc'}"
-                    >Devolver<i class="fas fa-sort-down"></i
-                  ></a>
-                </div>
-              </th>
+              <th class="inputancho1">Título</th>
+              <th class="inputancho1">Autor</th>
+              <th>Devolver</th>
             </tr>
           </thead>
           <tbody class="bodytabla">
             <tr th:each="prestamo : ${pageprestamo}">
-              <td>
-                <span th:text="${prestamo.Libro.titulo}" />
-              </td>
+              <td class="inputancho1" th:text="${prestamo.Libro.titulo}"></td>
               <td
+                class="inputancho1"
                 th:text="${prestamo.Libro.getAutor().getNombre()+' '+prestamo.Libro.getAutor().getApellido()}"
               ></td>
-              <td>
-                <span
-                  th:text="${#dates.format(prestamo.fDevolEstimada, 'dd-MM-yy')}"
-                />
-              </td>
+              <td
+                th:text="${#dates.format(prestamo.fDevolEstimada, 'dd-MM-yy')}"
+              ></td>
             </tr>
           </tbody>
         </table>
@@ -267,113 +177,24 @@
           <table class="tablaCatalogo">
             <thead>
               <tr>
-                <th>
-                  <div th:if="${sortBy ne 'titulo'}">
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=titulo&order=asc'}"
-                    >
-                      Título <i class="fas fa-sort"></i
-                    ></a>
-                  </div>
-                  <div
-                    th:unless="${sortBy ne 'titulo'}"
-                    th:if="${order eq 'asc'}"
-                  >
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=titulo&order=desc'}"
-                      >Título <i class="fas fa-sort-up"></i
-                    ></a>
-                  </div>
-                  <div
-                    th:unless="${sortBy ne 'titulo'}"
-                    th:if="${order eq 'desc'}"
-                  >
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=titulo&order=asc'}"
-                      >Título <i class="fas fa-sort-down"></i
-                    ></a>
-                  </div>
-                </th>
-                <th>
-                  <div th:if="${sortBy ne 'Autor.nombre'}">
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=Autor.nombre&order=asc'}"
-                    >
-                      Autor <i class="fas fa-sort"></i
-                    ></a>
-                  </div>
-                  <div
-                    th:unless="${sortBy ne 'Autor.nombre'}"
-                    th:if="${order eq 'asc'}"
-                  >
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=Autor.nombre&order=desc'}"
-                      >Autor <i class="fas fa-sort-up"></i
-                    ></a>
-                  </div>
-                  <div
-                    th:unless="${sortBy ne 'Autor.nombre'}"
-                    th:if="${order eq 'desc'}"
-                  >
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=Autor.nombre&order=asc'}"
-                      >Autor <i class="fas fa-sort-down"></i
-                    ></a>
-                  </div>
-                </th>
-                <th>
-                  <div th:if="${sortBy ne 'fDevolucion'}">
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=fDevolucion&order=asc'}"
-                    >
-                      Leído <i class="fas fa-sort"></i
-                    ></a>
-                  </div>
-                  <div
-                    th:unless="${sortBy ne 'fDevolucion'}"
-                    th:if="${order eq 'asc'}"
-                  >
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=fDevolucion&order=desc'}"
-                      >Leído<i class="fas fa-sort-up"></i
-                    ></a>
-                  </div>
-                  <div
-                    th:unless="${sortBy ne 'fDevolucion'}"
-                    th:if="${order eq 'desc'}"
-                  >
-                    <a
-                      class="thfalso"
-                      th:href="@{'/adminUsuarioPerfil?sortby=fDevolucion&order=asc'}"
-                      >Leído<i class="fas fa-sort-down"></i
-                    ></a>
-                  </div>
-                </th>
+                <th class="tdancho7">Título</th>
+                <th class="tdancho7">Autor</th>
+                <th>Leído</th>
                 <th>Puntuación</th>
               </tr>
             </thead>
             <tbody class="bodytabla">
               <tr th:each="entrada : ${pagehistorico}">
-                <td>
-                  <a th:text="${entrada.Libro.titulo}" />
-                </td>
+                <td class="tdancho7" th:text="${entrada.Libro.titulo}"></td>
                 <td
+                  class="tdancho7"
                   th:text="${entrada.Libro.getAutor().nombre+ ' ' +entrada.Libro.getAutor().apellido}"
                 ></td>
-                <td>
-                  <a
-                    th:text="${#dates.format(entrada.fDevolucion, 'dd-MM-yy')}"
-                  />
-                </td>
-                <td>
+                <td
+                  class="fontpq tdancho6"
+                  th:text="${#dates.format(entrada.fDevolucion, 'dd-MM-yy')}"
+                ></td>
+                <td class="fontpq tdancho6">
                   <span th:id="pintarestrella + ${entrada.id}"></span>
                   <div
                     th:with="puntuacion=${entrada.votacion} ? ${entrada.votacion.puntuacion.valor} : '0'"

@@ -28,8 +28,42 @@
 
     <section class="contenido" id="contenido">
       <h2>Club modificaciones</h2>
+      <form
+        class="formAdminClub"
+        th:action="@{/admin/club/editar}"
+        method="POST"
+      >
+        <div class="lecturaElegida">
+          <p>
+            Lectura elegida:
+            <span
+              class="letraEspecial"
+              th:text="${lectura.Libro.titulo}"
+            ></span>
+          </p>
+          <div>
+            <img th:src="'/img/imgLibros/'+${lectura.Libro.imagen}" />
+          </div>
+        </div>
+        <div class="urlLectura">
+          <p>
+            Sitio web:
+            <input
+              type="url"
+              name="espacioURL"
+              placeholder="Introduce un sitio web"
+            />
+          </p>
+          <p class="margin-10">
+            Última modificación:
+            <span
+              th:text="${#dates.format(lectura.fechaUltimaModificacion, 'dd-MM-yy')}"
+            ></span>
+          </p>
+          <input class="btnDetRes" type="submit" value="Enviar datos" />
+        </div>
+      </form>
     </section>
-
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>

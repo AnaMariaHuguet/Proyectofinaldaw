@@ -1,18 +1,23 @@
 package com.proyectofinal.daw.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import com.proyectofinal.daw.entities.HistoricoPrestamos;
 import com.proyectofinal.daw.entities.Libro;
 import com.proyectofinal.daw.entities.Prestamo;
+import com.proyectofinal.daw.entities.Reserva;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.entities.dto.PrestamoNuevoDTO;
 import com.proyectofinal.daw.enums.LibroSituacion;
 import com.proyectofinal.daw.repositories.HistoricoRepository;
 import com.proyectofinal.daw.repositories.LibroRepository;
 import com.proyectofinal.daw.repositories.PrestamoRepository;
+import com.proyectofinal.daw.repositories.ReservaRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +32,8 @@ public class PrestamoService {
 
     @Autowired
     PrestamoRepository repoPrestamo;
+    @Autowired
+    ReservaRepository repoReserva;
     @Autowired
     LibroRepository repoLibro;
     @Autowired
@@ -56,16 +63,24 @@ public class PrestamoService {
         return repoPrestamo.findAll(pageRequest);
     }
 
-    public boolean nuevoPrestamo(PrestamoNuevoDTO prestamoDTO, Model model) {
-        boolean prestado = false;
+    public void nuevoPrestamo(PrestamoNuevoDTO prestamoDTO, Model model) {       
         // ver que la peticion de prestamo es valida, que no este prestado ya el libro
         Optional<Libro> libro = repoLibro.findById(prestamoDTO.getLibro());
         Optional<Usuario> usuario = repoUsuario.findById(prestamoDTO.getUsuario());
         Optional<Prestamo> prestamo = repoPrestamo.findByLibro(libro.get());
-        if (prestamo.isPresent()) {
+        // miro cantidad de prestamos que tiene el usuario
+        List<Prestamo> listaPrestUser = repoPrestamo.findByUsuario(usuario.get());
+        // miro si ese libro ha sido reservado con anterioridad
+        Optional<Reserva> reserva = repoReserva.findByLibro(libro);
+
+        if (listaPrestUser.size() > 2) {
+            model.addAttribute("errorserver", "Imposible realizar el préstamo.\n Máximo prestamos ya alcanzado");
+        } else if (prestamo.isPresent()) {
             model.addAttribute("errorserver", "Este libro ya esta prestado");
-            prestado = true;
+        } else if (reserva.isPresent() && !(reserva.get().getUsuario()).equals(usuario.get())) {
+            model.addAttribute("errorserver", "Este libro ya esta reservado por otro usuario");
         } else {
+            System.out.println("guardar prestamo");
             // guardar en BD prestamo
             Prestamo prestam = new Prestamo();
             prestam.setLibro(libro.get());
@@ -73,15 +88,40 @@ public class PrestamoService {
             prestam.setFPrestamo(prestamoDTO.getFPrestamo());
             prestam.setFDevolEstimada(prestamoDTO.getFDevolEstimada());
             repoPrestamo.save(prestam);
-            // guardar en BD historico-prestamo
-            HistoricoPrestamos historic = new HistoricoPrestamos();
-            historic.setLibro(libro.get());
-            historic.setUsuario(usuario.get());
-            historic.setFPrestamo(prestamoDTO.getFPrestamo());
-            repoHistorico.save(historic);
             // SituacionLibro cambiar a prestado
             libro.get().setLibroSituacion(LibroSituacion.PRESTADO);
+            repoLibro.save(libro.get());
+            if (reserva.isPresent()) {
+                // quitar de reserva
+                repoReserva.delete(reserva.get());
+            }
+            model.addAttribute("errorserver", "Préstamo correcto.");
         }
-        return prestado;
+
+    }
+
+    public void avisoVencimiento(Usuario usuario, Model model) {
+        List<Prestamo> lista = repoPrestamo.findByUsuario(usuario);
+        if (!lista.isEmpty()) {
+            LocalDate today = LocalDate.now();
+            LocalDate margen3 = today.plusDays(3);
+            LocalDate margen2 = today.plusDays(2);
+            LocalDate margen1 = today.plusDays(1);
+
+            for (int i = 0; i < lista.size(); i++) {
+                LocalDate fechaDE = Instant.ofEpochMilli(lista.get(i).getFDevolEstimada().getTime())
+                        .atZone(ZoneId.systemDefault()).toLocalDate();
+                if (fechaDE.equals(margen3)) {
+                    model.addAttribute("errorserver", "En 3 días te expira el plazo de tu libro");
+                } else if (fechaDE.equals(margen2)) {
+                    model.addAttribute("errorserver", "En 2 días te expira el plazo de tu libro");
+                } else if (fechaDE.equals(margen1)) {
+                    model.addAttribute("errorserver", "En 1 día te expira el plazo de tu libro");
+                } else if (fechaDE.equals(today)) {
+                    model.addAttribute("errorserver", "Recuerda devolver tu libro");
+                }
+            }
+
+        }
     }
 }

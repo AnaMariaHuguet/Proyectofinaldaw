@@ -27,150 +27,160 @@
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
     <section class="contenido" id="contenido">
       <h2>Categoría</h2>
-      <form th:object="${categoria}" th:action="@{/newcategoria}" method="POST">
-        <input
-          class="boton2"
-          autofocus
-          type="text"
-          name="nombre"
-          list="categoriaList"
-          placeholder="Nueva categoria"
-          th:field="*{nombre}"
-          th:errorclass="fieldError"
-        />
-        <datalist id="categoriaList">
-          <option
-            th:each="categoria : ${categorias}"
-            th:value="${categoria.nombre}"
-            th:data-value="${categoria.id}"
-          ></option>
-        </datalist>
-        <small
-          th:if="${#fields.hasErrors('nombre')}"
-          th:errors="*{nombre}"
-        ></small>
-        <select class="boton2" name="genero">
-          <option
-            th:each="genero : ${generostodos}"
-            th:text="${genero.getNombre()}"
-            th:value="${genero.getId()}"
-          ></option>
-        </select>
-        <input
-          class="boton"
-          type="submit"
-          id="btnNewCategoria"
-          name="btnNewCategoria"
-          value="Guardar"
-        />
-      </form>
+      <div class="tabla">
+        <form
+          th:object="${categoria}"
+          th:action="@{/newcategoria}"
+          method="POST"
+        >
+          <input
+            class="boton2"
+            autofocus
+            type="text"
+            name="nombre"
+            list="categoriaList"
+            placeholder="Nueva categoria"
+            th:field="*{nombre}"
+            th:errorclass="fieldError"
+          />
+          <datalist id="categoriaList">
+            <option
+              th:each="categoria : ${categorias}"
+              th:value="${categoria.nombre}"
+              th:data-value="${categoria.id}"
+            ></option>
+          </datalist>
+          <small
+            th:if="${#fields.hasErrors('nombre')}"
+            th:errors="*{nombre}"
+          ></small>
+          <select class="boton2" name="genero">
+            <option
+              th:each="genero : ${generostodos}"
+              th:text="${genero.getNombre()}"
+              th:value="${genero.getId()}"
+            ></option>
+          </select>         
+          <button
+            class="boton ancho"
+            id="btnNewCategoria"
+            name="btnNewCategoria"
+            type="submit"
+          >
+            <i class="fas fa-save"></i>
+            <span class="ocultarMovil"> Guardar</span>
+          </button>
+        </form>
+      </div>
       <br />
       <div>
-        <!--<div class="tablaCatalogo1">-->
-        <div class="thead">
-          <div class="th">
-            <div th:if="${sortBy ne 'nombre'}">
-              <a
-                class="thfalso"
-                th:href="@{'/admin/categoria?page=1&sortby=nombre&order=asc'}"
-              >
-                Categoría <i class="fas fa-sort"></i
-              ></a>
-            </div>
-            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'asc'}">
-              <a
-                class="thfalso"
-                th:href="@{'/admin/categoria?page=1&sortby=nombre&order=desc'}"
-                >Categoría <i class="fas fa-sort-up"></i
-              ></a>
-            </div>
-            <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'desc'}">
-              <a
-                class="thfalso"
-                th:href="@{'/admin/categoria?page=1&sortby=nombre&order=asc'}"
-                >Categoría <i class="fas fa-sort-down"></i
-              ></a>
-            </div>
-          </div>
-          <div class="th">
-            <div th:if="${sortBy ne 'genero'}">
-              <a
-                class="thfalso"
-                th:href="@{'/admin/categoria?page=1&sortby=genero&order=asc'}"
-              >
-                Género <i class="fas fa-sort"></i
-              ></a>
-            </div>
-            <div th:unless="${sortBy ne 'genero'}" th:if="${order eq 'asc'}">
-              <a
-                class="thfalso"
-                th:href="@{'/admin/categoria?page=1&sortby=genero&order=desc'}"
-                >Género <i class="fas fa-sort-up"></i
-              ></a>
-            </div>
-            <div th:unless="${sortBy ne 'genero'}" th:if="${order eq 'desc'}">
-              <a
-                class="thfalso"
-                th:href="@{'/admin/categoria?page=1&sortby=genero&order=asc'}"
-                >Género <i class="fas fa-sort-down"></i
-              ></a>
-            </div>
-          </div>
-          <div class="th">Modificar</div>
-          <div class="th">Borrar</div>
-        </div>
-        <div class="tbody">
-          <div class="tr" th:each="categorias : ${categoriastodas}">
-            <form
-              th:object="${categoria}"
-              th:action="@{/categoria/editar}"
-              method="POST"
-            >
-              <div class="td">
-                <input
-                  type="text"
-                  name="nombre"
-                  th:value="${categorias.nombre}"
-                />
-              </div>
-              <div class="td">
-                <select class="boton2" name="genero">
-                  <option
-                    th:each="genero : ${generostodos}"
-                    th:text="${genero.getNombre()}"
-                    th:value="${genero.getNombre()}"
-                    th:selected="${genero.getNombre()} == ${categorias.genero.nombre} ? true : false"
-                  ></option>
-                </select>
-              </div>
-              <div class="td">
-                <button
-                  class="boton ancho"
-                  type="submit"
-                  id="btnEditarCategoria"
-                  name="id"
-                  th:value="${categorias.id}"
+        <div class="tabla">
+          <div class="thead">
+            <div class="th tdancho1">
+              <div th:if="${sortBy ne 'nombre'}">
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/categoria?page=1&sortby=nombre&order=asc'}"
                 >
-                  <i class="fas fa-edit"></i>
-                  <span class="ocultarMovil"> Editar</span>
-                </button>
+                  Categoría <i class="fas fa-sort"></i
+                ></a>
               </div>
-            </form>
-            <div class="td">
+              <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'asc'}">
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/categoria?page=1&sortby=nombre&order=desc'}"
+                  >Categoría <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'desc'}">
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/categoria?page=1&sortby=nombre&order=asc'}"
+                  >Categoría <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </div>
+            <div class="th tdancho1">
+              <div th:if="${sortBy ne 'genero'}">
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/categoria?page=1&sortby=genero&order=asc'}"
+                >
+                  Género <i class="fas fa-sort"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'genero'}" th:if="${order eq 'asc'}">
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/categoria?page=1&sortby=genero&order=desc'}"
+                  >Género <i class="fas fa-sort-up"></i
+                ></a>
+              </div>
+              <div th:unless="${sortBy ne 'genero'}" th:if="${order eq 'desc'}">
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/categoria?page=1&sortby=genero&order=asc'}"
+                  >Género <i class="fas fa-sort-down"></i
+                ></a>
+              </div>
+            </div>
+            <div class="th tdancho2">Editar</div>
+            <div class="th tdancho2">Borrar</div>
+          </div>
+          <div class="tbody">
+            <div class="tr" th:each="categorias : ${categoriastodas}">
               <form
-                th:action="@{'/categoria/borrar/'+${categorias.id}}"
+                th:object="${categoria}"
+                th:action="@{/categoria/editar}"
                 method="POST"
               >
-                <button
-                  class="boton ancho"
-                  id="btnBorrarCategoria"
-                  name="btnBorrarCategoria"
-                  th:value="${categorias.id}"
-                >
-                  <i class="fas fa-trash-alt"></i>
-                  <span class="ocultarMovil"> Borrar</span>
-                </button>
+                <div class="td tdancho1">
+                  <input
+                    class="inputancho1"
+                    type="text"
+                    name="nombre"
+                    th:value="${categorias.nombre}"
+                  />
+                </div>
+                <div class="td tdancho1">
+                  <select class="boton2 inputancho1" name="genero">
+                    <option
+                      th:each="genero : ${generostodos}"
+                      th:text="${genero.getNombre()}"
+                      th:value="${genero.getNombre()}"
+                      th:selected="${genero.getNombre()} == ${categorias.genero.nombre} ? true : false"
+                    ></option>
+                  </select>
+                </div>
+                <div class="td tdancho2">
+                  <button
+                    class="boton ancho"
+                    type="submit"
+                    id="btnEditarCategoria"
+                    name="id"
+                    th:value="${categorias.id}"
+                  >
+                    <i class="fas fa-edit"></i>
+                    <span class="ocultarMovil"> Editar</span>
+                  </button>
+                </div>
               </form>
+              <div class="td tdancho2">
+                <form
+                  th:action="@{'/categoria/borrar/'+${categorias.id}}"
+                  method="POST"
+                >
+                  <button
+                    class="boton ancho"
+                    id="btnBorrarCategoria"
+                    name="btnBorrarCategoria"
+                    th:value="${categorias.id}"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                    <span class="ocultarMovil"> Borrar</span>
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -178,7 +188,6 @@
       <div th:if="${ !paginas.isEmpty() }">
         <div class="navPagination">
           <ul class="pagination">
-            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
               <a
                 class="page-link"
@@ -186,7 +195,6 @@
                 th:href="@{'/admin/categoria?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
               ></a>
             </li>
-            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
         </div>
       </div>

@@ -30,73 +30,94 @@
 
     <section class="contenido" id="contenido">
       <h2>PRÉSTAMOS</h2>
-      <table>
-        <!--<table class="tablaCatalogo1">-->
-        <thead>
-          <tr>
-            <th>
+      <div class="alturaMin">
+        <div class="tabla">
+          <div class="thead">
+            <div class="th tdancho5">
               <div th:if="${sortBy ne 'usuario'}">
-                <a th:href="@{'/admin/prestamo?sortby=usuario&order=asc'}">
-                  Usuario <i class="fas fa-sort"></i
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=usuario&order=asc'}"
+                >
+                  User <i class="fas fa-sort"></i
                 ></a>
               </div>
               <div th:unless="${sortBy ne 'usuario'}" th:if="${order eq 'asc'}">
-                <a th:href="@{'/admin/prestamo?sortby=usuario&order=desc'}"
-                  >Usuario <i class="fas fa-sort-up"></i
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=usuario&order=desc'}"
+                  >User <i class="fas fa-sort-up"></i
                 ></a>
               </div>
               <div
                 th:unless="${sortBy ne 'usuario'}"
                 th:if="${order eq 'desc'}"
               >
-                <a th:href="@{'/admin/prestamo?sortby=usuario&order=asc'}"
-                  >Usuario <i class="fas fa-sort-down"></i
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=usuario&order=asc'}"
+                  >User <i class="fas fa-sort-down"></i
                 ></a>
               </div>
-            </th>
-            <th>
+            </div>
+            <div class="th inputancho1">
               <div th:if="${sortBy ne 'libro'}">
-                <a th:href="@{'/admin/prestamo?sortby=libro&order=asc'}">
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=libro&order=asc'}"
+                >
                   Libro <i class="fas fa-sort"></i
                 ></a>
               </div>
               <div th:unless="${sortBy ne 'libro'}" th:if="${order eq 'asc'}">
-                <a th:href="@{'/admin/prestamo?sortby=libro&order=desc'}"
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=libro&order=desc'}"
                   >Libro<i class="fas fa-sort-up"></i
                 ></a>
               </div>
               <div th:unless="${sortBy ne 'libro'}" th:if="${order eq 'desc'}">
-                <a th:href="@{'/admin/prestamo?sortby=libro&order=asc'}"
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=libro&order=asc'}"
                   >Libro<i class="fas fa-sort-down"></i
                 ></a>
               </div>
-            </th>
-            <th>
+            </div>
+            <div class="th tdancho5">
               <div th:if="${sortBy ne 'fPrestamo'}">
-                <a th:href="@{'/admin/prestamo?sortby=fPrestamo&order=asc'}">
-                  Fecha préstamo <i class="fas fa-sort"></i
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=fPrestamo&order=asc'}"
+                >
+                  Préstamo <i class="fas fa-sort"></i
                 ></a>
               </div>
               <div
                 th:unless="${sortBy ne 'fPrestamo'}"
                 th:if="${order eq 'asc'}"
               >
-                <a th:href="@{'/admin/prestamo?sortby=fPrestamo&order=desc'}"
-                  >Fecha préstamo <i class="fas fa-sort-up"></i
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=fPrestamo&order=desc'}"
+                  >Préstamo <i class="fas fa-sort-up"></i
                 ></a>
               </div>
               <div
                 th:unless="${sortBy ne 'fPrestamo'}"
                 th:if="${order eq 'desc'}"
               >
-                <a th:href="@{'/admin/prestamo?sortby=fPrestamo&order=asc'}"
-                  >Fecha préstamo <i class="fas fa-sort-down"></i
+                <a
+                  class="thfalso"
+                  th:href="@{'/admin/prestamo?sortby=fPrestamo&order=asc'}"
+                  >Préstamo <i class="fas fa-sort-down"></i
                 ></a>
               </div>
-            </th>
-            <th>
+            </div>
+            <div class="th tdancho5">
               <div th:if="${sortBy ne 'fDevolEstimada'}">
                 <a
+                  class="thfalso"
                   th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=asc'}"
                 >
                   Plazo <i class="fas fa-sort"></i
@@ -107,6 +128,7 @@
                 th:if="${order eq 'asc'}"
               >
                 <a
+                  class="thfalso"
                   th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=desc'}"
                 >
                   Plazo<i class="fas fa-sort-up"></i
@@ -117,66 +139,56 @@
                 th:if="${order eq 'desc'}"
               >
                 <a
+                  class="thfalso"
                   th:href="@{'/admin/prestamo?sortby=fDevolEstimada&order=asc'}"
                 >
                   Plazo<i class="fas fa-sort-down"></i
                 ></a>
               </div>
-            </th>
-            <th>
-              <div th:if="${sortBy ne 'fDevolucion'}">
-                <a th:href="@{'/admin/prestamo?sortby=fDevolucion&order=asc'}">
-                  Devolución <i class="fas fa-sort"></i
-                ></a>
-              </div>
+            </div>
+            <div class="th ancho">Borrar</div>
+          </div>
+          <div class="tbody" id="bodyprestamo">
+            <div class="tr" th:each="prestamos : ${prestamo}">
               <div
-                th:unless="${sortBy ne 'fDevolucion'}"
-                th:if="${order eq 'asc'}"
-              >
-                <a th:href="@{'/admin/prestamo?sortby=fDevolucion&order=desc'}">
-                  Devolución<i class="fas fa-sort-up"></i
-                ></a>
-              </div>
+                class="td tdancho5"
+                th:text="${prestamos.Usuario.nombre+ ' ' +prestamos.Usuario.apellido}"
+              ></div>
               <div
-                th:unless="${sortBy ne 'fDevolucion'}"
-                th:if="${order eq 'desc'}"
-              >
-                <a th:href="@{'/admin/prestamo?sortby=fDevolucion&order=asc'}">
-                  Devolución<i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <!--<tbody class="bodytabla1" id="bodyprestamo">-->
-        <tbody id="bodyprestamo">
-          <tr th:each="prestamos : ${prestamo}">
-            <td>
-              <a th:text="${prestamos.Usuario.nombre}" />
-            </td>
-            <td>
-              <a th:text="${prestamos.Libro.titulo}" />
-            </td>
-            <td
-              th:text="${#dates.format(prestamos.fPrestamo, 'dd-MM-yy HH:mm')}"
-            />
-            <td>
-              <a
+                class="td inputancho1"
+                th:text="${prestamos.Libro.titulo}"
+              ></div>
+              <div
+                class="td tdancho5"
+                th:text="${#dates.format(prestamos.fPrestamo, 'dd-MM-yy HH:mm')}"
+              ></div>
+              <div
+                class="td tdancho5"
                 th:text="${#dates.format(prestamos.fDevolEstimada, 'dd-MM-yy')}"
-              ></a>
-            </td>
-            <td>
-              <a
-                th:text="${#dates.format(prestamos.fDevolucion, 'dd-MM-yy')}"
-              ></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              ></div>
+              <div class="td ancho">
+                <form
+                  th:action="@{'/prestamo/borrar/'+${prestamos.id}}"
+                  method="POST"
+                >
+                  <button
+                    class="boton ancho"
+                    id="btnBorrarPrestamo"
+                    name="btnBorrarPrestamo"
+                    th:value="${prestamos.id}"
+                  >
+                    <i class="fas fa-trash-alt"></i>
+                    <span class="ocultarMovil"> Borrar</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div th:if="${ !paginas.isEmpty() }">
         <div class="navPagination">
           <ul class="pagination">
-            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
               <a
                 class="page-link"
@@ -184,7 +196,6 @@
                 th:href="@{'/admin/prestamo?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
               ></a>
             </li>
-            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
         </div>
       </div>

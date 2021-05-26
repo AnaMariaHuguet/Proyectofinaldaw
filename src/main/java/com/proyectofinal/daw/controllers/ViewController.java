@@ -14,7 +14,6 @@ import com.proyectofinal.daw.entities.Prestamo;
 import com.proyectofinal.daw.entities.Puntuacion;
 import com.proyectofinal.daw.entities.Usuario;
 import com.proyectofinal.daw.entities.dto.UsuarioLogin;
-import com.proyectofinal.daw.enums.LibroSituacion;
 import com.proyectofinal.daw.repositories.AutorRepository;
 import com.proyectofinal.daw.repositories.CategoriaRepository;
 
@@ -27,6 +26,7 @@ import com.proyectofinal.daw.repositories.PuntuacionRepository;
 import com.proyectofinal.daw.repositories.ReservaRepository;
 import com.proyectofinal.daw.repositories.UsuarioRepository;
 import com.proyectofinal.daw.services.LibroService;
+import com.proyectofinal.daw.services.PrestamoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -66,7 +66,8 @@ public class ViewController {
     PuntuacionRepository repoPuntuacion;
     @Autowired
     PrestamoRepository repoPrestamo;
-
+    @Autowired
+    PrestamoService prestamoService;
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
 
@@ -77,14 +78,17 @@ public class ViewController {
     }
 
     @GetMapping("/index")
-    public String index(HttpServletRequest request) {
+    public String index(HttpServletRequest request, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         Optional<Usuario> usuario = usuarioRepo.findByEmail(email);
         if (usuario.isPresent()) {
-            request.getSession().setAttribute("nombre", usuario.get().getNombre());
+            request.getSession().setAttribute("nombre", usuario.get().getNombre().substring(0, 1).toUpperCase()
+                    + usuario.get().getNombre().substring(1).toLowerCase());
             request.getSession().setAttribute("usuario", usuario.get());
         }
+
+        prestamoService.avisoVencimiento(usuario.get(), model);
         return "index";
     }
 
@@ -159,16 +163,7 @@ public class ViewController {
             if (prestamo.isPresent()) {
                 model.addAttribute("prestamo", prestamo.get());
             }
-            /*
-             * if (request.isUserInRole("ADMINISTRADOR")) { model.addAttribute("autores",
-             * repoAutor.findAll()); model.addAttribute("categorias",
-             * repoCategoria.findAll()); model.addAttribute("generos",
-             * repoGenero.findAll()); model.addAttribute("librosituacion",
-             * LibroSituacion.values()); return "admin/editarLibroAdmin"; } else {
-             */
             return "libros/libro";
-            // }
-
         }
     }
 }

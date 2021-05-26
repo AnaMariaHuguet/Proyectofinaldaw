@@ -2,6 +2,7 @@ package com.proyectofinal.daw.repositories;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import com.proyectofinal.daw.entities.Autor;
 import com.proyectofinal.daw.entities.Categoria;
@@ -15,17 +16,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LibroRepository extends JpaRepository<Libro, Long> {
 
-    /*
-     * @Query("SELECT categoria_id FROM Libro ") List<String> buscaCategorias();
-     * 
-     * @Query("SELECT  autor_id FROM Libro") List<String> buscaAutores();
-     * 
-     * 
-     */
-
     List<Libro> findLibroByCategoria(Categoria categoria);
 
     List<Libro> findLibroByAutor(Autor autor);
+
+    Optional<Libro> findLibroByTitulo(Long id);
 
     @Query("SELECT l FROM Libro l fetch all properties INNER JOIN l.autor a INNER JOIN l.categoria c INNER JOIN c.genero g WHERE g.id=?1 ")
     List<Libro> findLibroByGenero(Long id);

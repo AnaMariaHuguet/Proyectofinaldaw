@@ -93,13 +93,14 @@ public class AdminCategoriaController {
         Optional<Categoria> categoria = repoCategoria.findById(Long.parseLong(params.get("id")));
 
         if (!Pattern.matches("^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{3,30}$", params.get("nombre"))) {
-            model.addAttribute("errorserver", "Error al introducir el nombre");
+            model.addAttribute("errorserver", "Error al introducir la categoría");
 
         } else {
             categoria.get().setNombre(params.get("nombre"));
-
-            categoria.get().setNombre(categoria.get().getNombre().substring(0, 1).toUpperCase()
-                    + categoria.get().getNombre().substring(1).toLowerCase());
+            if (!categoria.get().getNombre().isEmpty()) {
+                categoria.get().setNombre(categoria.get().getNombre().substring(0, 1).toUpperCase()
+                        + categoria.get().getNombre().substring(1).toLowerCase());
+            }
             Genero genero = repoGenero.findByNombre(params.get("genero")).get();
             categoria.get().setGenero(genero);
 

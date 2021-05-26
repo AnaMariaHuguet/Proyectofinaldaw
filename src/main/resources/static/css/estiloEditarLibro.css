@@ -1,0 +1,64 @@
+/************** mediaquery*****************/
+
+form > div {
+  border: 2px solid #ab413d;
+  margin: 20px;
+  padding: 5px;
+}
+.imaginate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.puntuacion {
+  border: 1px solid #ab413d;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+}
+label ~ span {
+  margin: 10px;
+}
+
+input {
+  width: 300px;
+}
+select {
+  width: 238px;
+}
+
+h4 ~ div {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 30px 5px 15px;
+}
+.input-240 {
+  width: 240px;
+}
+.marginRight {
+  margin-right: 20px;
+}
+
+@media (min-width: 800px) {
+  form > div:first-child {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .marginRight {
+    margin-right: 50px;
+  }
+  h4 {
+    text-align: center;
+  }
+  h4 ~ div {
+    margin: 0 120px;
+  }
+  .input-240 {
+    width: 300px;
+  }
+}
+@media (min-width: 1200px) {
+  h4 ~ div {
+    margin: 0 300px;
+  }
+}

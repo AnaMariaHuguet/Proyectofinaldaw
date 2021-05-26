@@ -19,7 +19,7 @@ fieldset {
 }
 
 .fieldError {
-  border: 2px solid red;
+  border: 2px solid rgb(232, 53, 24);
   background-color: rgb(233, 203, 194);
 }
 
@@ -37,18 +37,20 @@ small {
 }
 
 .hovyell:hover {
-  color: red;
+  color: rgb(232, 53, 24);
 }
-
-/***************     footer      ***************/
-
+.fontpq {
+  padding: 1px 0px;
+  font: 14px;
+}
 /*****************media query***********************/
 
 @media (min-width: 800px) {
   main {
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
+    grid-template-columns: 33vw 62vw;
+    grid-template-rows: 30vh auto;
     grid-row-gap: 30px;
+    grid-column-gap: 15px;
   }
   main > section:first-child {
     grid-row: 1/3;
@@ -63,9 +65,19 @@ small {
     grid-row: 2/3;
     grid-column: 2/3;
     /*border: 3px solid #ab413d;*/
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
+    overflow: auto;
+  }
+  input {
+    width: 170px;
   }
 }
-
 @media (min-width: 1200px) {
+  .fontpq {
+    padding: 2px 5px;
+    font: 14px;
+  }
+  input {
+    width: 200px;
+  }
 }

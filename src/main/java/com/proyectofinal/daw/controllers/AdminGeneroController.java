@@ -63,9 +63,9 @@ public class AdminGeneroController {
         } else
         // antes de guardar ver que no esta ya en la bd
         if (!repoGenero.findByNombre(genero.getNombre()).isPresent()) {
-            // especifico que guarde la primera en mayúsculas y el resto minúsculas
+            // especifico que guarde la primera en mayúsculas 
             genero.setNombre(
-                    genero.getNombre().substring(0, 1).toUpperCase() + genero.getNombre().substring(1).toLowerCase());
+                    genero.getNombre().substring(0, 1).toUpperCase() );
             repoGenero.save(genero);
         } else {
             model.addAttribute("errorserver", "Ya existe ese género");
@@ -96,11 +96,11 @@ public class AdminGeneroController {
 
         } else {
             genero1.get().setNombre(params.get("nombre"));
-
-            genero1.get().setNombre(genero1.get().getNombre().substring(0, 1).toUpperCase()
-                    + genero1.get().getNombre().substring(1).toLowerCase());
+            if (!genero1.get().getNombre().isEmpty()) {
+                genero1.get().setNombre(genero1.get().getNombre().substring(0, 1).toUpperCase()
+                        + genero1.get().getNombre().substring(1).toLowerCase());
+            }
             repoGenero.save(genero1.get());
-
         }
         return genero(model, request, params);
     }

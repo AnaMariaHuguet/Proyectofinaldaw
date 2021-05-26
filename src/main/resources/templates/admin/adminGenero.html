@@ -27,7 +27,7 @@
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
     <section class="contenido" id="contenido">
       <h2>Género</h2>
-      <div>
+      <div class="tabla">
         <form th:object="${genero}" th:action="@{/newGenero}" method="POST">
           <input
             class="boton2"
@@ -46,14 +46,15 @@
               th:data-value="${genero.id}"
             ></option>
           </datalist>
-
-          <input
-            class="boton"
-            type="submit"
+          <button
+            class="boton ancho"
             id="btnNewGenero"
             name="btnNewGenero"
-            value="Guardar"
-          />
+            type="submit"
+          >
+            <i class="fas fa-save"></i>
+            <span class="ocultarMovil"> Guardar</span>
+          </button>
           <br />
           <small
             th:if="${#fields.hasErrors('nombre')}"
@@ -64,7 +65,7 @@
       </div>
       <div class="tabla">
         <div class="thead">
-          <div class="th">
+          <div class="th tdancho">
             <div th:if="${sortBy ne 'nombre'}">
               <a
                 class="thfalso"
@@ -88,8 +89,8 @@
               ></a>
             </div>
           </div>
-          <div class="th">Modificar</div>
-          <div class="th">Borrar</div>
+          <div class="th tdancho2">Editar</div>
+          <div class="th tdancho2">Borrar</div>
         </div>
 
         <div class="tbody">
@@ -99,15 +100,16 @@
               th:action="@{/genero/editar}"
               method="POST"
             >
-              <div class="td">
+              <div class="td tdancho">
                 <input
+                  class="inputancho"
                   type="text"
                   name="nombre"
                   th:value="${generos.nombre}"
                   th:errorclass="fieldError"
                 />
               </div>
-              <div class="td">
+              <div class="td tdancho2">
                 <button
                   class="boton ancho"
                   type="submit"
@@ -120,7 +122,7 @@
                 </button>
               </div>
             </form>
-            <div class="td">
+            <div class="td tdancho2">
               <form
                 th:action="@{'/genero/borrar/'+${generos.id}}"
                 method="POST"
@@ -142,7 +144,6 @@
       <div th:if="${ !paginas.isEmpty() }">
         <div class="navPagination">
           <ul class="pagination">
-            <!---<li><a class="page-link" href="#!">&laquo;</a></li>-->
             <li class="page-item" th:each="pagina : ${paginas}">
               <a
                 class="page-link"
@@ -150,12 +151,10 @@
                 th:href="@{'/admin/genero?page='+${pagina}+'&sortby='+${sortBy}+'&order='+${order}}"
               ></a>
             </li>
-            <!--<li><a class="page-link" href="#!">&raquo;</a></li>-->
           </ul>
         </div>
       </div>
     </section>
-
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
 </html>

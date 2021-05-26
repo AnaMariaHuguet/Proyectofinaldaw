@@ -31,11 +31,7 @@
           <span th:case="*" th:text="${ session.nombre }"></span>
           !
         </p>
-        <p>Vemos que todavía no formas parte del Club.</p>
-        <p>
-          La lectura elegida para este mes es :
-          <!--<span th:text="${ book.titulo }"></span>-->
-        </p>
+        <p>Vemos que todavía no formas parte del Club.</p>        
         <p>
           Si te gusta leer y quieres interactuar con otras personas amantes de
           la lectura como tú…
@@ -54,8 +50,18 @@
           junto con escuchar las opiniones de los demás, ayuda a enriquecer a
           las personas intelectualmente.
         </p>
-        <p>Te esperamos</p>
+        <p>¡Te esperamos!</p>
       </div>
+      <div class="lecturaElegida">
+        <p>
+          Te informamos que la lectura elegida para este mes es :
+          <p class="letraEspecial"  th:text="${lectura.Libro.titulo}"></p>
+        </p>
+        <div>
+          <img th:src="'/img/imgLibros/'+${lectura.Libro.imagen}" />
+        </div>
+     
+      <div class="divInscrip">
       <form th:object="${usuario}" th:action="@{/inscripcion}" method="POST">
         <fieldset>
           <input
@@ -67,6 +73,8 @@
           />
         </fieldset>
       </form>
+    </div> 
+  </div>  
     </main>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

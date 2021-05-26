@@ -10,8 +10,7 @@ window.addEventListener('load',function(){
     cerrarReserva=document.getElementById("cerrarReserva");
     cerrarError=document.getElementById("cerrarError");
     todapantallaerror=document.getElementById("errorcontenedor"); 
-    
-
+    nombreusuario=document.getElementById("nombreUsuario").value;
 
     mostrarMenu.addEventListener("click", function(){
         navMenu.style.display="flex";
@@ -28,10 +27,10 @@ window.addEventListener('load',function(){
             navMenu.style.display="none";            
         }
     });
-
-
+//poner que si es visitante pase de esto
+    if(nombreusuario!="Visitante"){
     carrito.addEventListener('click', getReservas);  
-
+    }
     popupcontenedor2.addEventListener("click", function(){       
         this.style.display="none";
     });
@@ -135,7 +134,7 @@ function mostrarReservas (carrito) {
         let irReserva=crearElementoTexto('button',popup2,"ir a Reserva");
         irReserva.className="btnirReserva"; 
         irReserva.addEventListener('click',function(){ 
-            //redireccionar a otra ventana
+            //redireccionar a otra ventana con javascript
             window.location.href = "/usuario/reserva";
         })
     }   

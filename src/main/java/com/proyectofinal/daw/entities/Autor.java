@@ -29,12 +29,12 @@ public class Autor implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{3,20}$", message = "Error al introducir el nombre")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{3,30}$", message = "Error al introducir el nombre")
     @NotBlank(message = "Nombre obligatorio")
     @FullTextField
     private String nombre;
     @Column(nullable = false)
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{1,20}$", message = "Error al introducir el apellido")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{3,30}$", message = "Error al introducir el apellido")
     @FullTextField
     private String apellido;
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = false)

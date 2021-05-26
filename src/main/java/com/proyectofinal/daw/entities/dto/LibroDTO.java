@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern;
 
 public class LibroDTO {
     @NotBlank(message = "Título obligatorio")
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,20}$", message = "Error al introducir el titulo")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,50}$", message = "Error al introducir el titulo")
     private String titulo;
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,20}$", message = "Error al introducir el Isbn")
     private String isbn;

@@ -2,12 +2,14 @@ package com.proyectofinal.daw.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.proyectofinal.daw.components.Utiles;
 import com.proyectofinal.daw.entities.HistoricoPrestamos;
 import com.proyectofinal.daw.entities.Prestamo;
 import com.proyectofinal.daw.entities.Usuario;
@@ -53,8 +55,8 @@ public class PerfilController {
         model.addAttribute("usuario", usuario);
 
         // Ver histórico
-        String sortByhist = params.get("sortbyhist") != null ? params.get("sortbyhist").toString() : "id";
-        String orderhist = params.get("orderhist") != null ? params.get("orderhist").toString() : "asc";
+        String sortByhist = params.get("sortbyhist") != null ? params.get("sortbyhist").toString() : "fDevolucion";
+        String orderhist = params.get("orderhist") != null ? params.get("orderhist").toString() : "desc";
 
         Page<HistoricoPrestamos> pageHistorico = historicoService.findAll(params, usuario);
 
@@ -88,14 +90,29 @@ public class PerfilController {
     @PostMapping("/modificarPerfil")
     public String updateUser(@Valid @ModelAttribute("usuario") UsuarioPerfilDTO usuario, BindingResult result,
             Model model) {
-
+        // con los datos del usuario creamos un duplicado en formato DTO para realizar
+        // los cambios y lo guardamos en la BD
+        Usuario user = usuarioRepo.getOne(usuario.getId());
         if (result.hasErrors()) {
             return PAG_PERFIL;
+        }
+        if (!user.getEmail().equals(usuario.getEmail())) {
+            Optional<Usuario> usuar = usuarioRepo.findByEmail(usuario.getEmail());
+            if (usuar.isPresent()) {
+                model.addAttribute("emailrepetido", "Usuario ya registrado.");
+                return PAG_PERFIL;
+            }
+
+        } else if (Utiles.esDniValido(usuario.getNif().toUpperCase()) == false) {
+            model.addAttribute("dnimal1", "El dni no es válido.");
+            return PAG_PERFIL;
+        } else if (!user.getNif().equals(usuario.getNif())) {
+            Optional<Usuario> usernif = usuarioRepo.findByNif(usuario.getNif());
+            if (usernif.isPresent()) {
+                model.addAttribute("dnimal2", "El dni esta repetido");
+                return PAG_PERFIL;
+            }
         } else {
-            // con los datos del usuario creamos un duplicado en formato DTO para realizar
-            // los cambios
-            // y lo guardamos en la BD
-            Usuario user = usuarioRepo.getOne(usuario.getId());
             user.setNombre(
                     usuario.getNombre().substring(0, 1).toUpperCase() + usuario.getNombre().substring(1).toLowerCase());
             user.setApellido(usuario.getApellido().substring(0, 1).toUpperCase()

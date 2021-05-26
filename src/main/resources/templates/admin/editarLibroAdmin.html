@@ -11,117 +11,158 @@
     <link href="/css/general.css" rel="stylesheet" type="text/css" />
     <link href="/css/nav.css" rel="stylesheet" type="text/css" />
     <link href="/css/estilos.css" rel="stylesheet" type="text/css" />
-    <link href="/css/estiloLibro.css" rel="stylesheet" type="text/css" />
+    <link href="/css/estiloEditarLibro.css" rel="stylesheet" type="text/css" />
     <script
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
     ></script>
     
-    <script src="/js/nav.js"></script>
-    <script src="/js/votacion.js"></script>
+    <script src="/js/nav.js"></script>  
+    <script src="/js/votacion.js"></script> 
     <title>Libro</title>
   </head>
   <body>
     <div class="header" th:insert="fragments/header :: header"></div>
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
-        <label for="titulo">Titulo: </label>  
-      <input type="text" for="titulo"  name="titulo" th:field="${libro.titulo}" th:errorclass="fieldError"></input>
-      
-      <label for="nombreAutor">Nombre autor: </label>       
-      <select class="boton" name="selautornombre" >
-        <option th:text="${libro.Autor.nombre}"></option>
-        <option
-          th:each="nombres : ${autores}"
-          th:text="${nombres.getNombre()}"
-          th:value="${nombres.getId()}"
-        ></option>
-        </select>
-      <label for="apellidoAutor">Apellido autor: </label> 
-      <select class="boton" name="selautorapellido">
-        <option th:text="${libro.Autor.apellido}"></option>
-        <option
-          th:each="apellidos : ${autores}"
-          th:text="${apellidos.getApellido()}"
-          th:value="${apellidos.getId()}"
-        ></option>
-        </select>      
-      <!--posibles problemas al introducir direccion de la imagen-->
+      <form th:object="${libro}" th:action="@{'/libro/editar/'}" method="POST">
+        <div>
+          <div>
+            <label for="titulo">Titulo: </label>  
+            <input type="text" for="titulo"  name="titulo" th:field="*{titulo}" th:errorclass="fieldError"></input>
+            <small
+                th:if="${#fields.hasErrors('titulo')}"
+                th:errors="*{titulo}"
+              ></small>
+          </div> 
+          <div>       
+            <label >Nombre autor: </label>       
+            <select name="autor">              
+              <option
+                th:each="autor : ${autores}"
+                th:text="${autor.nombre+ ' ' +autor.apellido}"
+                th:value="${autor.getId()}"
+                th:selected="${autor.getId() == libro.autor.id ? true : false}"
+              ></option> 
+            </select> 
+          </div>  
+        </div> 
         <div class="imaginate" >
           <img th:src="'/img/imgLibros/'+${libro.imagen}" /> 
-          <div class="puntuacion"><label>Puntuación: </label>
-          </br>
-          <div>
-          <label for="">Nota Media</label>  </br>
-          <label id="puntuacion" th:text="${totalVotacion}"></label>
-          <span id="pintarestrella"></span>
-          
-        </div> 
+          <div class="puntuacion"> 
+            <label>Puntuación: </label>
+            </br>
+            <div>
+              <label for="">Nota Media</label>  </br>
+              <label id="puntuacion" th:text="${totalVotacion}"></label>
+              <span id="pintarestrella"></span>          
+            </div> 
           <label th:text="${stringPuntuacion}" ></label>  </br>
           <label th:text="${cantidadVotacion}"></label><span> Votos</span>
-       </div>        
+          </div>        
         </div> 
         <div>  
-        <h4 >Sinopsis :</h4>  
-        <input type="text" for="sinopsis"  name="sinopsis" th:field="${libro.sinopsis}" ></input>
-      </div>
-      <div>
-        <h4>Ficha Técnica :</h4>  
-        <label>Id: </label>
-        <input type="text" for="id"  name="id" th:field="${libro.id}"  />
-        </br> 
-        <label>Isbn: </label>
-        <input type="text" for="isbn"  name="isbn" th:field="${libro.isbn}"  />
-        </br> 
-        <label>Editorial: </label>
-        <input type="text" for="editorial"  name="editorial" th:field="${libro.editorial}"  />
-        </br> 
-       <label >genero: </label>        
-        <select class="boton" name="selgenero" >
-        <option th:text="${libro.Categoria.genero.nombre}"></option>
-        <option
-          th:each="genero : ${generos}"
-          th:text="${genero.getNombre()}"
-          th:value="${genero.getId()}"
-        ></option>
-        </select>
-      </br>
-        <label>Categoría: </label>
-        <select class="boton" name="selcategoria" >
-          <option th:text="${libro.Categoria.nombre}"></option>
-          <option
-            th:each="categoria : ${categorias}"
-            th:text="${categoria.getNombre()}"
-            th:value="${categoria.getId()}"
-          ></option>
-        </select>
-        
-        </br> 
-        <label>Ubicación: </label>
-        <input type="text" for="ubicacion"  name="ubicacion" th:field="${libro.ubicacion}" id="pagelibroUbicacion" />
-        </br>         
-        <label>Situación: </label>
-        <select class="boton" name="sellibroSituacion" >
-          <option
-            th:each="situaciones : ${librosituacion}"
-            th:text="${situaciones}"
-            th:value="${situaciones}"
-            th:selected="${situaciones} == ${libro.libroSituacion}"
-          ></option>
-        </select>
-        
-      </div>      
-     <div>
-     <button class="btnDetRes" id="btnModificarLibro" name="btnModificarLibro" th:value="${libro.id}">
-        Modificar
-      </button> 
-      <button class="btnDetRes" id="btnBorrarLibro" name="btnBorrarLibro" th:value="${libro.id}">
-       Borrar
-      </button>  
-      <button class="btnDetRes" id="btnElegirLectura" name="btnelegirLectura" th:value="${libro.id}">
-        Elegir lectura club
-       </button> 
-    </div> 
+          <h4 >Sinopsis :</h4>  
+          <textarea type="text" for="sinopsis"  name="sinopsis" th:field="${libro.sinopsis}" ></textarea>
+        </div>       
+          <div>
+          <h4>Ficha Técnica :</h4> 
+          <div> 
+            <label class="marginRight">Id: </label>
+            <input class="input-240" type="text" for="id"  name="id" th:field="${libro.id}" readonly />
+            <small
+                th:if="${#fields.hasErrors('id')}"
+                th:errors="*{id}"
+              ></small>
+          </div>
+          <div>
+            <label class="marginRight">Isbn: </label>
+            <input class="input-240" type="text" for="isbn"  name="isbn" th:field="*{isbn}"  />
+            <small
+                th:if="${#fields.hasErrors('isbn')}"
+                th:errors="*{isbn}"
+              ></small>
+          </div>
+          <div> 
+            <label class="marginRight">Editorial: </label>
+            <input class="input-240" type="text" for="editorial"  name="editorial" th:field="*{editorial}"  />
+            <small
+                th:if="${#fields.hasErrors('editorial')}"
+                th:errors="*{editorial}"
+              ></small>
+          </div>
+          <div>
+            <label class="marginRight">Año Public.: </label>
+            <input class="input-240" type="text" for="anyo"  name="ano" th:field="*{ano}"  />
+            <small
+                th:if="${#fields.hasErrors('ano')}"
+                th:errors="*{ano}"
+              ></small>
+          </div>
+          <div> 
+          <label class="marginRight">genero: </label>        
+            <select  name="genero">              
+              <option
+                th:each="genero : ${generos}"
+                  th:text="${genero.getNombre()}"
+                th:value="${genero.getId()}"
+                th:selected="${genero.getId() == libro.categoria.genero.id ? true : false}"
+              ></option>
+            </select>
+          </div>
+          <div>
+            <label class="marginRight">Categoría: </label>
+            <select  name="categoria" >              
+              <option
+                th:each="categoria : ${categorias}"
+                th:text="${categoria.getNombre()}"
+                th:value="${categoria.getId()}"
+                th:selected="${categoria.getId() == libro.categoria.id ? true : false}"
+              ></option>
+            </select>
+          </div>
+          <div>
+            <label class="marginRight">Ubicación: </label>
+            <input class="input-240" type="text" for="ubicacion"  name="ubicacion" th:field="${libro.ubicacion}" />
+            <small
+                th:if="${#fields.hasErrors('ubicacion')}"
+                th:errors="*{ubicacion}"
+              ></small>
+          </div>
+          <div>        
+            <label class="marginRight">Situación: </label>
+            <select name="libroSituacion">
+              <option
+                th:each="situaciones : ${librosituacion}"
+                th:text="${situaciones}"
+                th:value="${situaciones}"
+                th:selected="${situaciones} == ${libro.libroSituacion}"
+              ></option>
+            </select>
+          </div>
+        </div>
+        <div >
+          <button class="btnDetRes" type="submit" id="btnModificarLibro" name="id" th:value="${libro.id}">
+            <i class="fas fa-edit"></i>
+            Modificar
+          </button>
+        </div>
+      </form>
+      <form th:action="@{'/libro/borrar/'+${libro.id}}" method="POST">
+        <div>
+          <button class="btnDetRes" type="submit" id="btnBorrarLibro" name="id" th:value="${libro.id}">
+          <i class="fas fa-trash-alt"></i>
+          Borrar
+          </button>
+        </div>
+      </form> 
+      <form th:action="@{'/libro/lecturaClub/'+${libro.id}}" method="POST"> 
+        <div>
+        <button class="btnDetRes"type="submit" id="btnElegirLectura" name="id" th:value="${libro.id}">
+          <i class="fas fa-search"></i>Elegir lectura club
+        </button> 
+        </div> 
+      </form>
     </main>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

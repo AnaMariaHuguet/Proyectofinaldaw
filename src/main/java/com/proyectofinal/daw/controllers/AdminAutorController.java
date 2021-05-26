@@ -104,7 +104,10 @@ public class AdminAutorController {
     public String updateAutor(@RequestParam Map<String, String> body, Model model, HttpServletRequest request) {
         Optional<Autor> autor = repoAutor.findById(Long.parseLong(body.get("id")));
         Map<String, String> params = new HashMap<>();
-
+        if (body.get("nombre") == "null" || (body.get("apellido") == "null")) {
+            model.addAttribute("errorserver", "Obligatorio");
+            return autor(model, request, params);
+        }
         if (!Pattern.matches("^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{3,30}$", body.get("nombre"))) {
             model.addAttribute("errorserver", "Error al introducir el nombre");
             return autor(model, request, params);
@@ -112,6 +115,7 @@ public class AdminAutorController {
             model.addAttribute("errorserver", "Error al introducir el apellido");
             return autor(model, request, params);
         } else {
+
             autor.get().setNombre(body.get("nombre"));
             autor.get().setApellido(body.get("apellido"));
 

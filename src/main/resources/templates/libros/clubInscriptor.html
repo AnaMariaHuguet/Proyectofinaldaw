@@ -20,7 +20,6 @@
       src="https://kit.fontawesome.com/9d750b8f51.js"
       crossorigin="anonymous"
     ></script>
-
     <script src="/js/nav.js"></script>
     <title>Club Lectura</title>
   </head>
@@ -30,6 +29,28 @@
     <main>
       <h2>CLUB DE LECTURA</h2>
 
+      <p>
+        Este mes nos dejamos seducir por:
+        <span class="letraEspecial" th:text="${lectura.Libro.titulo}"></span>
+      </p>
+
+      <section>
+        <h4>IMÁGENES SOBRE LA LECTURA</h4>
+        <!--<iframe
+          frameborder="2"
+          th:text="${lectura.espacioURL}"
+          th:src="@{https://www.youtube.com/embed/qMrxaMF97DA}"
+        >-->
+        <iframe frameborder="2" th:src="@{${lectura.espacioURL}}"> </iframe>
+      </section>
+      <section>
+        <!--<h4>COMENTARIOS SOBRE LA LECTURA</h4>
+        <textarea class="textinput" placeholder="Comment">
+        un textarea para escribir comentarios</textarea
+        >-->
+        <h4>SINOPSIS DEL LIBRO</h4>
+        <textarea th:text="${lectura.libro.sinopsis}"></textarea>
+      </section>
       <form
         th:object="${usuario}"
         th:action="@{/anularinscripcion}"
@@ -45,27 +66,6 @@
           />
         </fieldset>
       </form>
-
-      <p>
-        Lectura elegida:
-        <!--<span th:text="${book.title}"></span>-->
-        Las voces del Pamano
-      </p>
-
-      <section>
-        <h4>IMÁGENES SOBRE LA LECTURA</h4>
-        <iframe
-          frameborder="2"
-          th:src="@{https://www.youtube.com/embed/qMrxaMF97DA}"
-        >
-        </iframe>
-      </section>
-      <section>
-        <h4>COMENTARIOS SOBRE LA LECTURA</h4>
-        <textarea class="textinput" placeholder="Comment">
-un textarea o algo parecido para escribir comentarios</textarea
-        >
-      </section>
     </main>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>
