@@ -8,7 +8,7 @@ h1 {
 
 body {
   grid-template-rows: 15% auto 10%;
-  background: rgb(227, 198, 136) url(../img/textos-libres.jpg.crdownload) center
+  background: rgb(248, 226, 155) url(../img/textos-libres.jpg.crdownload) center
     center no-repeat fixed;
   background-size: cover;
 }
@@ -46,11 +46,9 @@ label {
 }
 
 main > div {
-  background-color: #8f4522;
-  border: 3px solid #521501;
-  color: rgb(246, 247, 203);
-  /*background-color: rgb(84, 164, 218);
-  border: 3px solid rgb(4, 63, 102);*/
+  background-color: rgb(143,69,34);
+  border: 3px solid rgb(82,21,1);
+  color: rgb(246, 247, 203);  
   text-align: center;
   padding: 10px;
   height: 80px;

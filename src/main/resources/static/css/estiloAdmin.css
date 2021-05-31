@@ -1,6 +1,6 @@
 /***************** acordeón ***********************/
 .acordeon {
-  background-color: #969c42;
+  background-color: rgb(161, 168, 76);
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -11,7 +11,7 @@
 }
 .active,
 .acordeon:hover {
-  background-color: #ccc;
+  background-color: rgb(204, 204, 204);
 }
 .panel {
   padding: 0 18px;
@@ -23,7 +23,7 @@
 }
 .acordeon:after {
   font-size: 13px;
-  color: 777;
+  color: #777;
   float: right;
   margin-left: 5px;
   content: "\02795"; /* Unicode character for "plus" sign (+) */
@@ -41,9 +41,7 @@
   color: rgb(246, 247, 203);
 }
 /***************** tabla ***********************/
-.alturaMin {
-  min-height: 330px;
-}
+
 .table {
   display: table;
   border-collapse: collapse;
@@ -108,18 +106,6 @@ body > div:nth-child(5) {
   padding: 1px 0px;
   font: 14px;
 }
-
-/*section {
-  background: rgb(227, 198, 136) url(../img/libros1.jpg) center center no-repeat
-    fixed;
-  background-size: contain;
-  z-index: 1;
-  opacity: 0.5;
-}
-.box1 {
-  z-index: 2;
-  opacity: 1;
-}*/
 
 .formPrest,
 .formAdminClub {

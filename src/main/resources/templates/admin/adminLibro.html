@@ -27,7 +27,7 @@
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
     <section class="contenido" id="contenido">
       <h2>Libro</h2>
-   
+      <div class="alturaMin">
       <div class="tabla">        
         <button class="tdancho trHover">
           <a class="pintaEnlace" th:href="@{'/admin/newLibro'}">Nuevo Libro</a>
@@ -169,6 +169,7 @@
           </tbody>
         </table>
       </div>
+    </div>
         <div th:if="${!paginas.isEmpty() }">
           <div class="navPagination">
             <ul class="pagination">              
@@ -181,7 +182,8 @@
               </li>             
             </ul>
           </div>
-        </div>     
+        </div> 
+          
     </section>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

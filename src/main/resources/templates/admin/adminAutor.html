@@ -27,167 +27,178 @@
     <div class="main" th:insert="fragments/zonaAdmin :: main"></div>
     <section class="contenido" id="contenido">
       <h2>Autor</h2>
-      <div class="tabla">
-        <form th:object="${autor}" th:action="@{/newAutor}" method="POST">
-          <input
-            class="boton2"
-            autofocus
-            type="text"
-            name="nombre"
-            th:field="*{nombre}"
-            list="nombreList"
-            placeholder="Nombre"
-            th:errorclass="fieldError"
-          />
-          <small
-            th:if="${#fields.hasErrors('nombre')}"
-            th:errors="*{nombre}"
-          ></small>
-          <datalist id="nombreList">
-            <option
-              th:each="autor : ${autores}"
-              th:value="${autor.getNombre()}"
-              th:data-value="${autor.getId()}"
-            ></option>
-          </datalist>
-          <input
-            class="boton2"
-            autofocus
-            type="text"
-            name="apellido"
-            list="apellidoList"
-            placeholder="Apellido"
-            th:field="*{apellido}"
-            th:errorclass="fieldError"
-          />
-          <small
-            th:if="${#fields.hasErrors('apellido')}"
-            th:errors="*{apellido}"
-          ></small>
-          <datalist id="apellidoList">
-            <option
-              th:each="autor : ${autores}"
-              th:value="${autor.getApellido()}"
-              th:data-value="${autor.getId()}"
-            ></option>
-          </datalist>
-          <button
-            class="boton ancho"
-            id="btnNewAutor"
-            name="btnNewAutor"
-            type="submit"
-          >
-            <i class="fas fa-save"></i>
-            <span class="ocultarMovil"> Guardar</span>
-          </button>
-          <br />
-        </form>
-      </div>
-      <br />
-      <div>
+      <div class="alturaMin">
         <div class="tabla">
-          <div class="thead">
-            <div class="th tdancho1">
-              <div th:if="${sortBy ne 'nombre'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/admin/autor?page=1&sortby=nombre&order=asc'}"
-                >
-                  Nombre <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'asc'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/admin/autor?page=1&sortby=nombre&order=desc'}"
-                  >Nombre <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'nombre'}" th:if="${order eq 'desc'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/admin/autor?page=1&sortby=nombre&order=asc'}"
-                  >Nombre <i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </div>
-            <div class="th tdancho1">
-              <div th:if="${sortBy ne 'apellido'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/admin/autor?page=1&sortby=apellido&order=asc'}"
-                >
-                  Apellido <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div
-                th:unless="${sortBy ne 'apellido'}"
-                th:if="${order eq 'asc'}"
-              >
-                <a
-                  class="thfalso"
-                  th:href="@{'/admin/autor?page=1&sortby=apellido&order=desc'}"
-                  >Apellido <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div
-                th:unless="${sortBy ne 'apellido'}"
-                th:if="${order eq 'desc'}"
-              >
-                <a
-                  class="thfalso"
-                  th:href="@{'/admin/autor?page=1&sortby=apellido&order=asc'}"
-                  >Apellido <i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </div>
-            <div class="th tdancho2">Editar</div>
-            <div class="th tdancho2">Borrar</div>
-          </div>
-          <div class="tbody">
-            <div class="tr" th:each="autor : ${autorestodos}">
-              <form th:action="@{/autor/editar}" method="POST">
-                <div class="td tdancho1">
-                  <input
-                    class="inputancho1"
-                    type="text"
-                    name="nombre"
-                    th:value="${autor.nombre}"
-                  />
-                </div>
-                <div class="td tdancho1">
-                  <input
-                    class="inputancho1"
-                    type="text"
-                    name="apellido"
-                    th:value="${autor.apellido}"
-                  />
-                </div>
-                <div class="td tdancho2">
-                  <button
-                    class="boton ancho"
-                    type="submit"
-                    id="btnEditarAutor"
-                    name="id"
-                    th:value="${autor.id}"
+          <form th:object="${autor}" th:action="@{/newAutor}" method="POST">
+            <input
+              class="boton2"
+              autofocus
+              type="text"
+              name="nombre"
+              th:field="*{nombre}"
+              list="nombreList"
+              placeholder="Nombre"
+              th:errorclass="fieldError"
+            />
+            <small
+              th:if="${#fields.hasErrors('nombre')}"
+              th:errors="*{nombre}"
+            ></small>
+            <datalist id="nombreList">
+              <option
+                th:each="autor : ${autores}"
+                th:value="${autor.getNombre()}"
+                th:data-value="${autor.getId()}"
+              ></option>
+            </datalist>
+            <input
+              class="boton2"
+              autofocus
+              type="text"
+              name="apellido"
+              list="apellidoList"
+              placeholder="Apellido"
+              th:field="*{apellido}"
+              th:errorclass="fieldError"
+            />
+            <small
+              th:if="${#fields.hasErrors('apellido')}"
+              th:errors="*{apellido}"
+            ></small>
+            <datalist id="apellidoList">
+              <option
+                th:each="autor : ${autores}"
+                th:value="${autor.getApellido()}"
+                th:data-value="${autor.getId()}"
+              ></option>
+            </datalist>
+            <button
+              class="boton ancho"
+              id="btnNewAutor"
+              name="btnNewAutor"
+              type="submit"
+            >
+              <i class="fas fa-save"></i>
+              <span class="ocultarMovil"> Guardar</span>
+            </button>
+            <br />
+          </form>
+        </div>
+        <br />
+        <div>
+          <div class="tabla">
+            <div class="thead">
+              <div class="th tdancho1">
+                <div th:if="${sortBy ne 'nombre'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/admin/autor?page=1&sortby=nombre&order=asc'}"
                   >
-                    <i class="fas fa-edit"></i>
-                    <span class="ocultarMovil"> Editar</span>
-                  </button>
+                    Nombre <i class="fas fa-sort"></i
+                  ></a>
                 </div>
-              </form>
-              <div class="td tdancho2">
-                <form th:action="@{'/autor/borrar/'+${autor.id}}" method="POST">
-                  <button
-                    class="boton ancho"
-                    id="btnBorrarAutor"
-                    name="btnBorrarAutor"
-                    th:value="${autor.id}"
+                <div
+                  th:unless="${sortBy ne 'nombre'}"
+                  th:if="${order eq 'asc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/admin/autor?page=1&sortby=nombre&order=desc'}"
+                    >Nombre <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'nombre'}"
+                  th:if="${order eq 'desc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/admin/autor?page=1&sortby=nombre&order=asc'}"
+                    >Nombre <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="th tdancho1">
+                <div th:if="${sortBy ne 'apellido'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/admin/autor?page=1&sortby=apellido&order=asc'}"
                   >
-                    <i class="fas fa-trash-alt"></i>
-                    <span class="ocultarMovil"> Borrar</span>
-                  </button>
+                    Apellido <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'apellido'}"
+                  th:if="${order eq 'asc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/admin/autor?page=1&sortby=apellido&order=desc'}"
+                    >Apellido <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'apellido'}"
+                  th:if="${order eq 'desc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/admin/autor?page=1&sortby=apellido&order=asc'}"
+                    >Apellido <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="th tdancho2">Editar</div>
+              <div class="th tdancho2">Borrar</div>
+            </div>
+            <div class="tbody">
+              <div class="tr" th:each="autor : ${autorestodos}">
+                <form th:action="@{/autor/editar}" method="POST">
+                  <div class="td tdancho1">
+                    <input
+                      class="inputancho1"
+                      type="text"
+                      name="nombre"
+                      th:value="${autor.nombre}"
+                    />
+                  </div>
+                  <div class="td tdancho1">
+                    <input
+                      class="inputancho1"
+                      type="text"
+                      name="apellido"
+                      th:value="${autor.apellido}"
+                    />
+                  </div>
+                  <div class="td tdancho2">
+                    <button
+                      class="boton ancho"
+                      type="submit"
+                      id="btnEditarAutor"
+                      name="id"
+                      th:value="${autor.id}"
+                    >
+                      <i class="fas fa-edit"></i>
+                      <span class="ocultarMovil"> Editar</span>
+                    </button>
+                  </div>
                 </form>
+                <div class="td tdancho2">
+                  <form
+                    th:action="@{'/autor/borrar/'+${autor.id}}"
+                    method="POST"
+                  >
+                    <button
+                      class="boton ancho"
+                      id="btnBorrarAutor"
+                      name="btnBorrarAutor"
+                      th:value="${autor.id}"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                      <span class="ocultarMovil"> Borrar</span>
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

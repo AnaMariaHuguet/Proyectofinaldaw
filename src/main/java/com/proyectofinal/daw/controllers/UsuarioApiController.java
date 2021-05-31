@@ -37,20 +37,16 @@ public class UsuarioApiController {
     @Autowired
     LibroRepository repoLibro;
 
-    @GetMapping("/usuarios")
-    public List<Usuario> getUsuario() {
-        return usuarioRepo.findAll();
-    }
-
-    @GetMapping("/usuarios/{id}")
-    public ResponseEntity<Usuario> getUsuario(@PathVariable Long id) {
-        Optional<Usuario> usuario = usuarioRepo.findById(id);
-        if (usuario.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario Not Found");
-        }
-        return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
-    }
-
+    /*
+     * @GetMapping("/usuarios") public List<Usuario> getUsuario() { return
+     * usuarioRepo.findAll(); }
+     * 
+     * @GetMapping("/usuarios/{id}") public ResponseEntity<Usuario>
+     * getUsuario(@PathVariable Long id) { Optional<Usuario> usuario =
+     * usuarioRepo.findById(id); if (usuario.isEmpty()) { throw new
+     * ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario Not Found"); } return
+     * new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK); }
+     */
     @DeleteMapping("/usuarios/{id}")
     public ResponseEntity<String> borrarUsuario(@PathVariable Long id, Model model) {
         // antes de borrar deberia verificar que no tiene libros en prestamo

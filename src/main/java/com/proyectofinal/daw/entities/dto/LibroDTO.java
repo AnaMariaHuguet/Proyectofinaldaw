@@ -8,9 +8,9 @@ public class LibroDTO {
     @NotBlank(message = "Título obligatorio")
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,50}$", message = "Error al introducir el titulo")
     private String titulo;
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,20}$", message = "Error al introducir el Isbn")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,30}$", message = "Error al introducir el Isbn")
     private String isbn;
-    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,20}$", message = "Error al introducir la editorial")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9\u00f1\u00d1\u00E0-\u00FC\s]{1,30}$", message = "Error al introducir la editorial")
     private String editorial;
     @Digits(fraction = 0, integer = 4, message = "Error al introducir el año")
     private int ano;

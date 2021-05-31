@@ -2,10 +2,7 @@
 main {
   display: grid;
 }
-/*main > section:nth-child(2),
-main > section:nth-child(3) {
-  border: 3px solid #ab413d;
-}*/
+
 form {
   display: flex;
   flex-direction: column;
@@ -63,9 +60,7 @@ small {
   }
   main > section:nth-child(3) {
     grid-row: 2/3;
-    grid-column: 2/3;
-    /*border: 3px solid #ab413d;*/
-    /*overflow-y: scroll;*/
+    grid-column: 2/3;    
     overflow: auto;
   }
   input {

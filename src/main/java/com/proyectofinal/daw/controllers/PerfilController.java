@@ -1,5 +1,6 @@
 package com.proyectofinal.daw.controllers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class PerfilController {
     public String perfil(Model model, HttpServletRequest request, @RequestParam Map<String, String> params) {
 
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        model.addAttribute("usuario", usuario);
+        model.addAttribute("usuario", usuarioRepo.findById(usuario.getId()).get());
 
         // Ver histórico
         String sortByhist = params.get("sortbyhist") != null ? params.get("sortbyhist").toString() : "fDevolucion";
@@ -89,50 +90,54 @@ public class PerfilController {
 
     @PostMapping("/modificarPerfil")
     public String updateUser(@Valid @ModelAttribute("usuario") UsuarioPerfilDTO usuario, BindingResult result,
-            Model model) {
+            Model model, HttpServletRequest request) {
         // con los datos del usuario creamos un duplicado en formato DTO para realizar
         // los cambios y lo guardamos en la BD
+        Map<String, String> params = new HashMap<>();
         Usuario user = usuarioRepo.getOne(usuario.getId());
         if (result.hasErrors()) {
-            return PAG_PERFIL;
+            model.addAttribute("Error", "Revise los datos.");
+            return perfil(model, request, params);
         }
         if (!user.getEmail().equals(usuario.getEmail())) {
             Optional<Usuario> usuar = usuarioRepo.findByEmail(usuario.getEmail());
             if (usuar.isPresent()) {
                 model.addAttribute("emailrepetido", "Usuario ya registrado.");
-                return PAG_PERFIL;
+                return perfil(model, request, params);
             }
-
-        } else if (Utiles.esDniValido(usuario.getNif().toUpperCase()) == false) {
+        }
+        if (Utiles.esDniValido(usuario.getNif().toUpperCase()) == false) {
             model.addAttribute("dnimal1", "El dni no es válido.");
-            return PAG_PERFIL;
-        } else if (!user.getNif().equals(usuario.getNif())) {
+            return perfil(model, request, params);
+        }
+        if (!user.getNif().equalsIgnoreCase(usuario.getNif())) {
             Optional<Usuario> usernif = usuarioRepo.findByNif(usuario.getNif());
             if (usernif.isPresent()) {
                 model.addAttribute("dnimal2", "El dni esta repetido");
-                return PAG_PERFIL;
+                return perfil(model, request, params);
             }
-        } else {
-            user.setNombre(
-                    usuario.getNombre().substring(0, 1).toUpperCase() + usuario.getNombre().substring(1).toLowerCase());
-            user.setApellido(usuario.getApellido().substring(0, 1).toUpperCase()
-                    + usuario.getApellido().substring(1).toLowerCase());
-            user.setNif(usuario.getNif());
-            user.setAnoNac(usuario.getAnoNac());
-            user.setDireccion(usuario.getDireccion().substring(0, 1).toUpperCase()
-                    + usuario.getDireccion().substring(1).toLowerCase());
-            user.setPoblacion(usuario.getPoblacion().substring(0, 1).toUpperCase()
-                    + usuario.getPoblacion().substring(1).toLowerCase());
-            user.setCod_postal(usuario.getCod_postal());
-            user.setTelefono(usuario.getTelefono());
-            user.setEmail(usuario.getEmail());
-
-            if (!usuario.getContrasenya().equals("")) {
-                user.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
-            }
-            usuarioRepo.save(user);
         }
-        return PAG_PERFIL;
+        user.setNombre(
+                usuario.getNombre().substring(0, 1).toUpperCase() + usuario.getNombre().substring(1).toLowerCase());
+        user.setApellido(
+                usuario.getApellido().substring(0, 1).toUpperCase() + usuario.getApellido().substring(1).toLowerCase());
+        user.setNif(usuario.getNif());
+        user.setAnoNac(usuario.getAnoNac());
+        user.setDireccion(usuario.getDireccion().substring(0, 1).toUpperCase()
+                + usuario.getDireccion().substring(1).toLowerCase());
+        user.setPoblacion(usuario.getPoblacion().substring(0, 1).toUpperCase()
+                + usuario.getPoblacion().substring(1).toLowerCase());
+        user.setCod_postal(usuario.getCod_postal());
+        user.setTelefono(usuario.getTelefono());
+        user.setEmail(usuario.getEmail());
+
+        if (!usuario.getContrasenya().equals("")) {
+            user.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
+        }
+        usuarioRepo.save(user);
+        model.addAttribute("modificar", "Usuario modificado correctamente");
+
+        return perfil(model, request, params);
     }
 
 }

@@ -26,46 +26,48 @@
     <div class="nav" th:insert="fragments/nav :: nav"></div>
     <main>
       <h2>MIS RESERVAS</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Imágen</th>
-            <th>Título</th>
-            <th>Autor</th>
-            <th>Reservado</th>
-            <th>Hasta</th>
-            <th>Anular</th>
-          </tr>
-        </thead>
-        <tbody id="bodytablaReserva">
-          <tr th:each="reservas : ${reserva}" id="reservas.id">
-            <td>
-              <img th:src="'/img/imgLibros/'+${reservas.Libro.imagen}" />
-            </td>
-            <td th:text="${reservas.Libro.titulo}"></td>
-            <td
-              th:text="${reservas.Libro.getAutor().nombre+ ' ' +reservas.Libro.getAutor().apellido}"
-            />
-            <td
-              th:text="${#dates.format(reservas.fReservaHecha, 'dd-MM-yy HH:mm')}"
-            ></td>
-            <td
-              th:text="${#dates.format(reservas.fDevolucion, 'dd-MM-yy')}"
-            ></td>
-            <td>
-              <button
-                class="boton"
-                name="anularreserva"
-                id="anularreserva"
-                th:value="${reservas.Libro.id}"
-              >
-                <i class="fas fa-trash-alt"></i>
-                Anular
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="alturaMin">
+        <table>
+          <thead>
+            <tr>
+              <th>Imágen</th>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Reservado</th>
+              <th>Hasta</th>
+              <th>Anular</th>
+            </tr>
+          </thead>
+          <tbody id="bodytablaReserva">
+            <tr th:each="reservas : ${reserva}" id="reservas.id">
+              <td>
+                <img th:src="'/img/imgLibros/'+${reservas.Libro.imagen}" />
+              </td>
+              <td th:text="${reservas.Libro.titulo}"></td>
+              <td
+                th:text="${reservas.Libro.getAutor().nombre+ ' ' +reservas.Libro.getAutor().apellido}"
+              />
+              <td
+                th:text="${#dates.format(reservas.fReservaHecha, 'dd-MM-yy HH:mm')}"
+              ></td>
+              <td
+                th:text="${#dates.format(reservas.fDevolucion, 'dd-MM-yy')}"
+              ></td>
+              <td>
+                <button
+                  class="boton"
+                  name="anularreserva"
+                  id="anularreserva"
+                  th:value="${reservas.Libro.id}"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                  Anular
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </main>
     <div class="footer" th:insert="fragments/footer :: footer"></div>
   </body>

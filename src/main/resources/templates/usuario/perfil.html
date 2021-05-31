@@ -192,6 +192,8 @@
                 value="Modificar"
               />
             </div>
+            <small th:if="${error}" th:text="${error}"></small>
+            <small th:if="${modificar}" th:text="${modificar}"></small>
             <br />
           </fieldset>
         </form>

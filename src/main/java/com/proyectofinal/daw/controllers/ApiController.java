@@ -71,13 +71,6 @@ public class ApiController {
         return repoLibro.findLibroByGenero(id);
     }
 
-    @PostMapping("/genero/id")
-    public Genero getCategoriaporGeneros(@RequestBody Map<String, String> params) {
-        long id = Long.parseLong(params.get("genero"));
-        return repoGenero.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Género no encontrado"));
-    }
-
     @PostMapping("/libro/categoria")
     public List<Libro> getLibrosPorCategoria(@RequestBody Map<String, String> params) {
         long id = Long.parseLong(params.get("categoria"));
@@ -85,11 +78,6 @@ public class ApiController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoría no encontrada"));
 
         return repoLibro.findLibroByCategoria(categoria);
-    }
-
-    @PostMapping("/libro/todas")
-    public List<Categoria> gettodasCategoria() {
-        return repoCategoria.findAll();
     }
 
     @PostMapping("/libro/autor")
@@ -101,7 +89,20 @@ public class ApiController {
         return repoLibro.findLibroByAutor(autor);
     }
 
+    @PostMapping("/genero/id")
+    public Genero getCategoriaporGeneros(@RequestBody Map<String, String> params) {
+        long id = Long.parseLong(params.get("genero"));
+        return repoGenero.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Género no encontrado"));
+    }
+
+    @PostMapping("/libro/todas")
+    public List<Categoria> gettodasCategoria() {
+        return repoCategoria.findAll();
+    }
+
     // GET => Recuperar datos
+
     @GetMapping("/libros")
     public List<Libro> getLibros() {
         return repoLibro.findAll();
@@ -117,6 +118,7 @@ public class ApiController {
     }
 
     // POST -> Añadir
+
     @PostMapping("/libros")
     public Libro add(@RequestBody Libro libro) {
         // ver que no este repetido
@@ -159,7 +161,7 @@ public class ApiController {
         if (libro.get().getReserva() != null) {
             throw new ResponseStatusException(HttpStatus.GONE, "Libro ya reservado");
         }
-        //
+
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
 
         if (reservaUsuario.size() > 2) {
