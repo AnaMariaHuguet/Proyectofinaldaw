@@ -34,7 +34,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,8 +67,6 @@ public class ViewController {
     PrestamoRepository repoPrestamo;
     @Autowired
     PrestamoService prestamoService;
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String login(Model model) {
