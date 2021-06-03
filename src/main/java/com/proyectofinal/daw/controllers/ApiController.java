@@ -154,7 +154,7 @@ public class ApiController {
         Optional<Libro> libro = repoLibro.findById(params.get("id"));
         List<Reserva> reservaAnterior = new ArrayList<>();
         // si no hay libro o usuario que salga un error
-        if (libro.isEmpty() || usuario == null) {
+        if (!libro.isPresent() || usuario == null) {
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Libro o usuario no encontrado");
         }
         // si el libro ya esta reservado que salga un error

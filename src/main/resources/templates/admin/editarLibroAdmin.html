@@ -29,7 +29,8 @@
         <div>
           <div>
             <label for="titulo">Titulo: </label>  
-            <input type="text" for="titulo"  name="titulo" th:field="*{titulo}" th:errorclass="fieldError"></input>
+            <input type="text" for="titulo"  name="titulo" th:field="*{titulo}"
+             th:errorclass="fieldError"></input>
             <small
                 th:if="${#fields.hasErrors('titulo')}"
                 th:errors="*{titulo}"

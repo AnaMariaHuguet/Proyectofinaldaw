@@ -1,7 +1,6 @@
 package com.proyectofinal.daw.services;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.Instant;
 import java.util.List;
@@ -63,7 +62,7 @@ public class PrestamoService {
         return repoPrestamo.findAll(pageRequest);
     }
 
-    public void nuevoPrestamo(PrestamoNuevoDTO prestamoDTO, Model model) {       
+    public void nuevoPrestamo(PrestamoNuevoDTO prestamoDTO, Model model) {
         // ver que la peticion de prestamo es valida, que no este prestado ya el libro
         Optional<Libro> libro = repoLibro.findById(prestamoDTO.getLibro());
         Optional<Usuario> usuario = repoUsuario.findById(prestamoDTO.getUsuario());
