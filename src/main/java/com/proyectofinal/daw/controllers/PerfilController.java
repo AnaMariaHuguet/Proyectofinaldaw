@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Controller
@@ -47,6 +46,9 @@ public class PerfilController {
     HistoricoService historicoService;
     @Autowired
     PrestamoService prestamoService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/perfil")
     public String perfil(Model model, HttpServletRequest request, @RequestParam Map<String, String> params) {
@@ -131,16 +133,12 @@ public class PerfilController {
         user.setEmail(usuario.getEmail());
 
         if (!usuario.getContrasenya().equals("")) {
-            user.setContrasenya(passwordEncoder().encode(usuario.getContrasenya()));
+            user.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
         }
         usuarioRepo.save(user);
         model.addAttribute("modificar", "Usuario modificado correctamente");
 
         return perfil(model, request, params);
-    }
-
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }
