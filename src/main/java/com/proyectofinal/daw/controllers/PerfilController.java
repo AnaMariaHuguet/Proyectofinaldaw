@@ -139,7 +139,6 @@ public class PerfilController {
         return perfil(model, request, params);
     }
 
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
