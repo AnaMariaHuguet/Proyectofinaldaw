@@ -129,12 +129,17 @@ public class PerfilController {
         user.setEmail(usuario.getEmail());
 
         if (!usuario.getContrasenya().equals("")) {
-            user.setContrasenya(new BCryptPasswordEncoder.encode(usuario.getContrasenya()));
+            user.setContrasenya(passwordEncoder().encode(usuario.getContrasenya()));
         }
         usuarioRepo.save(user);
         model.addAttribute("modificar", "Usuario modificado correctamente");
 
         return perfil(model, request, params);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
