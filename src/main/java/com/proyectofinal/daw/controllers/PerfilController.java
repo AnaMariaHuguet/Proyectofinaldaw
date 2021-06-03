@@ -46,9 +46,6 @@ public class PerfilController {
     @Autowired
     PrestamoService prestamoService;
 
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
-
     @GetMapping("/perfil")
     public String perfil(Model model, HttpServletRequest request, @RequestParam Map<String, String> params) {
 
@@ -132,7 +129,7 @@ public class PerfilController {
         user.setEmail(usuario.getEmail());
 
         if (!usuario.getContrasenya().equals("")) {
-            user.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
+            user.setContrasenya(new BCryptPasswordEncoder.encode(usuario.getContrasenya()));
         }
         usuarioRepo.save(user);
         model.addAttribute("modificar", "Usuario modificado correctamente");
