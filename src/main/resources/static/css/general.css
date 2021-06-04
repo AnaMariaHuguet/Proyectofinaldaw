@@ -96,7 +96,7 @@ i {
   font-weight: bold;
 }
 .trHover:hover {
-  background-color: rgb(88,63,18);
+  background-color: rgb(88, 63, 18);
   color: rgb(246, 247, 203);
 }
 textarea {
@@ -125,7 +125,7 @@ footer {
 
 @media (max-width: 800px) {
   h1 {
-    font: 1.8rem Montserrat, fantasy;
+    font: 1.5rem Montserrat, fantasy;
   }
   input {
     height: 26px;

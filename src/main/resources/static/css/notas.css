@@ -6,14 +6,14 @@
   min-height: 210px;
 }
 .contenedor_flip {
-  width: 160px;
-  height: 160px;
+  width: 150px;
+  height: 150px;
   margin: 10px;
 }
 .flip,
 .flipa {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
   position: relative;
 }
 .flip,
@@ -41,8 +41,8 @@
 .flipa-2 {
   position: absolute;
   backface-visibility: hidden;
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
 }
 .flip-2,
 .flipa-2 {
@@ -51,18 +51,32 @@
 
 .flipa-2 {
   background-color: rgb(250, 250, 176);
-
   padding: 5px;
 }
 
 @media (min-width: 800px) {
   .continente {
     flex-direction: column;
-    justify-content: space-around;
+    /* justify-content: space-around;*/
     align-items: start;
-    min-height: 210px;
+    /* min-height: 210px;*/
   }
   .continente div:last-child {
     align-self: flex-end;
+  }
+  .contenedor_flip {
+    width: 160px;
+    height: 160px;
+  }
+  .flip,
+  .flipa {
+    width: 150px;
+    height: 150px;
+  }
+  .flip-1,
+  .flip-2,
+  .flipa-1,
+  .flipa-2 {
+    width: 150px;
   }
 }

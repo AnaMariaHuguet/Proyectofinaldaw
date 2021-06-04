@@ -1,6 +1,6 @@
 /***************     tipografia     ***************/
 h1 {
-  font: 2.8rem Montserrat, fantasy;
+  font: 2.5rem Montserrat, fantasy;
   padding: 3px;
 }
 
@@ -35,6 +35,7 @@ form ~ fieldset {
 }
 fieldset {
   border-color: transparent;
+  margin-bottom: 15px;
 }
 legend {
   text-align: center;
@@ -42,13 +43,14 @@ legend {
 }
 label {
   font-weight: bold;
-  width: 150px;
+  /*width: 150px;*/
+  margin-right: 10px;
 }
 
 main > div {
-  background-color: rgb(143,69,34);
-  border: 3px solid rgb(82,21,1);
-  color: rgb(246, 247, 203);  
+  background-color: rgb(143, 69, 34);
+  border: 3px solid rgb(82, 21, 1);
+  color: rgb(246, 247, 203);
   text-align: center;
   padding: 10px;
   height: 80px;
@@ -59,8 +61,8 @@ main > div {
   background-color: rgb(233, 203, 194);
 }
 section {
-  display: flex;
-  flex-direction: column;
+  /*display: flex;
+  flex-direction: column;*/
   margin: 5px 0;
 }
 section > div {
