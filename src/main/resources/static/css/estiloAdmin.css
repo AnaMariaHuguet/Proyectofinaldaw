@@ -100,7 +100,7 @@ body > div:nth-child(5) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: auto;
+  overflow-x: scroll;
 }
 .fontpq {
   padding: 1px 0px;

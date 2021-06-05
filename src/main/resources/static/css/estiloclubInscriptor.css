@@ -36,9 +36,7 @@ section {
   overflow: scroll;
 }
 
-.lecturaTitulo {
-  font: bold 2.5rem French Script MT;
-  color: rgb(232, 53, 24);
+.lecturaTitulo {  
   margin-left: 10px;
 }
 

@@ -1,5 +1,5 @@
 /***************     nav     ***************/
-nav {  
+nav {
   background-color: rgb(161, 168, 76);
 }
 
@@ -239,5 +239,9 @@ td,
 
   .nav a {
     padding-left: 10px;
+  }
+  .popup {
+    width: 80%;
+    margin: 105px auto;
   }
 }
