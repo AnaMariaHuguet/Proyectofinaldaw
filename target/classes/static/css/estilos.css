@@ -21,16 +21,15 @@ header {
 
 header {
   justify-content: space-between;
-  padding: 0px 1% 0px 0%;
+  padding: 0px 1% ;
 }
 header > img {
   height: 75px;
+  width: 24%;
+  max-width: 130px;
   object-fit: cover;
 }
-header > img:first-child {
-  position: relative;
-  left: 1%;
-}
+
 
 /***************   main    ***************/
 article {
@@ -46,7 +45,8 @@ article {
   text-align: center;
 }
 .letraEspecial {
-  font: bold 2rem French Script MT;
+  font: bold 1.5rem French Script MT;
+  margin-left: 10px;
   color: rgb(232, 53, 24);
 }
 .alturaMin {
@@ -106,9 +106,11 @@ article {
 .inputancho2 {
   width: 150px;
 }
+
 /*****************media query***********************/
 
 @media (min-width: 800px) {
+  
   html,
   body {
     height: 100vh;
@@ -141,6 +143,9 @@ article {
     min-width: 95px;
     max-width: 95px;
   }
+  .letraEspecial {
+    font: bold 2rem French Script MT;
+   
 }
 @media (min-width: 1200px) {
   h1 {
@@ -165,7 +170,8 @@ article {
   }
 
   .tdancho2,
-  .tdancho5 {
+  .tdancho5,
+  .tdancho7 {
     width: 200px;
     min-width: 200px;
     max-width: 200px;

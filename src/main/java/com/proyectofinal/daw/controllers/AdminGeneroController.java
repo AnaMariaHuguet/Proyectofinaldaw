@@ -34,7 +34,7 @@ public class AdminGeneroController {
     @Autowired
     GeneroService generoService;
 
-    @GetMapping("admin/genero")
+    @GetMapping("/admin/genero")
     public String genero(Model model, HttpServletRequest request, @RequestParam Map<String, String> params) {
         String sortBy = params.get("sortby") != null ? params.get("sortby").toString() : "id";
         String order = params.get("order") != null ? params.get("order").toString() : "asc";
@@ -56,21 +56,34 @@ public class AdminGeneroController {
     // @RequestMapping(value = "/newGenero", method = RequestMethod.POST)
     public String createGenero(@Valid @ModelAttribute("genero") Genero genero, BindingResult result, Model model,
             HttpServletRequest request) {
+        Map<String, String> params = new HashMap<>();
 
         if (result.hasErrors()) {
-            model.addAttribute("generostodos", repoGenero.findAll());
-            return "/admin/adminGenero";
-        } else
+            String sortBy = params.get("sortby") != null ? params.get("sortby").toString() : "id";
+            String order = params.get("order") != null ? params.get("order").toString() : "asc";
+            Page<Genero> pageGenero = generoService.findAll(params);
+            int totalPages = pageGenero.getTotalPages();
+            if (totalPages > 0) {
+                List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
+                model.addAttribute("paginas", pageNumbers);
+            }
+            model.addAttribute("generostodos", pageGenero.getContent());
+            model.addAttribute("order", order);
+            model.addAttribute("sortBy", sortBy);
+            model.addAttribute("generos", repoGenero.findAll());
+            model.addAttribute("genero", new Genero());
+            return "admin/adminGenero";
+        }
         // antes de guardar ver que no esta ya en la bd
         if (!repoGenero.findByNombre(genero.getNombre()).isPresent()) {
-            // especifico que guarde la primera en mayúsculas 
+            // especifico que guarde la primera en mayúsculas
             genero.setNombre(
-                    genero.getNombre().substring(0, 1).toUpperCase() );
+                    genero.getNombre().substring(0, 1).toUpperCase() + genero.getNombre().substring(1).toLowerCase());
             repoGenero.save(genero);
         } else {
             model.addAttribute("errorserver", "Ya existe ese género");
         }
-        Map<String, String> params = new HashMap<>();
+
         return genero(model, request, params);
     }
 

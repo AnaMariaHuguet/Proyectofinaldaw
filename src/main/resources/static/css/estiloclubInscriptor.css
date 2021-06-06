@@ -21,6 +21,7 @@ section > iframe {
 }
 textarea {
   height: 90%;
+  min-height: 150px;
 }
 section {
   height: 100%;
@@ -34,10 +35,6 @@ section {
   resize: none;
   border: 1px solid grey;
   overflow: scroll;
-}
-
-.lecturaTitulo {  
-  margin-left: 10px;
 }
 
 /*****************media query***********************/

@@ -31,7 +31,7 @@
     <section class="contenido" id="contenido">
       <h2>PRÉSTAMOS</h2>
       <div class="alturaMin">
-        <div class="tabla">
+        <div class="tabla scrollX">
           <div class="thead">
             <div class="th tdancho5">
               <div th:if="${sortBy ne 'usuario'}">
@@ -84,7 +84,7 @@
                 ></a>
               </div>
             </div>
-            <div class="th tdancho5">
+            <div class="th tdancho7">
               <div th:if="${sortBy ne 'fPrestamo'}">
                 <a
                   class="thfalso"
@@ -162,7 +162,7 @@
                 th:text="${prestamos.Libro.titulo}"
               ></div>
               <div
-                class="td tdancho5"
+                class="td tdancho7"
                 th:text="${#dates.format(prestamos.fPrestamo, 'dd-MM-yy HH:mm')}"
               ></div>
               <div

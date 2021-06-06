@@ -29,7 +29,7 @@
       <h2>Usuario</h2>
       <div class="tabla">
         <div class="thead">
-          <div class="th tdancho">
+          <div class="th tdancho5">
             <div th:if="${sortBy ne 'id'}">
               <a
                 class="thfalso"
@@ -80,7 +80,7 @@
         </div>
         <div>
           <div class="tr trHover" th:each="usuario : ${usuariostodos}">
-            <div class="td tdancho">
+            <div class="td tdancho5">
               <a
                 class="pintaEnlace"
                 th:text="${usuario.id}"

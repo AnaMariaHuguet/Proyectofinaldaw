@@ -60,7 +60,7 @@
               th:text="${genero.getNombre()}"
               th:value="${genero.getId()}"
             ></option>
-          </select>         
+          </select>
           <button
             class="boton ancho"
             id="btnNewCategoria"
@@ -74,7 +74,7 @@
       </div>
       <br />
       <div>
-        <div class="tabla">
+        <div class="tabla scrollX">
           <div class="thead">
             <div class="th tdancho1">
               <div th:if="${sortBy ne 'nombre'}">

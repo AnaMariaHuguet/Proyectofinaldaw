@@ -90,9 +90,7 @@ body > div:nth-child(5) {
   grid-column: 1/2;
   grid-row: 5/6;
 }
-.ocultarMovil {
-  display: none;
-}
+
 .imagenAdmin {
   display: none;
 }
@@ -100,7 +98,6 @@ body > div:nth-child(5) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: scroll;
 }
 .fontpq {
   padding: 1px 0px;
@@ -125,7 +122,11 @@ body > div:nth-child(5) {
   flex-direction: column;
   align-content: center;
 }
-
+.scrollX {
+  overflow-x: scroll;
+  /*min-width: 482px;*/
+  min-width: 492px;
+}
 /*****************media query***********************/
 @media (min-width: 800px) {
   body {
@@ -182,6 +183,10 @@ body > div:nth-child(5) {
   }
   .alturaMin {
     min-height: 230px;
+  }
+  .scrollX {
+    overflow-x: hidden;
+    min-width: 482px;
   }
 }
 

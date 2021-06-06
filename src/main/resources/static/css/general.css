@@ -21,7 +21,7 @@
 }
 /***************     tipografia     ***************/
 h1 {
-  font: 3.2rem Montserrat, fantasy;
+  font: 5vw Montserrat, fantasy;
   color: rgb(232, 53, 24);
 }
 h2 {
@@ -120,13 +120,12 @@ footer {
 .pointer {
   cursor: pointer;
 }
-
+.ocultarMovil {
+  display: none;
+}
 /*****************media query***********************/
 
 @media (max-width: 800px) {
-  h1 {
-    font: 1.5rem Montserrat, fantasy;
-  }
   input {
     height: 26px;
     max-height: 26px;

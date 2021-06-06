@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.proyectofinal.daw.DawApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.181 s - in com.proyectofinal.daw.DawApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.362 s - in com.proyectofinal.daw.DawApplicationTests

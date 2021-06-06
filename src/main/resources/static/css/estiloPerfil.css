@@ -7,7 +7,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin: 10px 0;
 }
 
@@ -60,11 +60,14 @@ small {
   }
   main > section:nth-child(3) {
     grid-row: 2/3;
-    grid-column: 2/3;    
+    grid-column: 2/3;
     overflow: auto;
   }
   input {
     width: 170px;
+  }
+  form {
+    align-items: center;
   }
 }
 @media (min-width: 1200px) {

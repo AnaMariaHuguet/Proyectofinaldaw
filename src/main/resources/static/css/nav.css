@@ -97,8 +97,8 @@ nav button i {
   width: 200px;
   height: 35px;
   background-color: rgb(204, 204, 204);
-  left: 30%;
-  top: 85%;
+  left: 25%;
+  top: 80%;
 }
 .popup > button,
 .mensajeentrante button {
@@ -242,6 +242,14 @@ td,
   }
   .popup {
     width: 80%;
-    margin: 105px auto;
+    margin: 100px 2%;
+    max-height: 370px;
+  }
+  .popup > .btnirReserva {
+    top: 90%;
+  }
+  table,
+  .table {
+    width: 100%;
   }
 }

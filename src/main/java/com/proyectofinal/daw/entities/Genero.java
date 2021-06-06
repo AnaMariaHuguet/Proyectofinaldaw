@@ -27,7 +27,7 @@ public class Genero implements Serializable {
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC\s]{3,30}$", message = "Error al introducir el nombre")
     @NotBlank(message = "Nombre obligatorio")
     private String nombre;
-    @OneToMany(mappedBy = "genero", cascade = CascadeType.ALL, orphanRemoval = true)    
+    @OneToMany(mappedBy = "genero", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("genero")
     private List<Categoria> categorias;
 

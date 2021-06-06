@@ -98,7 +98,39 @@ public class PerfilController {
         Usuario user = usuarioRepo.getOne(usuario.getId());
         if (result.hasErrors()) {
             model.addAttribute("Error", "Revise los datos.");
-            return perfil(model, request, params);
+            model.addAttribute("usuario", usuario);
+
+            // Ver histórico
+            String sortByhist = params.get("sortbyhist") != null ? params.get("sortbyhist").toString() : "fDevolucion";
+            String orderhist = params.get("orderhist") != null ? params.get("orderhist").toString() : "desc";
+
+            Page<HistoricoPrestamos> pageHistorico = historicoService.findAll(params, user);
+
+            int totalPageshist = pageHistorico.getTotalPages();
+            if (totalPageshist > 0) {
+                List<Integer> pageNumbershist = IntStream.rangeClosed(1, totalPageshist).boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("paginashist", pageNumbershist);
+            }
+            model.addAttribute("pagehistorico", pageHistorico.getContent());
+            model.addAttribute("orderhist", orderhist);
+            model.addAttribute("sortByhist", sortByhist);
+
+            // Ver prestamos
+            String sortByprest = params.get("sortbyprest") != null ? params.get("sortbyprest").toString() : "id";
+            String orderprest = params.get("orderprest") != null ? params.get("orderprest").toString() : "asc";
+            Page<Prestamo> pagePrestamo = prestamoService.findAllByUsuario(params, user);
+            int totalPagesprest = pagePrestamo.getTotalPages();
+            if (totalPagesprest > 0) {
+                List<Integer> pageNumbersprest = IntStream.rangeClosed(1, totalPagesprest).boxed()
+                        .collect(Collectors.toList());
+                model.addAttribute("paginasprest", pageNumbersprest);
+            }
+            model.addAttribute("pageprestamo", pagePrestamo.getContent());
+            model.addAttribute("orderprest", orderprest);
+            model.addAttribute("sortByprest", sortByprest);
+
+            return PAG_PERFIL;
         }
         if (!user.getEmail().equals(usuario.getEmail())) {
             Optional<Usuario> usuar = usuarioRepo.findByEmail(usuario.getEmail());
