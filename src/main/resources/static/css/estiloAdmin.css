@@ -194,9 +194,7 @@ body > div:nth-child(5) {
   body {
     grid-template-columns: 20vw 80vw;
   }
-  .ocultarMovil {
-    display: inline-flex;
-  }
+  
 
   .fontpq {
     padding: 2px 5px;

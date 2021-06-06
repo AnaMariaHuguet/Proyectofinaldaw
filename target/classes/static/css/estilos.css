@@ -62,7 +62,8 @@ article {
   min-width: 160px;
   max-width: 160px;
 }
-.tdancho2 {
+.tdancho2,
+.tdancho2Res {
   width: 70px;
   min-width: 70px;
   max-width: 70px;
@@ -141,8 +142,13 @@ article {
     min-width: 95px;
     max-width: 95px;
   }
+  .tdancho2Res {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+  }
   .letraEspecial {
-    font: bold 2rem French Script MT;
+    font: bold 2rem Montserrat, fantasy;
   }
 }
 @media (min-width: 1200px) {

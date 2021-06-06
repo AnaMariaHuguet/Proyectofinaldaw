@@ -146,10 +146,7 @@
                 ></a>
               </div>
             </div>
-            <div class="th ancho1">
-              <i class="fas fa-trash-alt"></i>
-              <span class="ocultarMovil"> Borrar</span>
-            </div>
+            <div class="th tdancho2">Borrar</div>
           </div>
           <div class="tbody" id="bodyprestamo">
             <div class="tr" th:each="prestamos : ${prestamo}">
@@ -169,7 +166,7 @@
                 class="td tdancho5"
                 th:text="${#dates.format(prestamos.fDevolEstimada, 'dd-MM-yy')}"
               ></div>
-              <div class="td ancho1">
+              <div class="td tdancho2">
                 <form
                   th:action="@{'/prestamo/borrar/'+${prestamos.id}}"
                   method="POST"

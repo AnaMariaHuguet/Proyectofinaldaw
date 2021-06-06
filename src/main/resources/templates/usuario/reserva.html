@@ -35,7 +35,7 @@
               <th>Autor</th>
               <th>Reservado</th>
               <th>Hasta</th>
-              <th>Anular</th>
+              <th class="tdancho2Res">Anular</th>
             </tr>
           </thead>
           <tbody id="bodytablaReserva">
@@ -53,9 +53,9 @@
               <td
                 th:text="${#dates.format(reservas.fDevolucion, 'dd-MM-yy')}"
               ></td>
-              <td>
+              <td class="tdancho2Res">
                 <button
-                  class="tdancho2"
+                  class="tdancho2Res"
                   name="anularreserva"
                   id="anularreserva"
                   th:value="${reservas.Libro.id}"

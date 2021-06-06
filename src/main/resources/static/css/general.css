@@ -107,7 +107,9 @@ textarea {
   height: calc(1.6em * 1.5 * 5);
   padding: 8px 8px;
 }
-
+.ocultarMovil {
+  display: inline-flex;
+}
 /***************     footer      ***************/
 footer {
   display: flex;
@@ -120,15 +122,16 @@ footer {
 .pointer {
   cursor: pointer;
 }
-.ocultarMovil {
-  display: none;
-}
+
 /*****************media query***********************/
 
 @media (max-width: 800px) {
   input {
     height: 26px;
     max-height: 26px;
+  }
+  .ocultarMovil {
+    display: none;
   }
 }
 /** general margin */
