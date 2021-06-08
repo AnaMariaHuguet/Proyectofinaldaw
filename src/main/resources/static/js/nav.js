@@ -91,7 +91,7 @@ function mostrarReservas (carrito) {
     if (carrito) {
         popupcontenedor2.style.display="block";   
         let filaTitulo = crearElementoTexto('tr',cabeceratablaReserva);
-        crearElementoTexto('th',filaTitulo,"Id Libro");
+        crearElementoTexto('th',filaTitulo,"Id Libro");       
         crearElementoTexto('th',filaTitulo,"Título"); 
         crearElementoTexto('th',filaTitulo,"Eliminar");        
 
@@ -99,7 +99,7 @@ function mostrarReservas (carrito) {
             let fila=crearElementoTexto('tr',bodytablaReserva); 
            
             if(carrito[i].libro) {
-                crearElementoTexto('td',fila,carrito[i].libro.id);
+              crearElementoTexto('td',fila,carrito[i].libro.id);             
                 crearElementoTexto('td',fila,carrito[i].libro.titulo); 
                 let celdaBorrar=crearElementoTexto('td',fila);
                 let borrarReserva=crearElementoTexto('button',celdaBorrar,"Borrar");

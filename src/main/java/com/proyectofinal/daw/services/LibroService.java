@@ -36,14 +36,11 @@ public class LibroService {
     }
 
     public void addLibro(LibroDTO lib, Model model) {
-
         try {
             Optional<Autor> autore = repoAutor.findById(lib.getAutor());
             Autor autor = autore.get();
             Optional<Categoria> categorie = repoCategoria.findById(lib.getCategoria());
             Categoria categoria = categorie.get();
-            // String image = !lib.getImagen().isEmpty() ? lib.getImagen():
-            // "help-books1.jpg";
             /* guardar en un libro */
             Libro libro = new Libro();
             libro.setTitulo(lib.getTitulo().substring(0, 1).toUpperCase() + lib.getTitulo().substring(1).toLowerCase());
@@ -61,6 +58,9 @@ public class LibroService {
             libro.setAutor(autor);
             libro.setCategoria(categoria);
             libro.setLibroSituacion(LibroSituacion.DISPONIBLE);
+            // String image = !lib.getImagen().isEmpty() ? lib.getImagen():
+            // "help-books1.jpg";
+            // libro.setImagen(lib.getImagen());
             libro.setImagen("help-books1.jpg");
             repoLibro.save(libro);
             model.addAttribute("errorserver", "Libro guardado correctamente.");
@@ -79,8 +79,7 @@ public class LibroService {
             Autor autor = autore.get();
             Optional<Categoria> categorie = repoCategoria.findById(lib.getCategoria());
             Categoria categoria = categorie.get();
-            // String image = !lib.getImagen().isEmpty() ? lib.getImagen():
-            // "help-books1.jpg";
+
             /* guardar en un libro */
 
             libro.get().setTitulo(
@@ -100,6 +99,8 @@ public class LibroService {
             libro.get().setCategoria(categoria);
             libro.get().setLibroSituacion(LibroSituacion.valueOf(lib.getLibroSituacion()));
             // libro.setImagen(lib.getImage());
+            // String image = !lib.getImagen().isEmpty() ? lib.getImagen():
+            // "help-books1.jpg";
             repoLibro.save(libro.get());
 
             model.addAttribute("errorserver", "Libro guardado correctamente.");

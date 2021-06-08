@@ -42,7 +42,7 @@
         <br />
         <form th:object="${usuario}" th:action="@{/form/login}" method="POST">
           <input type="hidden" value="visi@tante.ante" name="username" />
-          <input type="hidden" value="visitante" name="password" />
+          <input type="hidden" value="Visitante" name="password" />
           <input class="boton" type="submit" value="Entrar" />
         </form>
         <form
@@ -60,10 +60,7 @@
       </fieldset>
       <!-- muestra notificacion de  error -->
       <div th:if="${param.error}">
-        <label
-          >Nombre de usuario o contraseña incorrectos. <br />
-          Invalid username or password.</label
-        >
+        <label>Nombre de usuario o contraseña incorrectos.</label>
       </div>
     </main>
     <div th:insert="fragments/footer :: footer"></div>

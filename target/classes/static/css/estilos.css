@@ -44,7 +44,7 @@ article {
   text-align: center;
 }
 .letraEspecial {
-  font: bold 1.5rem French Script MT;
+  font: bold 1.3rem Montserrat, fantasy;
   margin-left: 10px;
   color: rgb(232, 53, 24);
 }
@@ -146,9 +146,6 @@ article {
     width: 110px;
     min-width: 110px;
     max-width: 110px;
-  }
-  .letraEspecial {
-    font: bold 2rem Montserrat, fantasy;
   }
 }
 @media (min-width: 1200px) {
