@@ -15,6 +15,7 @@ section {
 @media (min-width: 800px) {
   section > div {
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
   }
 }

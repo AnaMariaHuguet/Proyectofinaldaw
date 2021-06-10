@@ -26,7 +26,7 @@ public class UsuarioPerfilDTO {
     private int anoNac;
     @NotBlank(message = "direccion obligatorio")
     private String direccion;
-    @Pattern(regexp = "^[a-zA-Z\s]{1,20}$", message = "Error al introducir la poblacion")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9-,\u00f1\u00d1\u00E0-\u00FC\s]{1,30}$", message = "Error al introducir la población")
     @NotBlank(message = "poblacion obligatorio")
     private String poblacion;
 

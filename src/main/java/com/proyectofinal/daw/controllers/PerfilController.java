@@ -168,7 +168,7 @@ public class PerfilController {
             user.setContrasenya(passwordEncoder.encode(usuario.getContrasenya()));
         }
         usuarioRepo.save(user);
-        model.addAttribute("modificar", "Usuario modificado correctamente");
+        model.addAttribute("infoserver", "Usuario modificado correctamente");
 
         return perfil(model, request, params);
     }

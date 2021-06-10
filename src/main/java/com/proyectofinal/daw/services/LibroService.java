@@ -63,7 +63,7 @@ public class LibroService {
             // libro.setImagen(lib.getImagen());
             libro.setImagen("help-books1.jpg");
             repoLibro.save(libro);
-            model.addAttribute("errorserver", "Libro guardado correctamente.");
+            model.addAttribute("infoserver", "Libro guardado correctamente.");
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -103,7 +103,7 @@ public class LibroService {
             // "help-books1.jpg";
             repoLibro.save(libro.get());
 
-            model.addAttribute("errorserver", "Libro guardado correctamente.");
+            model.addAttribute("infoserver", "Libro modificado correctamente.");
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("errorserver", "Fallo al guardar el libro.");

@@ -51,6 +51,7 @@ public class Usuario implements Serializable {
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9-,\u00f1\u00d1\u00E0-\u00FC\s]{1,30}$", message = "Error al introducir la dirección")
     @NotBlank(message = "direccion obligatorio")
     private String direccion;
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ0-9-,\u00f1\u00d1\u00E0-\u00FC\s]{1,30}$", message = "Error al introducir la población")
     @NotBlank(message = "poblacion obligatorio")
     private String poblacion;
     @Column(length = 5, name = "`codigo postal`")

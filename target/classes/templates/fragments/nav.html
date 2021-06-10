@@ -72,6 +72,17 @@
           document.getElementById("titulomensajeerror").textContent = "ERROR";
         </script>
       </div>
+      <div th:if="${infoserver}">       
+        <script th:inline="javascript">     
+          const todapantallaerror1=document.getElementById("errorcontenedor"); 
+          const mensaje1 = document.getElementById("mensajeerror");     
+          todapantallaerror1.style.display="flex";
+          mensaje1.style.display = "block";
+          const textomensaje = document.getElementById("textomensajeerror");
+          textomensaje.textContent = /*[[${infoserver}]]*/ "error";
+          document.getElementById("titulomensajeerror").textContent = "INFORMACIÓN";
+        </script>
+      </div>
       
     </nav>    
 

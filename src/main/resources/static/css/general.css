@@ -4,12 +4,12 @@
 /*todo font: 16px/1.6 times,serif;*/
 /********** paleta de colores **********/
 /* color  rgb(248, 226, 155) (background body por si falla la imagen)*/
-/* color  rgb(171,65,61)  (border nav, table)*/
-/* color  #0281f7  (hover)*/
-/* color rgb(161, 168, 76)  (background enlace)*/
-/* color  rgb(167, 206, 207) (background aside)*/
+/* color  rgb(171,65,61)  (border nav, table, mensaje)*/
+/* color  rgb(2,129,247) (hover)*/
+/* color  rgb(161, 168, 76)  (Nav,enlace,paginación,acordeon, barra selects de catálogo)*/
+/* color  rgb(205, 164, 89) (background aside)*/
 /* color rgb(232, 53, 24)  (h1,h2)*/
-/* color darkred (i)*/
+/* color rgb(139, 0, 0) (i)*/
 
 * {
   font: 16px/1.6 times, serif;
@@ -20,6 +20,7 @@
 /***************     tipografia     ***************/
 h1 {
   font: 5vw Montserrat, sans-serif;
+  font-weight: bold;
   color: rgb(232, 53, 24);
 }
 h2 {
@@ -39,6 +40,7 @@ h4 {
 
 small {
   font-size: 12px;
+  background-color: chartreuse;
 }
 /***************     body     ***************/
 body {

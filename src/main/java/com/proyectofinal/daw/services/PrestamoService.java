@@ -94,7 +94,7 @@ public class PrestamoService {
                 // quitar de reserva
                 repoReserva.delete(reserva.get());
             }
-            model.addAttribute("errorserver", "Préstamo correcto.");
+            model.addAttribute("infoserver", "Préstamo correcto.");
         }
 
     }
@@ -111,13 +111,13 @@ public class PrestamoService {
                 LocalDate fechaDE = Instant.ofEpochMilli(lista.get(i).getFDevolEstimada().getTime())
                         .atZone(ZoneId.systemDefault()).toLocalDate();
                 if (fechaDE.equals(margen3)) {
-                    model.addAttribute("errorserver", "En 3 días te expira el plazo de tu libro");
+                    model.addAttribute("infoserver", "En 3 días te expira el plazo de tu libro");
                 } else if (fechaDE.equals(margen2)) {
-                    model.addAttribute("errorserver", "En 2 días te expira el plazo de tu libro");
+                    model.addAttribute("infoserver", "En 2 días te expira el plazo de tu libro");
                 } else if (fechaDE.equals(margen1)) {
-                    model.addAttribute("errorserver", "En 1 día te expira el plazo de tu libro");
+                    model.addAttribute("infoserver", "En 1 día te expira el plazo de tu libro");
                 } else if (fechaDE.equals(today)) {
-                    model.addAttribute("errorserver", "Recuerda devolver tu libro");
+                    model.addAttribute("infoserver", "Recuerda devolver tu libro");
                 }
             }
 
