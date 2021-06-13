@@ -72,167 +72,175 @@
         </form>
       </div>
       <br />
-      <table class="tablaCatalogo">
-        <thead>
-          <tr>
-            <th>
-              <div th:if="${sortBy ne 'id'}">
-                <a
-                  class="thfalso pintaEnlace"
-                  th:href="@{'/catalogo?page=1&sortby=id&order=asc'}"
-                  >ID <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'asc'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=id&order=desc'}"
-                  >ID <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'desc'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=id&order=asc'}"
-                  >ID <i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </th>
-            <th>
-              <div th:if="${sortBy ne 'titulo'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=titulo&order=asc'}"
+      <div class="alturaMin">
+        <table class="tablaCatalogo">
+          <thead>
+            <tr>
+              <th>
+                <div th:if="${sortBy ne 'id'}">
+                  <a
+                    class="thfalso pintaEnlace"
+                    th:href="@{'/catalogo?page=1&sortby=id&order=asc'}"
+                    >ID <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'asc'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=id&order=desc'}"
+                    >ID <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'id'}" th:if="${order eq 'desc'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=id&order=asc'}"
+                    >ID <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'titulo'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=titulo&order=asc'}"
+                  >
+                    Título <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'titulo'}"
+                  th:if="${order eq 'asc'}"
                 >
-                  Título <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'titulo'}" th:if="${order eq 'asc'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=titulo&order=desc'}"
-                  >Título <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'titulo'}" th:if="${order eq 'desc'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=titulo&order=asc'}"
-                  >Título <i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </th>
-            <th>
-              <div th:if="${sortBy ne 'Autor.nombre'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=asc'}"
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=titulo&order=desc'}"
+                    >Título <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'titulo'}"
+                  th:if="${order eq 'desc'}"
                 >
-                  Autor <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div
-                th:unless="${sortBy ne 'Autor.nombre'}"
-                th:if="${order eq 'asc'}"
-              >
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=desc'}"
-                  >Autor <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div
-                th:unless="${sortBy ne 'Autor.nombre'}"
-                th:if="${order eq 'desc'}"
-              >
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=asc'}"
-                  >Autor <i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </th>
-            <th>
-              <div th:if="${sortBy ne 'Categoria.nombre'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=asc'}"
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=titulo&order=asc'}"
+                    >Título <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'Autor.nombre'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=asc'}"
+                  >
+                    Autor <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Autor.nombre'}"
+                  th:if="${order eq 'asc'}"
                 >
-                  Categoría <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div
-                th:unless="${sortBy ne 'Categoria.nombre'}"
-                th:if="${order eq 'asc'}"
-              >
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=desc'}"
-                  >Categoría <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div
-                th:unless="${sortBy ne 'Categoria.nombre'}"
-                th:if="${order eq 'desc'}"
-              >
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=asc'}"
-                  >Categoría <i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </th>
-            <th>
-              <div th:if="${sortBy ne 'Isbn'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Isbn&order=asc'}"
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=desc'}"
+                    >Autor <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Autor.nombre'}"
+                  th:if="${order eq 'desc'}"
                 >
-                  ISBN <i class="fas fa-sort"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'asc'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Autor.nombre&order=asc'}"
+                    >Autor <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'Categoria.nombre'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=asc'}"
+                  >
+                    Categoría <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Categoria.nombre'}"
+                  th:if="${order eq 'asc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=desc'}"
+                    >Categoría <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div
+                  th:unless="${sortBy ne 'Categoria.nombre'}"
+                  th:if="${order eq 'desc'}"
+                >
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Categoria.nombre&order=asc'}"
+                    >Categoría <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th>
+                <div th:if="${sortBy ne 'Isbn'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Isbn&order=asc'}"
+                  >
+                    ISBN <i class="fas fa-sort"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'asc'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Isbn&order=desc'}"
+                    >ISBN <i class="fas fa-sort-up"></i
+                  ></a>
+                </div>
+                <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'desc'}">
+                  <a
+                    class="thfalso"
+                    th:href="@{'/catalogo?page=1&sortby=Isbn&order=asc'}"
+                    >ISBN <i class="fas fa-sort-down"></i
+                  ></a>
+                </div>
+              </th>
+              <th sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">Reserva</th>
+            </tr>
+          </thead>
+          <tbody class="bodytabla" id="bodytabla">
+            <tr class="trHover" th:each="book : ${libros}">
+              <td th:text="${book.id}" />
+              <td>
                 <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Isbn&order=desc'}"
-                  >ISBN <i class="fas fa-sort-up"></i
-                ></a>
-              </div>
-              <div th:unless="${sortBy ne 'Isbn'}" th:if="${order eq 'desc'}">
-                <a
-                  class="thfalso"
-                  th:href="@{'/catalogo?page=1&sortby=Isbn&order=asc'}"
-                  >ISBN <i class="fas fa-sort-down"></i
-                ></a>
-              </div>
-            </th>
-            <th sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">Reserva</th>
-          </tr>
-        </thead>
-        <tbody class="bodytabla" id="bodytabla">
-          <tr class="trHover" th:each="book : ${libros}">
-            <td th:text="${book.id}" />
-            <td>
-              <a
-                class="pintaEnlace"
-                th:text="${book.titulo}"
-                th:href="@{'/libro/' + ${book.id}}"
+                  class="pintaEnlace"
+                  th:text="${book.titulo}"
+                  th:href="@{'/libro/' + ${book.id}}"
+                />
+              </td>
+              <td
+                th:text="${book.getAutor().nombre+ ' ' +book.getAutor().apellido}"
               />
-            </td>
-            <td
-              th:text="${book.getAutor().nombre+ ' ' +book.getAutor().apellido}"
-            />
-            <td th:text="${book.getCategoria().nombre}" />
-            <td th:text="${book.isbn}" />
-            <td sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">
-              <button class="btnDetRes" name="reserva" th:value="${book.id}">
-                <i class="fas fa-check"></i>
-                Reserva
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              <td th:text="${book.getCategoria().nombre}" />
+              <td th:text="${book.isbn}" />
+              <td sec:authorize="hasRole('ROLE_RESERVAR_LIBRO')">
+                <button class="btnDetRes" name="reserva" th:value="${book.id}">
+                  <i class="fas fa-check"></i>
+                  Reserva
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div th:if="${ !paginas.isEmpty() }">
         <div class="navPagination" id="navPagination">
           <ul class="pagination">

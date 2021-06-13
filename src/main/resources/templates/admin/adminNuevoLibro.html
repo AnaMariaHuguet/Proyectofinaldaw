@@ -39,9 +39,15 @@
                 <input
                   type="text"
                   for="titulo"
-                  name="titulo"                 
+                  name="titulo" 
+                  th:field="*{titulo}"
+                 th:errorclass="fieldError"                
                 />
-              </div>             
+              </div>  
+              <small
+            th:if="${#fields.hasErrors('titulo')}"
+            th:errors="*{titulo}"
+          ></small>           
             </section>  
             <section>
               <div>
