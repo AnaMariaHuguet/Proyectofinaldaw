@@ -161,7 +161,7 @@ public class ApiController {
         if (libro.get().getReserva() != null) {
             throw new ResponseStatusException(HttpStatus.GONE, "Libro ya reservado");
         }
-
+        
         List<Reserva> reservaUsuario = repoReserva.findByUsuario(usuario);
 
         if (reservaUsuario.size() > 2) {
